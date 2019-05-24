@@ -131,8 +131,41 @@ elseif (MSVC)
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${MSVC_FLAGS}")
 endif ()
 
+# Finding Qt
+if (WIN32)
+    set(QT_LOCATION "" CACHE PATH "Path to the Qt5 installation")
+
+    if (NOT ${QT_LOCATION} STREQUAL "")
+        if (MINGW)
+            set(QT_LOCATION "${QT_LOCATION}/mingw73_64")
+        else ()
+            set(QT_LOCATION "${QT_LOCATION}/msvc2017_64")
+        endif ()
+
+        set(CMAKE_PREFIX_PATH ${QT_LOCATION})
+    endif ()
+endif ()
+
+find_package(Qt5 COMPONENTS Core Gui Widgets REQUIRED)
+set(CMAKE_AUTOUIC ON)
+set(CMAKE_AUTOMOC ON)
+set(CMAKE_AUTORCC ON)
+SET(CMAKE_INCLUDE_CURRENT_DIR ON)
+
+link_directories(${QT_LOCATION}/lib)
+
+set(
+    LIBS
+
+    ${LIBS}
+    Qt5::Core
+    Qt5::Gui
+    Qt5::Widgets
+)
+
 include_directories(
     ${CMAKE_CURRENT_SOURCE_DIR}/include
+    ${QT_LOCATION}/include
 )
 
 set(
