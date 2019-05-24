@@ -1,0 +1,18 @@
+<RCC>
+  <qresource prefix="logo">
+    <file alias="512">../icons/RaZ_logo_512.png</file>
+    <file alias="256">../icons/RaZ_logo_256.png</file>
+    <file alias="128">../icons/RaZ_logo_128.png</file>
+  </qresource>
+
+  <qresource prefix="logo_shadow">
+    <file alias="512">../icons/RaZ_logo_shadow_512.png</file>
+    <file alias="256">../icons/RaZ_logo_shadow_256.png</file>
+    <file alias="128">../icons/RaZ_logo_shadow_128.png</file>
+  </qresource>
+
+  <qresource prefix="/lang">
+    <file alias="en">../translations/english.ts</file>
+    <file alias="fr">../translations/french.ts</file>
+  </qresource>
+</RCC>
