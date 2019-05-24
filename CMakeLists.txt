@@ -213,3 +213,25 @@ file(
 
 add_executable(RaZor main.cpp ${SOURCE_FILES})
 target_link_libraries(RaZor ${LIBS})
+
+# Deploying Qt
+if (WIN32)
+    get_target_property(QT5_QMAKE_EXECUTABLE Qt5::qmake IMPORTED_LOCATION)
+    get_filename_component(QT5_WINDEPLOYQT_EXECUTABLE ${QT5_QMAKE_EXECUTABLE} PATH)
+    set(QT5_WINDEPLOYQT_EXECUTABLE "${QT5_WINDEPLOYQT_EXECUTABLE}/windeployqt.exe")
+
+    # Specifying the preferred deploy mode's hint for MinGW
+    if (MINGW)
+        set(DEPLOY_TYPE "--")
+
+        if (CMAKE_BUILD_TYPE MATCHES "(D|d)eb")
+            set(DEPLOY_TYPE "${DEPLOY_TYPE}debug")
+        else ()
+            set(DEPLOY_TYPE "${DEPLOY_TYPE}release")
+        endif ()
+    endif ()
+
+    # Run windeployqt to copy DLLs in the executable folder
+    add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
+                       COMMAND ${QT5_WINDEPLOYQT_EXECUTABLE} ${DEPLOY_TYPE} $<TARGET_FILE:${PROJECT_NAME}>)
+endif ()
