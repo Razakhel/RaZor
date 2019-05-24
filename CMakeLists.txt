@@ -146,7 +146,7 @@ if (WIN32)
     endif ()
 endif ()
 
-find_package(Qt5 COMPONENTS Core Gui Widgets REQUIRED)
+find_package(Qt5 COMPONENTS Core Gui Widgets LinguistTools REQUIRED)
 set(CMAKE_AUTOUIC ON)
 set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTORCC ON)
@@ -176,6 +176,8 @@ set(
 
     include/RaZor/*.hpp
     include/RaZor/Interface/*.hpp
+
+    assets/resources/resources.qrc
 )
 
 # Defining preprocessor macros and selecting files to be removed
@@ -211,7 +213,10 @@ file(
     ${SRC}
 )
 
-add_executable(RaZor main.cpp ${SOURCE_FILES})
+# Creating translation files
+qt5_create_translation(TRANSLATION_FILES ${SOURCE_FILES} assets/translations/english.ts assets/translations/french.ts)
+
+add_executable(RaZor main.cpp ${SOURCE_FILES} ${TRANSLATION_FILES})
 target_link_libraries(RaZor ${LIBS})
 
 # Deploying Qt
