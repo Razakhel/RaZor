@@ -431,7 +431,15 @@ else ()
     set(RAZ_ROOT "${CMAKE_CURRENT_SOURCE_DIR}/extern/RaZ")
 
     if (EXISTS "${RAZ_ROOT}")
-        set(RAZ_BUILD_EXAMPLES OFF) # No need to keep the examples
+        # No need to keep the examples, unit test & documentation generation
+        set(RAZ_BUILD_EXAMPLES OFF)
+        set(RAZ_BUILD_TESTS OFF)
+        set(RAZ_GEN_DOC OFF)
+
+        # Qt will handle all the windowing part; GLFW & ImGui must not be used
+        set(RAZ_USE_GLFW OFF)
+        set(RAZ_USE_IMGUI OFF)
+
         add_subdirectory("${RAZ_ROOT}")
     else ()
         message(FATAL_ERROR "Failed to find RaZ; the submodule must be downloaded")
