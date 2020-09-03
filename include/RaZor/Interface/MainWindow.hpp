@@ -3,6 +3,11 @@
 #ifndef RAZOR_MAINWINDOW_HPP
 #define RAZOR_MAINWINDOW_HPP
 
+#include "ui_RaZor.h"
+#include "RaZor/Interface/AppWindow.hpp"
+
+#include <RaZ/Application.hpp>
+
 #include <QtWidgets/QtWidgets>
 
 class MainWindow : public QMainWindow {
@@ -11,19 +16,21 @@ class MainWindow : public QMainWindow {
 public:
   MainWindow();
 
+  void initializeApplication();
+
+  ~MainWindow() override = default;
+
 protected:
   void keyPressEvent(QKeyEvent* event) override;
 
 private slots:
-  void openFile() { qDebug() << "Opening file..."; }
+  void openFile();
 
 private:
-  QMenuBar* m_menuBar;
-  QMenu* m_fileMenu;
-  QAction* m_importAction;
-  QAction* m_quitAction;
+  void setupActions();
 
-  QStatusBar* m_statusBar;
+  Ui::MainWindow m_window {};
+  AppWindow m_renderSurface {};
 };
 
 #endif // RAZOR_MAINWINDOW_HPP

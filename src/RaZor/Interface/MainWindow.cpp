@@ -1,56 +1,74 @@
 #include "RaZor/Interface/MainWindow.hpp"
 
+#include <RaZ/Render/Light.hpp>
+#include <RaZ/Render/Mesh.hpp>
+#include <RaZ/Render/Renderer.hpp>
+#include <RaZ/Render/RenderSystem.hpp>
+
+using namespace Raz::Literals;
+
 MainWindow::MainWindow() {
-  setWindowTitle("RaZor");
+  ////////////////////////
+  // Initializing RaZor //
+  ////////////////////////
+
+  m_window.setupUi(this);
+
+  QWidget* renderSurface = QWidget::createWindowContainer(&m_renderSurface);
+  //renderSurface->setFocusPolicy(Qt::FocusPolicy::StrongFocus);
+  setCentralWidget(renderSurface);
 
   QIcon icon;
   icon.addFile(QString::fromUtf8(":/logo/256"), QSize(), QIcon::Normal, QIcon::Off);
   setWindowIcon(icon);
 
-  resize(800, 600);
   setAcceptDrops(true);
-
   setLocale(QLocale(QLocale::English, QLocale::UnitedStates));
+  resize(1280, 720);
 
-  // Menu bar
-  m_menuBar = new QMenuBar(this);
-  m_menuBar->setObjectName(QString::fromUtf8("menuBar"));
-  m_menuBar->setGeometry(QRect(0, 0, 800, 21));
-  setMenuBar(m_menuBar);
+  setupActions();
 
-  // Menu element 'File'
-  m_fileMenu = new QMenu(m_menuBar);
-  m_fileMenu->setObjectName(QString::fromUtf8("menuFile"));
-  m_fileMenu->setTitle(tr("File"));
-
-  // Menu actions
-  m_importAction = new QAction(m_fileMenu);
-  m_importAction->setObjectName(QString::fromUtf8("actionImport"));
-  m_importAction->setText(tr("Import..."));
-  m_importAction->setToolTip(tr("Import a file"));
-  m_importAction->setShortcut(QKeySequence::Open);
-  connect(m_importAction, &QAction::triggered, this, &MainWindow::openFile);
-  m_fileMenu->addAction(m_importAction);
-
-  m_quitAction = new QAction(m_fileMenu);
-  m_quitAction->setObjectName(QString::fromUtf8("actionQuit"));
-  m_quitAction->setText(tr("Quit"));
-  m_quitAction->setToolTip(tr("Quit RaZor"));
-  connect(m_quitAction, &QAction::triggered, this, &QMainWindow::close);
-  m_fileMenu->addAction(m_quitAction);
-
-  m_menuBar->addAction(m_fileMenu->menuAction());
-
-  // Status bar
-  m_statusBar = new QStatusBar(this);
-  m_statusBar->setObjectName(QString::fromUtf8("statusBar"));
-  m_statusBar->showMessage(tr("Ready"));
-  setStatusBar(m_statusBar);
+  m_window.statusBar->showMessage(tr("Ready"), 3000);
 
   QMetaObject::connectSlotsByName(this);
 }
 
+void MainWindow::initializeApplication() {
+  assert("Error: The main window must be shown for the application to be initialized." && isVisible());
+
+  m_renderSurface.initialize();
+}
+
 void MainWindow::keyPressEvent(QKeyEvent* event) {
-  if (event->key() == Qt::Key_Escape)
-    close();
+  switch (event->key()) {
+    case Qt::Key_Escape:
+      QMainWindow::close();
+      break;
+  }
+}
+
+void MainWindow::openFile() {
+  const QString fileName = QFileDialog::getOpenFileName(this, tr("Import a file"), QString(), tr("Mesh") + " (*.obj *.fbx *.off)");
+
+  if (fileName.isEmpty())
+    return;
+
+  m_window.statusBar->showMessage(tr("Importing ") + fileName + "...");
+
+  try {
+    Raz::Entity& meshEntity = m_renderSurface.m_application.getWorlds().back().addEntityWithComponent<Raz::Mesh>(fileName.toStdString());
+
+    auto& meshTrans = meshEntity.addComponent<Raz::Transform>();
+    meshTrans.scale(0.2f);
+    meshTrans.rotate(180.0_deg, Raz::Axis::Y);
+  } catch (const std::exception& exception) {
+    qDebug() << "Failed to import mesh " << fileName << ": " << exception.what();
+  }
+
+  m_window.statusBar->showMessage(tr("Finished importing"), 3000);
+}
+
+void MainWindow::setupActions() {
+  connect(m_window.actionOpen, &QAction::triggered, this, &MainWindow::openFile);
+  connect(m_window.actionQuit, &QAction::triggered, this, &QMainWindow::close);
 }

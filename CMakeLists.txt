@@ -26,6 +26,8 @@ set_target_properties(
     AUTOMOC ON
     AUTORCC ON
     AUTOUIC ON
+
+    AUTOUIC_SEARCH_PATHS "interface/"
 )
 
 ############################
@@ -445,6 +447,8 @@ else ()
         message(FATAL_ERROR "Failed to find RaZ; the submodule must be downloaded")
     endif ()
 endif ()
+
+target_compile_definitions(RaZor PRIVATE RAZ_ROOT="${RAZ_ROOT}/")
 
 ####################
 # RaZor - Qt usage #
