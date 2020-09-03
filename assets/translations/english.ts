@@ -4,34 +4,29 @@
 <context>
     <name>MainWindow</name>
     <message>
-        <location filename="../../src/RaZor/Interface/MainWindow.cpp" line="24"/>
-        <source>File</source>
-        <translation>File</translation>
+        <location filename="../../src/RaZor/Interface/MainWindow.cpp" line="31"/>
+        <source>Ready</source>
+        <translation>Ready</translation>
     </message>
     <message>
-        <location filename="../../src/RaZor/Interface/MainWindow.cpp" line="29"/>
-        <source>Import...</source>
-        <translation>Import...</translation>
-    </message>
-    <message>
-        <location filename="../../src/RaZor/Interface/MainWindow.cpp" line="30"/>
+        <location filename="../../src/RaZor/Interface/MainWindow.cpp" line="51"/>
         <source>Import a file</source>
         <translation>Import a file</translation>
     </message>
     <message>
-        <location filename="../../src/RaZor/Interface/MainWindow.cpp" line="37"/>
-        <source>Quit</source>
-        <translation>Quit</translation>
+        <location filename="../../src/RaZor/Interface/MainWindow.cpp" line="51"/>
+        <source>Mesh</source>
+        <translation>Mesh</translation>
     </message>
     <message>
-        <location filename="../../src/RaZor/Interface/MainWindow.cpp" line="38"/>
-        <source>Quit RaZor</source>
-        <translation>Quit RaZor</translation>
+        <location filename="../../src/RaZor/Interface/MainWindow.cpp" line="56"/>
+        <source>Importing </source>
+        <translation>Importing </translation>
     </message>
     <message>
-        <location filename="../../src/RaZor/Interface/MainWindow.cpp" line="47"/>
-        <source>Ready</source>
-        <translation>Ready</translation>
+        <location filename="../../src/RaZor/Interface/MainWindow.cpp" line="68"/>
+        <source>Finished importing</source>
+        <translation>Finished importing</translation>
     </message>
 </context>
 </TS>

@@ -472,7 +472,17 @@ endif ()
 find_package(Qt5 COMPONENTS Core Gui Widgets LinguistTools REQUIRED)
 
 # Creating translation files
-qt5_create_translation(TRANSLATION_FILES ${RAZOR_FILES} assets/translations/english.ts assets/translations/french.ts)
+qt5_create_translation(
+    RAZOR_TRANSLATION_FILES
+
+    ${RAZOR_FILES}
+    assets/translations/english.ts
+    assets/translations/french.ts
+
+    OPTIONS
+
+    -noobsolete
+)
 
 set(
     RAZOR_LINKER_FLAGS
@@ -532,7 +542,7 @@ endif ()
 # RaZor - Build #
 #################
 
-target_sources(RaZor PRIVATE ${RAZOR_FILES} ${TRANSLATION_FILES})
+target_sources(RaZor PRIVATE ${RAZOR_FILES} ${RAZOR_TRANSLATION_FILES})
 
 target_include_directories(
     RaZor
