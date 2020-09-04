@@ -471,13 +471,20 @@ endif ()
 
 find_package(Qt5 COMPONENTS Core Gui Widgets LinguistTools REQUIRED)
 
+file(
+    GLOB
+    RAZOR_TRANSLATION_FILES
+
+    assets/translations/*.ts
+    interface/*.ui
+)
+
 # Creating translation files
 qt5_create_translation(
     RAZOR_TRANSLATION_FILES
 
     ${RAZOR_FILES}
-    assets/translations/english.ts
-    assets/translations/french.ts
+    ${RAZOR_TRANSLATION_FILES}
 
     OPTIONS
 

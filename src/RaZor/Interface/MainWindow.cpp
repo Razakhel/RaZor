@@ -57,4 +57,7 @@ void MainWindow::openFile() {
 void MainWindow::setupActions() {
   connect(m_window.actionOpen, &QAction::triggered, this, &MainWindow::openFile);
   connect(m_window.actionQuit, &QAction::triggered, this, &QMainWindow::close);
+
+  connect(m_window.viewWindowEntities, &QAction::triggered, m_window.entitiesPanel, &QDockWidget::show);
+  connect(m_window.viewWindowComponents, &QAction::triggered, m_window.componentsPanel, &QDockWidget::show);
 }

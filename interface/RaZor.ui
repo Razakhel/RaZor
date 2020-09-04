@@ -11,10 +11,10 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>RaZor</string>
+   <string notr="true">RaZor</string>
   </property>
   <widget class="QWidget" name="centralWidget"/>
-  <widget class="QMenuBar" name="menubar">
+  <widget class="QMenuBar" name="menuBar">
    <property name="geometry">
     <rect>
      <x>0</x>
@@ -31,9 +31,135 @@
     <addaction name="separator"/>
     <addaction name="actionQuit"/>
    </widget>
+   <widget class="QMenu" name="menu_View">
+    <property name="title">
+     <string>&amp;View</string>
+    </property>
+    <widget class="QMenu" name="viewWindows">
+     <property name="title">
+      <string>&amp;Windows</string>
+     </property>
+     <addaction name="viewWindowEntities"/>
+     <addaction name="viewWindowComponents"/>
+    </widget>
+    <addaction name="viewWindows"/>
+   </widget>
    <addaction name="menu_File"/>
+   <addaction name="menu_View"/>
   </widget>
   <widget class="QStatusBar" name="statusBar"/>
+  <widget class="QDockWidget" name="entitiesPanel">
+   <property name="sizePolicy">
+    <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+     <horstretch>0</horstretch>
+     <verstretch>0</verstretch>
+    </sizepolicy>
+   </property>
+   <property name="minimumSize">
+    <size>
+     <width>150</width>
+     <height>113</height>
+    </size>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>7</pointsize>
+     <weight>75</weight>
+     <bold>true</bold>
+    </font>
+   </property>
+   <property name="allowedAreas">
+    <set>Qt::LeftDockWidgetArea|Qt::RightDockWidgetArea</set>
+   </property>
+   <property name="windowTitle">
+    <string>Entities</string>
+   </property>
+   <attribute name="dockWidgetArea">
+    <number>1</number>
+   </attribute>
+   <widget class="QWidget" name="entitiesWidget">
+    <property name="minimumSize">
+     <size>
+      <width>0</width>
+      <height>0</height>
+     </size>
+    </property>
+    <layout class="QGridLayout" name="entitiesLayout">
+     <property name="leftMargin">
+      <number>0</number>
+     </property>
+     <property name="topMargin">
+      <number>0</number>
+     </property>
+     <property name="rightMargin">
+      <number>0</number>
+     </property>
+     <property name="bottomMargin">
+      <number>0</number>
+     </property>
+     <item row="0" column="0">
+      <widget class="QListWidget" name="entitiesList">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="font">
+        <font>
+         <pointsize>10</pointsize>
+         <weight>50</weight>
+         <bold>false</bold>
+        </font>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </widget>
+  </widget>
+  <widget class="QDockWidget" name="componentsPanel">
+   <property name="minimumSize">
+    <size>
+     <width>120</width>
+     <height>232</height>
+    </size>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>7</pointsize>
+     <weight>75</weight>
+     <bold>true</bold>
+    </font>
+   </property>
+   <property name="layoutDirection">
+    <enum>Qt::LeftToRight</enum>
+   </property>
+   <property name="allowedAreas">
+    <set>Qt::LeftDockWidgetArea|Qt::RightDockWidgetArea</set>
+   </property>
+   <property name="windowTitle">
+    <string>Components</string>
+   </property>
+   <attribute name="dockWidgetArea">
+    <number>2</number>
+   </attribute>
+   <widget class="QWidget" name="componentsWidget">
+    <layout class="QVBoxLayout" name="componentsLayout">
+     <property name="leftMargin">
+      <number>0</number>
+     </property>
+     <property name="topMargin">
+      <number>0</number>
+     </property>
+     <property name="rightMargin">
+      <number>0</number>
+     </property>
+     <property name="bottomMargin">
+      <number>0</number>
+     </property>
+    </layout>
+   </widget>
+  </widget>
   <action name="actionOpen">
    <property name="text">
     <string>&amp;Open...</string>
@@ -42,7 +168,7 @@
     <string>Open a file</string>
    </property>
    <property name="shortcut">
-    <string>Ctrl+O</string>
+    <string notr="true">Ctrl+O</string>
    </property>
   </action>
   <action name="actionQuit">
@@ -53,15 +179,15 @@
     <string>Quit RaZor</string>
    </property>
    <property name="shortcut">
-    <string>Ctrl+Q</string>
+    <string notr="true">Ctrl+Q</string>
    </property>
   </action>
-  <action name="actionEntities">
+  <action name="viewWindowEntities">
    <property name="text">
     <string>&amp;Entities</string>
    </property>
   </action>
-  <action name="action_Components">
+  <action name="viewWindowComponents">
    <property name="text">
     <string>&amp;Components</string>
    </property>
