@@ -4,12 +4,12 @@
 <context>
     <name>AppWindow</name>
     <message>
-        <location filename="../../src/RaZor/Interface/AppWindow.cpp" line="321"/>
+        <location filename="../../src/RaZor/Interface/AppWindow.cpp" line="340"/>
         <source>Importing </source>
         <translation>Chargement de </translation>
     </message>
     <message>
-        <location filename="../../src/RaZor/Interface/AppWindow.cpp" line="331"/>
+        <location filename="../../src/RaZor/Interface/AppWindow.cpp" line="350"/>
         <source>Finished importing</source>
         <translation>Chargement terminé</translation>
     </message>
@@ -47,7 +47,7 @@
         <translation>&amp;Fenêtres</translation>
     </message>
     <message>
-        <location filename="../../interface/RaZor.ui" line="141"/>
+        <location filename="../../interface/RaZor.ui" line="153"/>
         <source>Components</source>
         <translation>Composants</translation>
     </message>
@@ -57,32 +57,32 @@
         <translation>Entités</translation>
     </message>
     <message>
-        <location filename="../../interface/RaZor.ui" line="165"/>
+        <location filename="../../interface/RaZor.ui" line="183"/>
         <source>&amp;Open...</source>
         <translation>&amp;Ouvrir...</translation>
     </message>
     <message>
-        <location filename="../../interface/RaZor.ui" line="168"/>
+        <location filename="../../interface/RaZor.ui" line="186"/>
         <source>Open a file</source>
         <translation>Ouvrir un fichier</translation>
     </message>
     <message>
-        <location filename="../../interface/RaZor.ui" line="176"/>
+        <location filename="../../interface/RaZor.ui" line="194"/>
         <source>&amp;Quit</source>
         <translation>&amp;Quitter</translation>
     </message>
     <message>
-        <location filename="../../interface/RaZor.ui" line="179"/>
+        <location filename="../../interface/RaZor.ui" line="197"/>
         <source>Quit RaZor</source>
         <translation>Quitter RaZor</translation>
     </message>
     <message>
-        <location filename="../../interface/RaZor.ui" line="187"/>
+        <location filename="../../interface/RaZor.ui" line="205"/>
         <source>&amp;Entities</source>
         <translation>&amp;Entités</translation>
     </message>
     <message>
-        <location filename="../../interface/RaZor.ui" line="192"/>
+        <location filename="../../interface/RaZor.ui" line="210"/>
         <source>&amp;Components</source>
         <translation>&amp;Composants</translation>
     </message>

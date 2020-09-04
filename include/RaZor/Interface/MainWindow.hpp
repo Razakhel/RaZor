@@ -27,7 +27,7 @@ private:
   void setupActions();
 
   Ui::MainWindow m_window {};
-  AppWindow m_renderSurface {};
+  AppWindow m_appWindow {};
 };
 
 #endif // RAZOR_MAINWINDOW_HPP

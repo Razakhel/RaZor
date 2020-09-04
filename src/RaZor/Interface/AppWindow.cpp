@@ -7,6 +7,7 @@
 #include <RaZ/Render/Renderer.hpp>
 #include <RaZ/Render/RenderSystem.hpp>
 
+#include <QComboBox>
 #include <QDoubleSpinBox>
 #include <QGroupBox>
 #include <QLabel>
@@ -18,6 +19,13 @@
 using namespace std::literals;
 
 namespace {
+
+QGroupBox* createComponentGroupBox(const QString& title) {
+  auto* groupBox = new QGroupBox(title);
+  groupBox->setSizePolicy(QSizePolicy::Policy::Preferred, QSizePolicy::Policy::Maximum);
+
+  return groupBox;
+}
 
 QDoubleSpinBox* createComponentSpinBox(float initVal) {
   auto* spinBox = new QDoubleSpinBox();
@@ -31,7 +39,7 @@ QDoubleSpinBox* createComponentSpinBox(float initVal) {
 }
 
 void showTransformComponent(Raz::Transform& transform, QVBoxLayout& layout) {
-  auto* transformGroup = new QGroupBox("Transform");
+  auto* transformGroup = createComponentGroupBox("Transform");
 
   {
     auto* transformLayout = new QGridLayout();
@@ -72,7 +80,7 @@ void showTransformComponent(Raz::Transform& transform, QVBoxLayout& layout) {
 }
 
 void showCameraComponent(Raz::Camera& camera, QVBoxLayout& layout) {
-  auto* cameraGroup = new QGroupBox("Camera");
+  auto* cameraGroup = createComponentGroupBox("Camera");
 
   {
     auto* cameraLayout = new QGridLayout();
@@ -94,6 +102,17 @@ void showCameraComponent(Raz::Camera& camera, QVBoxLayout& layout) {
       cameraLayout->addLayout(fovLayout, 0, 1);
     }
 
+    cameraLayout->addWidget(new QLabel("Camera type"), 1, 0);
+
+    auto* camType = new QComboBox();
+    camType->addItem("Free fly");
+    camType->addItem("Look-at");
+    QObject::connect(camType, QOverload<int>::of(&QComboBox::currentIndexChanged), [&camera] (int index) {
+      camera.setCameraType((index == 0 ? Raz::CameraType::FREE_FLY : Raz::CameraType::LOOK_AT));
+    });
+
+    cameraLayout->addWidget(camType, 1, 1);
+
     cameraGroup->setLayout(cameraLayout);
   }
 
@@ -101,7 +120,7 @@ void showCameraComponent(Raz::Camera& camera, QVBoxLayout& layout) {
 }
 
 void showLightComponent(Raz::Light& light, QVBoxLayout& layout) {
-  auto* lightGroup = new QGroupBox("Light");
+  auto* lightGroup = createComponentGroupBox("Light");
 
   {
     auto* lightLayout = new QGridLayout();

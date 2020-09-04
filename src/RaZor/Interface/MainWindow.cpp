@@ -10,11 +10,11 @@ MainWindow::MainWindow() {
 
   m_window.setupUi(this);
 
-  QWidget* renderSurface = QWidget::createWindowContainer(&m_renderSurface);
+  QWidget* renderSurface = QWidget::createWindowContainer(&m_appWindow);
   //renderSurface->setFocusPolicy(Qt::FocusPolicy::StrongFocus);
   setCentralWidget(renderSurface);
 
-  m_renderSurface.m_parentWindow = this;
+  m_appWindow.m_parentWindow = this;
 
   QIcon icon;
   icon.addFile(QString::fromUtf8(":/logo/256"), QSize(), QIcon::Mode::Normal, QIcon::State::Off);
@@ -34,7 +34,7 @@ MainWindow::MainWindow() {
 void MainWindow::initializeApplication() {
   assert("Error: The main window must be shown for the application to be initialized." && isVisible());
 
-  m_renderSurface.initialize();
+  m_appWindow.initialize();
 }
 
 void MainWindow::keyPressEvent(QKeyEvent* event) {
@@ -51,7 +51,7 @@ void MainWindow::openFile() {
   if (fileName.isEmpty())
     return;
 
-  m_renderSurface.importMesh(fileName.toStdString());
+  m_appWindow.importMesh(fileName.toStdString());
 }
 
 void MainWindow::setupActions() {
@@ -61,7 +61,7 @@ void MainWindow::setupActions() {
   connect(m_window.viewWindowEntities, &QAction::triggered, m_window.entitiesPanel, &QDockWidget::show);
   connect(m_window.viewWindowComponents, &QAction::triggered, m_window.componentsPanel, &QDockWidget::show);
 
-  connect(m_window.entitiesList, &QListWidget::itemSelectionChanged, &m_renderSurface, [this] () {
-    m_renderSurface.loadComponents(m_window.entitiesList->currentItem()->text());
+  connect(m_window.entitiesList, &QListWidget::itemSelectionChanged, &m_appWindow, [this] () {
+    m_appWindow.loadComponents(m_window.entitiesList->currentItem()->text());
   });
 }
