@@ -1,4 +1,5 @@
 #include "RaZor/Interface/AppWindow.hpp"
+#include "RaZor/Interface/MainWindow.hpp"
 
 #include <RaZ/Math/Transform.hpp>
 #include <RaZ/Render/Light.hpp>
@@ -6,6 +7,8 @@
 #include <RaZ/Render/Renderer.hpp>
 #include <RaZ/Render/RenderSystem.hpp>
 
+#include <QKeyEvent>
+#include <QMimeData>
 #include <QOpenGLContext>
 #include <QResizeEvent>
 
@@ -75,6 +78,20 @@ bool AppWindow::event(QEvent* event) {
       render();
       return true;
 
+    case QEvent::Drop: {
+      auto* dropEvent = static_cast<QDropEvent*>(event);
+
+      const Raz::FilePath filePath = dropEvent->mimeData()->text().remove(0, 8).toStdString(); // The text is prepended with "file:///", which must be removed
+      const Raz::FilePath fileExt  = filePath.recoverExtension();
+
+      if (fileExt == "obj" || fileExt == "fbx" || fileExt == "off")
+        importMesh(filePath);
+      else
+        std::cerr << "[RaZor] Error: Unrecognized file extension '" << fileExt << "'" << std::endl;
+
+      return true;
+    }
+
     default:
       return QWindow::event(event);
   }
@@ -110,6 +127,7 @@ void AppWindow::keyPressEvent(QKeyEvent* event) {
       break;
   }
 
+  m_parentWindow->keyPressEvent(event);
   QWindow::keyPressEvent(event);
 }
 
@@ -143,6 +161,7 @@ void AppWindow::keyReleaseEvent(QKeyEvent* event) {
       break;
   }
 
+  m_parentWindow->keyReleaseEvent(event);
   QWindow::keyReleaseEvent(event);
 }
 
@@ -154,6 +173,20 @@ void AppWindow::exposeEvent(QExposeEvent*) {
 void AppWindow::resizeEvent(QResizeEvent* event) {
   m_application.getWorlds().back().getSystem<Raz::RenderSystem>().resizeViewport(static_cast<unsigned int>(event->size().width()),
                                                                                  static_cast<unsigned int>(event->size().height()));
+}
+
+void AppWindow::importMesh(const Raz::FilePath& filePath) {
+  m_parentWindow->m_window.statusBar->showMessage(tr("Importing ") + filePath.toUtf8().c_str() + "...");
+
+  try {
+    Raz::Entity& mesh = m_application.getWorlds().back().addEntity();
+    mesh.addComponent<Raz::Mesh>(filePath);
+    mesh.addComponent<Raz::Transform>();
+  } catch (const std::exception& exception) {
+    std::cerr << "Failed to import mesh '" << filePath << "'; reason:\n" << exception.what();
+  }
+
+  m_parentWindow->m_window.statusBar->showMessage(tr("Finished importing"), 3000);
 }
 
 void AppWindow::processActions() {

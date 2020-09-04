@@ -7,6 +7,8 @@
 
 #include <QWindow>
 
+class MainWindow;
+
 namespace Raz {
 
 class Camera;
@@ -15,7 +17,7 @@ class Transform;
 } // namespace Raz
 
 class AppWindow : public QWindow {
-  friend class MainWindow;
+  friend MainWindow;
 
 public:
   AppWindow();
@@ -31,7 +33,10 @@ protected:
   void resizeEvent(QResizeEvent* event) override;
 
 private:
+  void importMesh(const Raz::FilePath& filePath);
   void processActions();
+
+  MainWindow* m_parentWindow {};
 
   QOpenGLContext* m_context {};
 

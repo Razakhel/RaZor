@@ -6,12 +6,9 @@
 #include "ui_RaZor.h"
 #include "RaZor/Interface/AppWindow.hpp"
 
-#include <RaZ/Application.hpp>
-
-#include <QtWidgets/QtWidgets>
-
 class MainWindow : public QMainWindow {
   Q_OBJECT
+  friend AppWindow;
 
 public:
   MainWindow();

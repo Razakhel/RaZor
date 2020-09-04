@@ -1,11 +1,7 @@
 #include "RaZor/Interface/MainWindow.hpp"
 
-#include <RaZ/Render/Light.hpp>
-#include <RaZ/Render/Mesh.hpp>
-#include <RaZ/Render/Renderer.hpp>
-#include <RaZ/Render/RenderSystem.hpp>
-
-using namespace Raz::Literals;
+#include <QFileDialog>
+#include <QKeyEvent>
 
 MainWindow::MainWindow() {
   ////////////////////////
@@ -18,8 +14,10 @@ MainWindow::MainWindow() {
   //renderSurface->setFocusPolicy(Qt::FocusPolicy::StrongFocus);
   setCentralWidget(renderSurface);
 
+  m_renderSurface.m_parentWindow = this;
+
   QIcon icon;
-  icon.addFile(QString::fromUtf8(":/logo/256"), QSize(), QIcon::Normal, QIcon::Off);
+  icon.addFile(QString::fromUtf8(":/logo/256"), QSize(), QIcon::Mode::Normal, QIcon::State::Off);
   setWindowIcon(icon);
 
   setAcceptDrops(true);
@@ -53,19 +51,7 @@ void MainWindow::openFile() {
   if (fileName.isEmpty())
     return;
 
-  m_window.statusBar->showMessage(tr("Importing ") + fileName + "...");
-
-  try {
-    Raz::Entity& meshEntity = m_renderSurface.m_application.getWorlds().back().addEntityWithComponent<Raz::Mesh>(fileName.toStdString());
-
-    auto& meshTrans = meshEntity.addComponent<Raz::Transform>();
-    meshTrans.scale(0.2f);
-    meshTrans.rotate(180.0_deg, Raz::Axis::Y);
-  } catch (const std::exception& exception) {
-    qDebug() << "Failed to import mesh " << fileName << ": " << exception.what();
-  }
-
-  m_window.statusBar->showMessage(tr("Finished importing"), 3000);
+  m_renderSurface.importMesh(fileName.toStdString());
 }
 
 void MainWindow::setupActions() {
