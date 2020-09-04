@@ -33,6 +33,7 @@ protected:
   void resizeEvent(QResizeEvent* event) override;
 
 private:
+  Raz::Entity& addEntity(QString name);
   void importMesh(const Raz::FilePath& filePath);
   void processActions();
 
@@ -43,6 +44,8 @@ private:
   Raz::Application m_application {};
   Raz::Camera* m_cameraComp {};
   Raz::Transform* m_cameraTrans {};
+
+  std::unordered_map<QString, Raz::Entity*> m_entities {};
 
   bool m_movingRight    = false;
   bool m_movingLeft     = false;

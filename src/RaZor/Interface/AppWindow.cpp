@@ -41,18 +41,18 @@ void AppWindow::initialize() {
   renderSystem.getGeometryProgram().setShaders(Raz::VertexShader(RAZ_ROOT + std::string("shaders/common.vert")),
                                                Raz::FragmentShader(RAZ_ROOT + std::string("shaders/cook-torrance.frag")));
 
-  Raz::Entity& camera = world.addEntity();
+  Raz::Entity& camera = addEntity("Camera");
   m_cameraComp        = &camera.addComponent<Raz::Camera>(1280, 720);
   m_cameraTrans       = &camera.addComponent<Raz::Transform>(Raz::Vec3f(0.f, 0.f, -5.f));
 
-  Raz::Entity& light = m_application.getWorlds().back().addEntity();
+  Raz::Entity& light = addEntity("Light");
   light.addComponent<Raz::Light>(Raz::LightType::DIRECTIONAL, // Type
                                  Raz::Vec3f(0.f, 0.f, 1.f),   // Direction
                                  1.f,                         // Energy
                                  Raz::Vec3f(1.f));            // Color (RGB)
   light.addComponent<Raz::Transform>(Raz::Vec3f(0.f, 1.f, 0.f));
 
-  Raz::Entity& mesh = m_application.getWorlds().back().addEntity();
+  Raz::Entity& mesh = addEntity("Ball");
   mesh.addComponent<Raz::Mesh>(RAZ_ROOT + "assets/meshes/ball.obj"s);
   mesh.addComponent<Raz::Transform>();
 }
@@ -175,11 +175,20 @@ void AppWindow::resizeEvent(QResizeEvent* event) {
                                                                                  static_cast<unsigned int>(event->size().height()));
 }
 
+Raz::Entity& AppWindow::addEntity(QString name) {
+  m_parentWindow->m_window.entitiesList->addItem(name);
+
+  Raz::Entity& entity = m_application.getWorlds().back().addEntity();
+  m_entities.emplace(std::move(name), &entity);
+
+  return entity;
+}
+
 void AppWindow::importMesh(const Raz::FilePath& filePath) {
   m_parentWindow->m_window.statusBar->showMessage(tr("Importing ") + filePath.toUtf8().c_str() + "...");
 
   try {
-    Raz::Entity& mesh = m_application.getWorlds().back().addEntity();
+    Raz::Entity& mesh = addEntity(filePath.recoverFileName(false).toUtf8().c_str());
     mesh.addComponent<Raz::Mesh>(filePath);
     mesh.addComponent<Raz::Transform>();
   } catch (const std::exception& exception) {
