@@ -60,4 +60,8 @@ void MainWindow::setupActions() {
 
   connect(m_window.viewWindowEntities, &QAction::triggered, m_window.entitiesPanel, &QDockWidget::show);
   connect(m_window.viewWindowComponents, &QAction::triggered, m_window.componentsPanel, &QDockWidget::show);
+
+  connect(m_window.entitiesList, &QListWidget::itemSelectionChanged, &m_renderSurface, [this] () {
+    m_renderSurface.loadComponents(m_window.entitiesList->currentItem()->text());
+  });
 }

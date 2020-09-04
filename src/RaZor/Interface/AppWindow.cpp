@@ -7,12 +7,141 @@
 #include <RaZ/Render/Renderer.hpp>
 #include <RaZ/Render/RenderSystem.hpp>
 
-#include <QKeyEvent>
+#include <QDoubleSpinBox>
+#include <QGroupBox>
+#include <QLabel>
 #include <QMimeData>
 #include <QOpenGLContext>
 #include <QResizeEvent>
+#include <QVBoxLayout>
 
 using namespace std::literals;
+
+namespace {
+
+QDoubleSpinBox* createComponentSpinBox(float initVal) {
+  auto* spinBox = new QDoubleSpinBox();
+  spinBox->setMinimum(std::numeric_limits<double>::lowest());
+  spinBox->setMaximum(std::numeric_limits<double>::max());
+  spinBox->setDecimals(5);
+  spinBox->setMaximumWidth(75);
+  spinBox->setValue(static_cast<double>(initVal));
+
+  return spinBox;
+}
+
+void showTransformComponent(Raz::Transform& transform, QVBoxLayout& layout) {
+  auto* transformGroup = new QGroupBox("Transform");
+
+  {
+    auto* transformLayout = new QGridLayout();
+    transformLayout->setAlignment(Qt::AlignmentFlag::AlignTop);
+
+    {
+      transformLayout->addWidget(new QLabel("Position"), 0, 0);
+
+      auto* positionLayout = new QHBoxLayout();
+
+      {
+        auto* xPos = createComponentSpinBox(transform.getPosition()[0]);
+        QObject::connect(xPos, QOverload<double>::of(&QDoubleSpinBox::valueChanged), [&transform] (double val) {
+          transform.setPosition(static_cast<float>(val), transform.getPosition()[1], transform.getPosition()[2]);
+        });
+        positionLayout->addWidget(xPos);
+
+        auto* yPos = createComponentSpinBox(transform.getPosition()[1]);
+        QObject::connect(yPos, QOverload<double>::of(&QDoubleSpinBox::valueChanged), [&transform] (double val) {
+          transform.setPosition(transform.getPosition()[0], static_cast<float>(val), transform.getPosition()[2]);
+        });
+        positionLayout->addWidget(yPos);
+
+        auto* zPos = createComponentSpinBox(transform.getPosition()[2]);
+        QObject::connect(zPos, QOverload<double>::of(&QDoubleSpinBox::valueChanged), [&transform] (double val) {
+          transform.setPosition(transform.getPosition()[0], transform.getPosition()[1], static_cast<float>(val));
+        });
+        positionLayout->addWidget(zPos);
+      }
+
+      transformLayout->addLayout(positionLayout, 0, 1);
+    }
+
+    transformGroup->setLayout(transformLayout);
+  }
+
+  layout.addWidget(transformGroup);
+}
+
+void showCameraComponent(Raz::Camera& camera, QVBoxLayout& layout) {
+  auto* cameraGroup = new QGroupBox("Camera");
+
+  {
+    auto* cameraLayout = new QGridLayout();
+    cameraLayout->setAlignment(Qt::AlignmentFlag::AlignTop);
+
+    {
+      cameraLayout->addWidget(new QLabel("Field of view"), 0, 0);
+
+      auto* fovLayout = new QHBoxLayout();
+
+      {
+        auto* fieldOfView = createComponentSpinBox(Raz::Degreesf(camera.getFieldOfView()).value);
+        QObject::connect(fieldOfView, QOverload<double>::of(&QDoubleSpinBox::valueChanged), [&camera] (double val) {
+          camera.setFieldOfView(Raz::Degreesd(val));
+        });
+        fovLayout->addWidget(fieldOfView);
+      }
+
+      cameraLayout->addLayout(fovLayout, 0, 1);
+    }
+
+    cameraGroup->setLayout(cameraLayout);
+  }
+
+  layout.addWidget(cameraGroup);
+}
+
+void showLightComponent(Raz::Light& light, QVBoxLayout& layout) {
+  auto* lightGroup = new QGroupBox("Light");
+
+  {
+    auto* lightLayout = new QGridLayout();
+    lightLayout->setAlignment(Qt::AlignmentFlag::AlignTop);
+
+    {
+      lightLayout->addWidget(new QLabel("Direction"), 0, 0);
+
+      auto* directionLayout = new QHBoxLayout();
+
+      {
+        auto* xDir = createComponentSpinBox(light.getDirection()[0]);
+        QObject::connect(xDir, QOverload<double>::of(&QDoubleSpinBox::valueChanged), [&light] (double val) {
+          light.setDirection(Raz::Vec3f(static_cast<float>(val), light.getDirection()[1], light.getDirection()[2]));
+        });
+        directionLayout->addWidget(xDir);
+
+        auto* yDir = createComponentSpinBox(light.getDirection()[1]);
+        QObject::connect(yDir, QOverload<double>::of(&QDoubleSpinBox::valueChanged), [&light] (double val) {
+          light.setDirection(Raz::Vec3f(light.getDirection()[0], static_cast<float>(val), light.getDirection()[2]));
+        });
+        directionLayout->addWidget(yDir);
+
+        auto* zDir = createComponentSpinBox(light.getDirection()[2]);
+        QObject::connect(zDir, QOverload<double>::of(&QDoubleSpinBox::valueChanged), [&light] (double val) {
+          light.setDirection(Raz::Vec3f(light.getDirection()[0], light.getDirection()[1], static_cast<float>(val)));
+        });
+        directionLayout->addWidget(zDir);
+      }
+
+      lightLayout->addLayout(directionLayout, 0, 1);
+    }
+
+    lightGroup->setLayout(lightLayout);
+  }
+
+  layout.addWidget(lightGroup);
+}
+
+} // namespace
 
 AppWindow::AppWindow() : m_context{ new QOpenGLContext(this) } {
   setSurfaceType(QWindow::SurfaceType::OpenGLSurface);
@@ -196,6 +325,34 @@ void AppWindow::importMesh(const Raz::FilePath& filePath) {
   }
 
   m_parentWindow->m_window.statusBar->showMessage(tr("Finished importing"), 3000);
+}
+
+void AppWindow::loadComponents(const QString& entityName) {
+  // Removing all widgets from the components panel
+  while (QLayoutItem* item = m_parentWindow->m_window.componentsLayout->takeAt(0)) {
+    QWidget* widget = item->widget();
+
+    if (widget)
+      widget->deleteLater();
+  }
+
+  const auto& entityIter = m_entities.find(entityName);
+
+  if (entityIter == m_entities.cend()) {
+    m_parentWindow->statusBar()->showMessage("Failed to find an entity named '" + entityName + "'");
+    return;
+  }
+
+  Raz::Entity& entity = *entityIter->second;
+
+  if (entity.hasComponent<Raz::Transform>())
+    showTransformComponent(entity.getComponent<Raz::Transform>(), *m_parentWindow->m_window.componentsLayout);
+
+  if (entity.hasComponent<Raz::Camera>())
+    showCameraComponent(entity.getComponent<Raz::Camera>(), *m_parentWindow->m_window.componentsLayout);
+
+  if (entity.hasComponent<Raz::Light>())
+    showLightComponent(entity.getComponent<Raz::Light>(), *m_parentWindow->m_window.componentsLayout);
 }
 
 void AppWindow::processActions() {
