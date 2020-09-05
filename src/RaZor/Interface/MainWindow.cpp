@@ -62,6 +62,10 @@ void MainWindow::setupActions() {
   connect(m_window.viewWindowComponents, &QAction::triggered, m_window.componentsPanel, &QDockWidget::show);
 
   connect(m_window.entitiesList, &QListWidget::itemSelectionChanged, &m_appWindow, [this] () {
-    m_appWindow.loadComponents(m_window.entitiesList->currentItem()->text());
+    if (m_window.entitiesList->currentItem()->isSelected())
+      m_appWindow.loadComponents(m_window.entitiesList->currentItem()->text());
+    else
+      m_appWindow.clearComponents(); // If the selection has been cleared, removing everything from the components panel
   });
+  connect(m_window.unselectEntity, &QPushButton::clicked, m_window.entitiesList, &QListWidget::clearSelection);
 }

@@ -47,7 +47,7 @@
         <translation>&amp;Windows</translation>
     </message>
     <message>
-        <location filename="../../interface/RaZor.ui" line="153"/>
+        <location filename="../../interface/RaZor.ui" line="160"/>
         <source>Components</source>
         <translation>Components</translation>
     </message>
@@ -57,32 +57,37 @@
         <translation>Entities</translation>
     </message>
     <message>
-        <location filename="../../interface/RaZor.ui" line="183"/>
+        <location filename="../../interface/RaZor.ui" line="120"/>
+        <source>Unselect</source>
+        <translation>Unselect</translation>
+    </message>
+    <message>
+        <location filename="../../interface/RaZor.ui" line="190"/>
         <source>&amp;Open...</source>
         <translation>&amp;Open...</translation>
     </message>
     <message>
-        <location filename="../../interface/RaZor.ui" line="186"/>
+        <location filename="../../interface/RaZor.ui" line="193"/>
         <source>Open a file</source>
         <translation>Open a file</translation>
     </message>
     <message>
-        <location filename="../../interface/RaZor.ui" line="194"/>
+        <location filename="../../interface/RaZor.ui" line="201"/>
         <source>&amp;Quit</source>
         <translation>&amp;Quit</translation>
     </message>
     <message>
-        <location filename="../../interface/RaZor.ui" line="197"/>
+        <location filename="../../interface/RaZor.ui" line="204"/>
         <source>Quit RaZor</source>
         <translation>Quit RaZor</translation>
     </message>
     <message>
-        <location filename="../../interface/RaZor.ui" line="205"/>
+        <location filename="../../interface/RaZor.ui" line="212"/>
         <source>&amp;Entities</source>
         <translation>&amp;Entities</translation>
     </message>
     <message>
-        <location filename="../../interface/RaZor.ui" line="210"/>
+        <location filename="../../interface/RaZor.ui" line="217"/>
         <source>&amp;Components</source>
         <translation>&amp;Components</translation>
     </message>

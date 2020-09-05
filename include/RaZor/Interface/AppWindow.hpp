@@ -35,6 +35,7 @@ protected:
 private:
   Raz::Entity& addEntity(QString name);
   void importMesh(const Raz::FilePath& filePath);
+  void clearComponents();
   void loadComponents(const QString& entityName);
   void processActions();
 

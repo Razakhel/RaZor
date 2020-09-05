@@ -58,7 +58,7 @@
    <property name="minimumSize">
     <size>
      <width>150</width>
-     <height>113</height>
+     <height>124</height>
     </size>
    </property>
    <property name="font">
@@ -111,6 +111,13 @@
          <weight>50</weight>
          <bold>false</bold>
         </font>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="0">
+      <widget class="QPushButton" name="unselectEntity">
+       <property name="text">
+        <string>Unselect</string>
        </property>
       </widget>
      </item>

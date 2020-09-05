@@ -47,7 +47,7 @@
         <translation>&amp;Fenêtres</translation>
     </message>
     <message>
-        <location filename="../../interface/RaZor.ui" line="153"/>
+        <location filename="../../interface/RaZor.ui" line="160"/>
         <source>Components</source>
         <translation>Composants</translation>
     </message>
@@ -57,32 +57,37 @@
         <translation>Entités</translation>
     </message>
     <message>
-        <location filename="../../interface/RaZor.ui" line="183"/>
+        <location filename="../../interface/RaZor.ui" line="120"/>
+        <source>Unselect</source>
+        <translation>Désélectionner</translation>
+    </message>
+    <message>
+        <location filename="../../interface/RaZor.ui" line="190"/>
         <source>&amp;Open...</source>
         <translation>&amp;Ouvrir...</translation>
     </message>
     <message>
-        <location filename="../../interface/RaZor.ui" line="186"/>
+        <location filename="../../interface/RaZor.ui" line="193"/>
         <source>Open a file</source>
         <translation>Ouvrir un fichier</translation>
     </message>
     <message>
-        <location filename="../../interface/RaZor.ui" line="194"/>
+        <location filename="../../interface/RaZor.ui" line="201"/>
         <source>&amp;Quit</source>
         <translation>&amp;Quitter</translation>
     </message>
     <message>
-        <location filename="../../interface/RaZor.ui" line="197"/>
+        <location filename="../../interface/RaZor.ui" line="204"/>
         <source>Quit RaZor</source>
         <translation>Quitter RaZor</translation>
     </message>
     <message>
-        <location filename="../../interface/RaZor.ui" line="205"/>
+        <location filename="../../interface/RaZor.ui" line="212"/>
         <source>&amp;Entities</source>
         <translation>&amp;Entités</translation>
     </message>
     <message>
-        <location filename="../../interface/RaZor.ui" line="210"/>
+        <location filename="../../interface/RaZor.ui" line="217"/>
         <source>&amp;Components</source>
         <translation>&amp;Composants</translation>
     </message>

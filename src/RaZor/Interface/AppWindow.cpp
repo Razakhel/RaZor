@@ -346,14 +346,18 @@ void AppWindow::importMesh(const Raz::FilePath& filePath) {
   m_parentWindow->m_window.statusBar->showMessage(tr("Finished importing"), 3000);
 }
 
-void AppWindow::loadComponents(const QString& entityName) {
-  // Removing all widgets from the components panel
+void AppWindow::clearComponents() {
   while (QLayoutItem* item = m_parentWindow->m_window.componentsLayout->takeAt(0)) {
     QWidget* widget = item->widget();
 
     if (widget)
       widget->deleteLater();
   }
+}
+
+void AppWindow::loadComponents(const QString& entityName) {
+  // Removing all widgets from the components panel
+  clearComponents();
 
   const auto& entityIter = m_entities.find(entityName);
 
