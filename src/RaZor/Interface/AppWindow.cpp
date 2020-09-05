@@ -119,6 +119,39 @@ void showCameraComponent(Raz::Camera& camera, QVBoxLayout& layout) {
   layout.addWidget(cameraGroup);
 }
 
+void showMeshComponent(Raz::Mesh& mesh, QVBoxLayout& layout) {
+  auto* meshGroup = createComponentGroupBox("Mesh");
+
+  {
+    auto* meshLayout = new QGridLayout();
+    meshLayout->setAlignment(Qt::AlignmentFlag::AlignTop);
+
+    {
+      meshLayout->addWidget(new QLabel("Vertex count"), 0, 0);
+      meshLayout->addWidget(new QLabel(QString::number(mesh.recoverVertexCount())), 0, 1);
+
+      meshLayout->addWidget(new QLabel("Triangle count"), 1, 0);
+      meshLayout->addWidget(new QLabel(QString::number(mesh.recoverTriangleCount())), 1, 1);
+
+      meshLayout->addWidget(new QLabel("Render mode"), 2, 0);
+
+      auto* renderMode = new QComboBox();
+      renderMode->addItem("Triangles");
+      renderMode->addItem("Points");
+      renderMode->setCurrentIndex((mesh.getSubmeshes().front().getRenderMode() == Raz::RenderMode::TRIANGLE ? 0 : 1));
+      QObject::connect(renderMode, QOverload<int>::of(&QComboBox::currentIndexChanged), [&mesh] (int index) {
+        mesh.setRenderMode((index == 0 ? Raz::RenderMode::TRIANGLE : Raz::RenderMode::POINT));
+      });
+
+      meshLayout->addWidget(renderMode, 2, 1);
+    }
+
+    meshGroup->setLayout(meshLayout);
+  }
+
+  layout.addWidget(meshGroup);
+}
+
 void showLightComponent(Raz::Light& light, QVBoxLayout& layout) {
   auto* lightGroup = createComponentGroupBox("Light");
 
@@ -367,15 +400,30 @@ void AppWindow::loadComponents(const QString& entityName) {
   }
 
   Raz::Entity& entity = *entityIter->second;
+  std::size_t remainingComponentCount = entity.getEnabledComponents().getEnabledBitCount();
 
-  if (entity.hasComponent<Raz::Transform>())
+  if (entity.hasComponent<Raz::Transform>()) {
     showTransformComponent(entity.getComponent<Raz::Transform>(), *m_parentWindow->m_window.componentsLayout);
+    --remainingComponentCount;
+  }
 
-  if (entity.hasComponent<Raz::Camera>())
+  if (entity.hasComponent<Raz::Camera>()) {
     showCameraComponent(entity.getComponent<Raz::Camera>(), *m_parentWindow->m_window.componentsLayout);
+    --remainingComponentCount;
+  }
 
-  if (entity.hasComponent<Raz::Light>())
+  if (entity.hasComponent<Raz::Mesh>()) {
+    showMeshComponent(entity.getComponent<Raz::Mesh>(), *m_parentWindow->m_window.componentsLayout);
+    --remainingComponentCount;
+  }
+
+  if (entity.hasComponent<Raz::Light>()) {
     showLightComponent(entity.getComponent<Raz::Light>(), *m_parentWindow->m_window.componentsLayout);
+    --remainingComponentCount;
+  }
+
+  if (remainingComponentCount > 0)
+    m_parentWindow->m_window.componentsLayout->addWidget(new QLabel(QString::number(remainingComponentCount) + " component(s) was/were not displayed."));
 }
 
 void AppWindow::processActions() {
