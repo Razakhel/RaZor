@@ -4,12 +4,12 @@
 <context>
     <name>AppWindow</name>
     <message>
-        <location filename="../../src/RaZor/Interface/AppWindow.cpp" line="374"/>
+        <location filename="../../src/RaZor/Interface/AppWindow.cpp" line="457"/>
         <source>Importing </source>
         <translation>Chargement de </translation>
     </message>
     <message>
-        <location filename="../../src/RaZor/Interface/AppWindow.cpp" line="384"/>
+        <location filename="../../src/RaZor/Interface/AppWindow.cpp" line="467"/>
         <source>Finished importing</source>
         <translation>Chargement terminé</translation>
     </message>

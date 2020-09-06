@@ -29,6 +29,10 @@ protected:
   bool event(QEvent* event) override;
   void keyPressEvent(QKeyEvent* event) override;
   void keyReleaseEvent(QKeyEvent* event) override;
+  void mousePressEvent(QMouseEvent* event) override;
+  void mouseReleaseEvent(QMouseEvent* event) override;
+  void mouseMoveEvent(QMouseEvent* event) override;
+  void wheelEvent(QWheelEvent* event) override;
   void exposeEvent(QExposeEvent* event) override;
   void resizeEvent(QResizeEvent* event) override;
 
@@ -55,6 +59,12 @@ private:
   bool m_movingDown     = false;
   bool m_movingForward  = false;
   bool m_movingBackward = false;
+
+  bool m_leftClickPressed   = false;
+  bool m_middleClickPressed = false;
+  bool m_rightClickPressed  = false;
+
+  QPointF m_prevMousePos {};
 };
 
 #endif // RAZOR_APPWINDOW_HPP

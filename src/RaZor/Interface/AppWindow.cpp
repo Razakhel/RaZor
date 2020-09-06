@@ -7,6 +7,10 @@
 #include <RaZ/Render/Renderer.hpp>
 #include <RaZ/Render/RenderSystem.hpp>
 
+#if defined(RAZOR_COMPILER_MSVC)
+struct IUnknown; // Workaround for "combaseapi.h(229): error C2187: syntax error: 'identifier' was unexpected here" when using /permissive-
+#endif
+
 #include <QComboBox>
 #include <QDoubleSpinBox>
 #include <QGroupBox>
@@ -217,13 +221,15 @@ void AppWindow::initialize() {
   Raz::Renderer::enable(Raz::Capability::DEPTH_TEST);
   Raz::Renderer::enable(Raz::Capability::CULL);
 
-  Raz::World& world = m_application.addWorld(1);
-  auto& renderSystem = world.addSystem<Raz::RenderSystem>(1280, 720);
+  const QSize windowSize = size();
+
+  Raz::World& world = m_application.addWorld(3);
+  auto& renderSystem = world.addSystem<Raz::RenderSystem>(windowSize.width(), windowSize.height());
   renderSystem.getGeometryProgram().setShaders(Raz::VertexShader(RAZ_ROOT + std::string("shaders/common.vert")),
                                                Raz::FragmentShader(RAZ_ROOT + std::string("shaders/cook-torrance.frag")));
 
   Raz::Entity& camera = addEntity("Camera");
-  m_cameraComp        = &camera.addComponent<Raz::Camera>(1280, 720);
+  m_cameraComp        = &camera.addComponent<Raz::Camera>(windowSize.width(), windowSize.height());
   m_cameraTrans       = &camera.addComponent<Raz::Transform>(Raz::Vec3f(0.f, 0.f, -5.f));
 
   Raz::Entity& light = addEntity("Light");
@@ -249,6 +255,9 @@ void AppWindow::render() {
 
   m_application.runOnce();
 
+  // Not making the context current with MSVC in Debug mode results in one "QOpenGLContext::swapBuffers() called without
+  //  corresponding makeCurrent()" message per frame
+  m_context->makeCurrent(this);
   m_context->swapBuffers(this);
   requestUpdate(); // So that the window is always refreshed
 }
@@ -344,6 +353,81 @@ void AppWindow::keyReleaseEvent(QKeyEvent* event) {
 
   m_parentWindow->keyReleaseEvent(event);
   QWindow::keyReleaseEvent(event);
+}
+
+void AppWindow::mousePressEvent(QMouseEvent* event) {
+  switch(event->button()) {
+    case Qt::MouseButton::LeftButton:
+      m_leftClickPressed = true;
+      break;
+
+    case Qt::MouseButton::MiddleButton:
+      m_middleClickPressed = true;
+      break;
+
+    case Qt::MouseButton::RightButton:
+      m_rightClickPressed = true;
+      break;
+
+    default:
+      break;
+  }
+
+  m_prevMousePos = event->localPos();
+}
+
+void AppWindow::mouseReleaseEvent(QMouseEvent* event) {
+  switch(event->button()) {
+    case Qt::MouseButton::LeftButton:
+      m_leftClickPressed = false;
+      break;
+
+    case Qt::MouseButton::MiddleButton:
+      m_middleClickPressed = false;
+      break;
+
+    case Qt::MouseButton::RightButton:
+      m_rightClickPressed = false;
+      break;
+
+    default:
+      break;
+  }
+}
+
+void AppWindow::mouseMoveEvent(QMouseEvent* event) {
+  const QSize windowSize     = size();
+  const QPointF currMousePos = event->localPos();
+
+  const auto mouseMoveX = static_cast<float>(currMousePos.x() - m_prevMousePos.x()) / static_cast<float>(windowSize.width());
+  const auto mouseMoveY = static_cast<float>(currMousePos.y() - m_prevMousePos.y()) / static_cast<float>(windowSize.height());
+
+  if (m_rightClickPressed) {
+    if (m_cameraComp->getCameraType() == Raz::CameraType::LOOK_AT) {
+      m_cameraTrans->move(-mouseMoveX * 50.f, mouseMoveY * 50.f, 0.f);
+    } else {
+      const float rotationY = -Raz::Pi<float> * mouseMoveX;
+      const float rotationX = -Raz::Pi<float> * mouseMoveY;
+
+      m_cameraTrans->rotate(Raz::Radiansf(rotationX), Raz::Radiansf(rotationY));
+    }
+  }
+
+  if (m_middleClickPressed)
+    m_cameraTrans->move(-mouseMoveX * 10.f, mouseMoveY * 10.f, 0);
+
+  m_prevMousePos = currMousePos;
+}
+
+void AppWindow::wheelEvent(QWheelEvent* event) {
+  // The offset is divided by 120, which is the most common angle; yOffset is then supposed to be either -1 or 1
+  // See: https://doc.qt.io/qt-5/qwheelevent.html#angleDelta
+  const auto yOffset = static_cast<float>(event->angleDelta().y()) / 120.f * m_application.getDeltaTime();
+
+  m_cameraTrans->move(Raz::Vec3f(0.f, 0.f, -200.f * yOffset));
+
+  // If handled, the event must be accepted to not be propagated
+  event->accept();
 }
 
 void AppWindow::exposeEvent(QExposeEvent*) {

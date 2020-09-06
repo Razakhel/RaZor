@@ -1,6 +1,7 @@
 #include "RaZor/Interface/MainWindow.hpp"
 
-#include <QtWidgets/QtWidgets>
+#include <QSplashScreen>
+#include <QThread>
 
 int main(int argc, char* argv[]) {
   QApplication app(argc, argv);
