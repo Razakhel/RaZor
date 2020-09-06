@@ -67,5 +67,6 @@ void MainWindow::setupActions() {
     else
       m_appWindow.clearComponents(); // If the selection has been cleared, removing everything from the components panel
   });
+  connect(m_window.addEntity, &QPushButton::clicked, &m_appWindow, [this] () { m_appWindow.addEntity("NewEntity"); });
   connect(m_window.unselectEntity, &QPushButton::clicked, m_window.entitiesList, &QListWidget::clearSelection);
 }

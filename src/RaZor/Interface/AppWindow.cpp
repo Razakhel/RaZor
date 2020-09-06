@@ -441,6 +441,13 @@ void AppWindow::resizeEvent(QResizeEvent* event) {
 }
 
 Raz::Entity& AppWindow::addEntity(QString name) {
+  // If an entity with the same name already exists, append a number incremented as long as the name isn't unique
+  const QString origName = name;
+  std::size_t entityId   = 2;
+
+  while (m_entities.find(name) != m_entities.cend())
+    name = origName + QString::number(entityId++);
+
   m_parentWindow->m_window.entitiesList->addItem(name);
 
   Raz::Entity& entity = m_application.getWorlds().back().addEntity();
@@ -479,7 +486,7 @@ void AppWindow::loadComponents(const QString& entityName) {
   const auto& entityIter = m_entities.find(entityName);
 
   if (entityIter == m_entities.cend()) {
-    m_parentWindow->statusBar()->showMessage("Failed to find an entity named '" + entityName + "'");
+    m_parentWindow->statusBar()->showMessage(tr("Failed to find an entity named") + "'" + entityName + "'");
     return;
   }
 

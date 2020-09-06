@@ -57,8 +57,8 @@
    </property>
    <property name="minimumSize">
     <size>
-     <width>150</width>
-     <height>124</height>
+     <width>158</width>
+     <height>161</height>
     </size>
    </property>
    <property name="font">
@@ -114,12 +114,23 @@
        </property>
       </widget>
      </item>
-     <item row="1" column="0">
-      <widget class="QPushButton" name="unselectEntity">
-       <property name="text">
-        <string>Unselect</string>
-       </property>
-      </widget>
+     <item row="2" column="0">
+      <layout class="QHBoxLayout" name="entityActionsLayout">
+       <item>
+        <widget class="QPushButton" name="addEntity">
+         <property name="text">
+          <string>Add entity</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="unselectEntity">
+         <property name="text">
+          <string>Unselect</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
      </item>
     </layout>
    </widget>
