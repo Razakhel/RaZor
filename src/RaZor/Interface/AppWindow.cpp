@@ -514,7 +514,48 @@ void AppWindow::loadComponents(const QString& entityName) {
   }
 
   if (remainingComponentCount > 0)
-    m_parentWindow->m_window.componentsLayout->addWidget(new QLabel(QString::number(remainingComponentCount) + " component(s) was/were not displayed."));
+    m_parentWindow->m_window.componentsLayout->addWidget(new QLabel(QString::number(remainingComponentCount) + tr(" component(s) not displayed.")));
+
+  showAddComponent(entity, entityName);
+}
+
+void AppWindow::showAddComponent(Raz::Entity& entity, const QString& entityName) {
+  auto* addComponent = new QPushButton(tr("Add component"));
+
+  auto* contextMenu  = new QMenu(tr("Add component"), addComponent);
+
+  QAction* addTransform = contextMenu->addAction(tr("Transform"));
+
+  if (entity.hasComponent<Raz::Transform>()) {
+    addTransform->setEnabled(false);
+  } else {
+    connect(addTransform, &QAction::triggered, [this, &entity, entityName] () {
+      entity.addComponent<Raz::Transform>();
+      loadComponents(entityName);
+    });
+  }
+
+  QMenu* addLight = contextMenu->addMenu(tr("Light"));
+
+  if (entity.hasComponent<Raz::Light>() || !entity.hasComponent<Raz::Transform>()) {
+    addLight->setEnabled(false);
+  } else {
+    QAction* addPointLight = addLight->addAction(tr("Point light"));
+    connect(addPointLight, &QAction::triggered, [this, &entity, entityName] () {
+      entity.addComponent<Raz::Light>(Raz::LightType::POINT, 1.f);
+      loadComponents(entityName);
+    });
+
+    QAction* addDirectionalLight = addLight->addAction(tr("Directional light"));
+    connect(addDirectionalLight, &QAction::triggered, [this, &entity, entityName] () {
+      entity.addComponent<Raz::Light>(Raz::LightType::DIRECTIONAL, Raz::Axis::Z, 1.f);
+      loadComponents(entityName);
+    });
+  }
+
+  connect(addComponent, &QPushButton::clicked, contextMenu, [contextMenu] () { contextMenu->popup(QCursor::pos()); });
+
+  m_parentWindow->m_window.componentsLayout->addWidget(addComponent);
 }
 
 void AppWindow::processActions() {

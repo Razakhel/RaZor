@@ -41,6 +41,7 @@ private:
   void importMesh(const Raz::FilePath& filePath);
   void clearComponents();
   void loadComponents(const QString& entityName);
+  void showAddComponent(Raz::Entity& entity, const QString& entityName);
   void processActions();
 
   MainWindow* m_parentWindow {};
