@@ -3,8 +3,8 @@
 #ifndef RAZOR_MAINWINDOW_HPP
 #define RAZOR_MAINWINDOW_HPP
 
-#include "ui_RaZor.h"
 #include "RaZor/Interface/AppWindow.hpp"
+#include "ui_RaZor.h"
 
 class MainWindow : public QMainWindow {
   Q_OBJECT

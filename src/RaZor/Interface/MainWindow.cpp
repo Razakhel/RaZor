@@ -11,7 +11,6 @@ MainWindow::MainWindow() {
   m_window.setupUi(this);
 
   QWidget* renderSurface = QWidget::createWindowContainer(&m_appWindow);
-  //renderSurface->setFocusPolicy(Qt::FocusPolicy::StrongFocus);
   setCentralWidget(renderSurface);
 
   m_appWindow.m_parentWindow = this;
@@ -26,6 +25,7 @@ MainWindow::MainWindow() {
 
   setupActions();
 
+  m_window.componentsLayout->setAlignment(Qt::AlignmentFlag::AlignTop); // To pack all components on the top of the panel
   m_window.statusBar->showMessage(tr("Ready"), 3000);
 
   QMetaObject::connectSlotsByName(this);

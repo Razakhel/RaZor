@@ -7,6 +7,17 @@
 
 #include <QWindow>
 
+#include <unordered_map>
+
+#if QT_VERSION < QT_VERSION_CHECK(5, 14, 0)
+#include <QHash>
+
+template <>
+struct std::hash<QString> {
+  std::size_t operator()(const QString& str) const noexcept { return static_cast<std::size_t>(qHash(str)); }
+};
+#endif
+
 class MainWindow;
 
 namespace Raz {

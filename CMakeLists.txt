@@ -506,18 +506,9 @@ if (RAZOR_PLATFORM_WINDOWS)
     get_filename_component(QT5_WINDEPLOYQT_EXECUTABLE "${QT5_QMAKE_EXECUTABLE}" PATH)
     set(QT5_WINDEPLOYQT_EXECUTABLE "${QT5_WINDEPLOYQT_EXECUTABLE}/windeployqt.exe")
 
-    # Specifying the preferred deploy mode's hint for MinGW
-    if (MINGW)
-        if (CMAKE_BUILD_TYPE MATCHES "(D|d)eb")
-            set(DEPLOY_TYPE "--debug")
-        else ()
-            set(DEPLOY_TYPE "--release")
-        endif ()
-    endif ()
-
     # Run windeployqt to copy DLLs in the executable folder
-    add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
-                       COMMAND "${QT5_WINDEPLOYQT_EXECUTABLE}" ${DEPLOY_TYPE} $<TARGET_FILE:${PROJECT_NAME}>)
+    add_custom_command(TARGET RaZor POST_BUILD
+                       COMMAND "${QT5_WINDEPLOYQT_EXECUTABLE}" --$<LOWER_CASE:${RAZOR_CONFIG_SHORT}> "$<TARGET_FILE:${PROJECT_NAME}>")
 endif ()
 
 ###########################
@@ -564,3 +555,50 @@ target_include_directories(
 
 target_compile_options(RaZor PRIVATE ${RAZOR_COMPILER_FLAGS})
 target_link_libraries(RaZor PUBLIC RaZ ${RAZOR_LINKER_FLAGS})
+
+# Under Linux, linking to GL is necessary
+if (RAZOR_PLATFORM_LINUX)
+    target_link_libraries(RaZor PUBLIC GL)
+endif ()
+
+########################
+# RaZor - Installation #
+########################
+
+# Installing the executable
+if (RAZOR_PLATFORM_WINDOWS)
+    set(CMAKE_INSTALL_PREFIX "C:/RaZor")
+endif ()
+
+install(TARGETS RaZor DESTINATION "${CMAKE_INSTALL_PREFIX}")
+
+# If the FBX SDK is used, install the DLL file into the install root folder
+if (RAZOR_COMPILER_MSVC AND RAZOR_USE_FBX AND FBX_FOUND)
+    install(FILES "${FBX_CONFIG_DLL}" DESTINATION "${CMAKE_INSTALL_PREFIX}")
+endif ()
+
+if (RAZOR_PLATFORM_WINDOWS)
+    # Copying all necessary DLLs to launch RaZor
+
+    file(
+        GLOB
+        RAZOR_INSTALL_DLLS
+
+        "${CMAKE_BINARY_DIR}/Qt5*.dll"
+    )
+
+    install(FILES ${RAZOR_INSTALL_DLLS} DESTINATION "${CMAKE_INSTALL_PREFIX}")
+
+    # Deploying Qt adds several folders & DLLs; some are necessary for RaZ to run
+    install(
+        DIRECTORY
+
+        #"${CMAKE_BINARY_DIR}/iconengines"
+        #"${CMAKE_BINARY_DIR}/imageformats"
+        "${CMAKE_BINARY_DIR}/platforms"
+        "${CMAKE_BINARY_DIR}/styles"
+        #"${CMAKE_BINARY_DIR}/translations"
+
+        DESTINATION "${CMAKE_INSTALL_PREFIX}"
+    )
+endif ()
