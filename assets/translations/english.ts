@@ -51,6 +51,64 @@
     </message>
 </context>
 <context>
+    <name>CameraComp</name>
+    <message>
+        <location filename="../../interface/CameraComp.ui" line="14"/>
+        <location filename="../../interface/CameraComp.ui" line="17"/>
+        <source>Camera</source>
+        <translation>Camera</translation>
+    </message>
+    <message>
+        <location filename="../../interface/CameraComp.ui" line="23"/>
+        <source>Field of view</source>
+        <translation>Field of view</translation>
+    </message>
+    <message>
+        <location filename="../../interface/CameraComp.ui" line="30"/>
+        <source>Camera type</source>
+        <translation>Camera type</translation>
+    </message>
+    <message>
+        <location filename="../../interface/CameraComp.ui" line="37"/>
+        <source>Projection type</source>
+        <translation>Projection type</translation>
+    </message>
+    <message>
+        <location filename="../../interface/CameraComp.ui" line="77"/>
+        <source>Free fly</source>
+        <translation>Free fly</translation>
+    </message>
+    <message>
+        <location filename="../../interface/CameraComp.ui" line="82"/>
+        <source>Look-at</source>
+        <translation>Look-at</translation>
+    </message>
+    <message>
+        <location filename="../../interface/CameraComp.ui" line="91"/>
+        <source>Perspective</source>
+        <translation>Perspective</translation>
+    </message>
+    <message>
+        <location filename="../../interface/CameraComp.ui" line="96"/>
+        <source>Orthographic</source>
+        <translation>Orthographic</translation>
+    </message>
+</context>
+<context>
+    <name>LightComp</name>
+    <message>
+        <location filename="../../interface/LightComp.ui" line="14"/>
+        <location filename="../../interface/LightComp.ui" line="17"/>
+        <source>Light</source>
+        <translation>Light</translation>
+    </message>
+    <message>
+        <location filename="../../interface/LightComp.ui" line="23"/>
+        <source>Direction</source>
+        <translation>Direction</translation>
+    </message>
+</context>
+<context>
     <name>MainWindow</name>
     <message>
         <location filename="../../src/RaZor/Interface/MainWindow.cpp" line="29"/>
@@ -131,6 +189,64 @@
         <location filename="../../interface/RaZor.ui" line="228"/>
         <source>&amp;Components</source>
         <translation>&amp;Components</translation>
+    </message>
+</context>
+<context>
+    <name>MeshComp</name>
+    <message>
+        <location filename="../../interface/MeshComp.ui" line="14"/>
+        <location filename="../../interface/MeshComp.ui" line="17"/>
+        <source>Mesh</source>
+        <translation>Mesh</translation>
+    </message>
+    <message>
+        <location filename="../../interface/MeshComp.ui" line="23"/>
+        <source>Vertex count</source>
+        <translation>Vertex count</translation>
+    </message>
+    <message>
+        <location filename="../../interface/MeshComp.ui" line="37"/>
+        <source>Triangle count</source>
+        <translation>Triangle count</translation>
+    </message>
+    <message>
+        <location filename="../../interface/MeshComp.ui" line="51"/>
+        <source>Render mode</source>
+        <translation>Render mode</translation>
+    </message>
+    <message>
+        <location filename="../../interface/MeshComp.ui" line="59"/>
+        <source>Triangles</source>
+        <translation>Triangles</translation>
+    </message>
+    <message>
+        <location filename="../../interface/MeshComp.ui" line="64"/>
+        <source>Points</source>
+        <translation>Points</translation>
+    </message>
+    <message>
+        <location filename="../../interface/MeshComp.ui" line="82"/>
+        <source>Mesh file</source>
+        <translation>Mesh file</translation>
+    </message>
+</context>
+<context>
+    <name>TransformComp</name>
+    <message>
+        <location filename="../../interface/TransformComp.ui" line="14"/>
+        <location filename="../../interface/TransformComp.ui" line="17"/>
+        <source>Transform</source>
+        <translation>Transform</translation>
+    </message>
+    <message>
+        <location filename="../../interface/TransformComp.ui" line="23"/>
+        <source>Position</source>
+        <translation>Position</translation>
+    </message>
+    <message>
+        <location filename="../../interface/TransformComp.ui" line="148"/>
+        <source>Scale</source>
+        <translation>Scale</translation>
     </message>
 </context>
 </TS>

@@ -1,5 +1,6 @@
 #include "RaZor/Interface/AppWindow.hpp"
 #include "RaZor/Interface/MainWindow.hpp"
+#include "ui_CameraComp.h"
 #include "ui_LightComp.h"
 #include "ui_MeshComp.h"
 #include "ui_TransformComp.h"
@@ -26,24 +27,6 @@ struct IUnknown; // Workaround for "combaseapi.h(229): error C2187: syntax error
 using namespace std::literals;
 
 namespace {
-
-QGroupBox* createComponentGroupBox(const QString& title) {
-  auto* groupBox = new QGroupBox(title);
-  groupBox->setSizePolicy(QSizePolicy::Policy::Preferred, QSizePolicy::Policy::Maximum);
-
-  return groupBox;
-}
-
-QDoubleSpinBox* createComponentSpinBox(float initVal) {
-  auto* spinBox = new QDoubleSpinBox();
-  spinBox->setMinimum(std::numeric_limits<double>::lowest());
-  spinBox->setMaximum(std::numeric_limits<double>::max());
-  spinBox->setDecimals(5);
-  spinBox->setMaximumWidth(75);
-  spinBox->setValue(static_cast<double>(initVal));
-
-  return spinBox;
-}
 
 void showTransformComponent(Raz::Transform& transform, QVBoxLayout& layout) {
   Ui::TransformComp transformComp;
@@ -90,43 +73,32 @@ void showTransformComponent(Raz::Transform& transform, QVBoxLayout& layout) {
 }
 
 void showCameraComponent(Raz::Camera& camera, QVBoxLayout& layout) {
-  auto* cameraGroup = createComponentGroupBox("Camera");
+  Ui::CameraComp cameraComp;
 
-  {
-    auto* cameraLayout = new QGridLayout();
-    cameraLayout->setAlignment(Qt::AlignmentFlag::AlignTop);
+  auto* cameraWidget = new QGroupBox();
+  cameraComp.setupUi(cameraWidget);
 
-    {
-      cameraLayout->addWidget(new QLabel("Field of view"), 0, 0);
+  // Field of view
 
-      auto* fovLayout = new QHBoxLayout();
+  cameraComp.fieldOfView->setValue(Raz::Degreesd(camera.getFieldOfView()).value);
 
-      {
-        auto* fieldOfView = createComponentSpinBox(Raz::Degreesf(camera.getFieldOfView()).value);
-        QObject::connect(fieldOfView, QOverload<double>::of(&QDoubleSpinBox::valueChanged), [&camera] (double val) {
-          camera.setFieldOfView(Raz::Degreesd(val));
-        });
-        fovLayout->addWidget(fieldOfView);
-      }
+  QObject::connect(cameraComp.fieldOfView, QOverload<double>::of(&QDoubleSpinBox::valueChanged), [&camera] (double val) {
+    camera.setFieldOfView(Raz::Degreesd(val));
+  });
 
-      cameraLayout->addLayout(fovLayout, 0, 1);
-    }
+  // Camera type
 
-    cameraLayout->addWidget(new QLabel("Camera type"), 1, 0);
+  QObject::connect(cameraComp.camType, QOverload<int>::of(&QComboBox::currentIndexChanged), [&camera] (int index) {
+    camera.setCameraType((index == 0 ? Raz::CameraType::FREE_FLY : Raz::CameraType::LOOK_AT));
+  });
 
-    auto* camType = new QComboBox();
-    camType->addItem("Free fly");
-    camType->addItem("Look-at");
-    QObject::connect(camType, QOverload<int>::of(&QComboBox::currentIndexChanged), [&camera] (int index) {
-      camera.setCameraType((index == 0 ? Raz::CameraType::FREE_FLY : Raz::CameraType::LOOK_AT));
-    });
+  // Projection type
 
-    cameraLayout->addWidget(camType, 1, 1);
+  QObject::connect(cameraComp.projType, QOverload<int>::of(&QComboBox::currentIndexChanged), [&camera] (int index) {
+    camera.setProjectionType((index == 0 ? Raz::ProjectionType::PERSPECTIVE : Raz::ProjectionType::ORTHOGRAPHIC));
+  });
 
-    cameraGroup->setLayout(cameraLayout);
-  }
-
-  layout.addWidget(cameraGroup);
+  layout.addWidget(cameraWidget);
 }
 
 void showMeshComponent(Raz::Mesh& mesh, QVBoxLayout& layout) {
@@ -135,10 +107,18 @@ void showMeshComponent(Raz::Mesh& mesh, QVBoxLayout& layout) {
   auto* meshWidget = new QGroupBox();
   meshComp.setupUi(meshWidget);
 
+  // Vertex count
+
   meshComp.vertexCount->setText(QString::number(mesh.recoverVertexCount()));
+
+  // Triangle count
+
   meshComp.triangleCount->setText(QString::number(mesh.recoverTriangleCount()));
 
+  // Render mode
+
   meshComp.renderMode->setCurrentIndex((mesh.getSubmeshes().front().getRenderMode() == Raz::RenderMode::TRIANGLE ? 0 : 1));
+
   QObject::connect(meshComp.renderMode, QOverload<int>::of(&QComboBox::currentIndexChanged), [&mesh] (int index) {
     mesh.setRenderMode((index == 0 ? Raz::RenderMode::TRIANGLE : Raz::RenderMode::POINT));
   });
@@ -151,6 +131,8 @@ void showLightComponent(Raz::Light& light, QVBoxLayout& layout, Raz::RenderSyste
 
   auto* lightWidget = new QGroupBox();
   lightComp.setupUi(lightWidget);
+
+  // Direction
 
   lightComp.directionX->setValue(static_cast<double>(light.getDirection()[0]));
   lightComp.directionY->setValue(static_cast<double>(light.getDirection()[1]));
@@ -552,9 +534,17 @@ void AppWindow::processActions() {
   if (m_movingDown)
     m_cameraTrans->move(Raz::Vec3f(0.f, -moveVal, 0.f));
 
-  if (m_movingForward)
+  if (m_movingForward) {
     m_cameraTrans->move(Raz::Vec3f(0.f, 0.f, moveVal));
 
-  if (m_movingBackward)
+    m_cameraComp->setOrthoBoundX(m_cameraComp->getOrthoBoundX() - moveVal / 2);
+    m_cameraComp->setOrthoBoundY(m_cameraComp->getOrthoBoundY() - moveVal / 2);
+  }
+
+  if (m_movingBackward) {
     m_cameraTrans->move(Raz::Vec3f(0.f, 0.f, -moveVal));
+
+    m_cameraComp->setOrthoBoundX(m_cameraComp->getOrthoBoundX() + moveVal / 2);
+    m_cameraComp->setOrthoBoundY(m_cameraComp->getOrthoBoundY() + moveVal / 2);
+  }
 }

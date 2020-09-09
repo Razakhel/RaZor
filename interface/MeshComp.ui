@@ -16,7 +16,7 @@
   <property name="title">
    <string>Mesh</string>
   </property>
-  <layout class="QFormLayout" name="formLayout">
+  <layout class="QFormLayout" name="meshLayout">
    <item row="0" column="0">
     <widget class="QLabel" name="vertexCountLabel">
      <property name="text">
