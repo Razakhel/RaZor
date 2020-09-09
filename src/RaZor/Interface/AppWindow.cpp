@@ -1,5 +1,6 @@
 #include "RaZor/Interface/AppWindow.hpp"
 #include "RaZor/Interface/MainWindow.hpp"
+#include "ui_TransformComp.h"
 
 #include <RaZ/Math/Transform.hpp>
 #include <RaZ/Render/Light.hpp>
@@ -43,44 +44,47 @@ QDoubleSpinBox* createComponentSpinBox(float initVal) {
 }
 
 void showTransformComponent(Raz::Transform& transform, QVBoxLayout& layout) {
-  auto* transformGroup = createComponentGroupBox("Transform");
+  Ui::TransformComp transformComp;
 
-  {
-    auto* transformLayout = new QGridLayout();
-    transformLayout->setAlignment(Qt::AlignmentFlag::AlignTop);
+  auto* transformWidget = new QGroupBox();
+  transformComp.setupUi(transformWidget);
 
-    {
-      transformLayout->addWidget(new QLabel("Position"), 0, 0);
+  // Position
 
-      auto* positionLayout = new QHBoxLayout();
+  transformComp.positionX->setValue(static_cast<double>(transform.getPosition()[0]));
+  transformComp.positionY->setValue(static_cast<double>(transform.getPosition()[1]));
+  transformComp.positionZ->setValue(static_cast<double>(transform.getPosition()[2]));
 
-      {
-        auto* xPos = createComponentSpinBox(transform.getPosition()[0]);
-        QObject::connect(xPos, QOverload<double>::of(&QDoubleSpinBox::valueChanged), [&transform] (double val) {
-          transform.setPosition(static_cast<float>(val), transform.getPosition()[1], transform.getPosition()[2]);
-        });
-        positionLayout->addWidget(xPos);
+  QObject::connect(transformComp.positionX, QOverload<double>::of(&QDoubleSpinBox::valueChanged), [&transform] (double val) {
+    transform.setPosition(static_cast<float>(val), transform.getPosition()[1], transform.getPosition()[2]);
+  });
+  QObject::connect(transformComp.positionY, QOverload<double>::of(&QDoubleSpinBox::valueChanged), [&transform] (double val) {
+    transform.setPosition(transform.getPosition()[0], static_cast<float>(val), transform.getPosition()[2]);
+  });
+  QObject::connect(transformComp.positionZ, QOverload<double>::of(&QDoubleSpinBox::valueChanged), [&transform] (double val) {
+    transform.setPosition(transform.getPosition()[0], transform.getPosition()[1], static_cast<float>(val));
+  });
 
-        auto* yPos = createComponentSpinBox(transform.getPosition()[1]);
-        QObject::connect(yPos, QOverload<double>::of(&QDoubleSpinBox::valueChanged), [&transform] (double val) {
-          transform.setPosition(transform.getPosition()[0], static_cast<float>(val), transform.getPosition()[2]);
-        });
-        positionLayout->addWidget(yPos);
+  // Rotation
+  // TODO
 
-        auto* zPos = createComponentSpinBox(transform.getPosition()[2]);
-        QObject::connect(zPos, QOverload<double>::of(&QDoubleSpinBox::valueChanged), [&transform] (double val) {
-          transform.setPosition(transform.getPosition()[0], transform.getPosition()[1], static_cast<float>(val));
-        });
-        positionLayout->addWidget(zPos);
-      }
+  // Scale
 
-      transformLayout->addLayout(positionLayout, 0, 1);
-    }
+  transformComp.scaleX->setValue(static_cast<double>(transform.getScale()[0]));
+  transformComp.scaleY->setValue(static_cast<double>(transform.getScale()[1]));
+  transformComp.scaleZ->setValue(static_cast<double>(transform.getScale()[2]));
 
-    transformGroup->setLayout(transformLayout);
-  }
+  QObject::connect(transformComp.scaleX, QOverload<double>::of(&QDoubleSpinBox::valueChanged), [&transform] (double val) {
+    transform.setScale(static_cast<float>(val), transform.getScale()[1], transform.getScale()[2]);
+  });
+  QObject::connect(transformComp.scaleY, QOverload<double>::of(&QDoubleSpinBox::valueChanged), [&transform] (double val) {
+    transform.setScale(transform.getScale()[0], static_cast<float>(val), transform.getScale()[2]);
+  });
+  QObject::connect(transformComp.scaleZ, QOverload<double>::of(&QDoubleSpinBox::valueChanged), [&transform] (double val) {
+    transform.setScale(transform.getScale()[0], transform.getScale()[1], static_cast<float>(val));
+  });
 
-  layout.addWidget(transformGroup);
+  layout.addWidget(transformWidget);
 }
 
 void showCameraComponent(Raz::Camera& camera, QVBoxLayout& layout) {
