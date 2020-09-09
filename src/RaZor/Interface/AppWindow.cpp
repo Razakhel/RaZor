@@ -164,6 +164,34 @@ void showLightComponent(Raz::Light& light, QVBoxLayout& layout, const Raz::Rende
     renderSystem.updateLights();
   });
 
+  // Energy
+
+  lightComp.energy->setValue(static_cast<double>(light.getEnergy()));
+
+  QObject::connect(lightComp.energy, QOverload<double>::of(&QDoubleSpinBox::valueChanged), [&light, &renderSystem] (double val) {
+    light.setEnergy(static_cast<float>(val));
+    renderSystem.updateLights();
+  });
+
+  // Color
+
+  lightComp.colorR->setValue(static_cast<int>(light.getColor()[0] * static_cast<float>(lightComp.colorR->maximum())));
+  lightComp.colorG->setValue(static_cast<int>(light.getColor()[1] * static_cast<float>(lightComp.colorG->maximum())));
+  lightComp.colorB->setValue(static_cast<int>(light.getColor()[2] * static_cast<float>(lightComp.colorB->maximum())));
+
+  const auto updateLightColor = [&light, lightComp, &renderSystem] (int) {
+    const float colorR = static_cast<float>(lightComp.colorR->value()) / static_cast<float>(lightComp.colorR->maximum());
+    const float colorG = static_cast<float>(lightComp.colorG->value()) / static_cast<float>(lightComp.colorG->maximum());
+    const float colorB = static_cast<float>(lightComp.colorB->value()) / static_cast<float>(lightComp.colorB->maximum());
+
+    light.setColor(Raz::Vec3f(colorR, colorG, colorB));
+    renderSystem.updateLights();
+  };
+
+  QObject::connect(lightComp.colorR, &QSlider::valueChanged, updateLightColor);
+  QObject::connect(lightComp.colorG, &QSlider::valueChanged, updateLightColor);
+  QObject::connect(lightComp.colorB, &QSlider::valueChanged, updateLightColor);
+
   layout.addWidget(lightWidget);
 }
 
