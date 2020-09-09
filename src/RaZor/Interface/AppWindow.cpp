@@ -1,5 +1,6 @@
 #include "RaZor/Interface/AppWindow.hpp"
 #include "RaZor/Interface/MainWindow.hpp"
+#include "ui_MeshComp.h"
 #include "ui_TransformComp.h"
 
 #include <RaZ/Math/Transform.hpp>
@@ -128,36 +129,20 @@ void showCameraComponent(Raz::Camera& camera, QVBoxLayout& layout) {
 }
 
 void showMeshComponent(Raz::Mesh& mesh, QVBoxLayout& layout) {
-  auto* meshGroup = createComponentGroupBox("Mesh");
+  Ui::MeshComp meshComp;
 
-  {
-    auto* meshLayout = new QGridLayout();
-    meshLayout->setAlignment(Qt::AlignmentFlag::AlignTop);
+  auto* meshWidget = new QGroupBox();
+  meshComp.setupUi(meshWidget);
 
-    {
-      meshLayout->addWidget(new QLabel("Vertex count"), 0, 0);
-      meshLayout->addWidget(new QLabel(QString::number(mesh.recoverVertexCount())), 0, 1);
+  meshComp.vertexCount->setText(QString::number(mesh.recoverVertexCount()));
+  meshComp.triangleCount->setText(QString::number(mesh.recoverTriangleCount()));
 
-      meshLayout->addWidget(new QLabel("Triangle count"), 1, 0);
-      meshLayout->addWidget(new QLabel(QString::number(mesh.recoverTriangleCount())), 1, 1);
+  meshComp.renderMode->setCurrentIndex((mesh.getSubmeshes().front().getRenderMode() == Raz::RenderMode::TRIANGLE ? 0 : 1));
+  QObject::connect(meshComp.renderMode, QOverload<int>::of(&QComboBox::currentIndexChanged), [&mesh] (int index) {
+    mesh.setRenderMode((index == 0 ? Raz::RenderMode::TRIANGLE : Raz::RenderMode::POINT));
+  });
 
-      meshLayout->addWidget(new QLabel("Render mode"), 2, 0);
-
-      auto* renderMode = new QComboBox();
-      renderMode->addItem("Triangles");
-      renderMode->addItem("Points");
-      renderMode->setCurrentIndex((mesh.getSubmeshes().front().getRenderMode() == Raz::RenderMode::TRIANGLE ? 0 : 1));
-      QObject::connect(renderMode, QOverload<int>::of(&QComboBox::currentIndexChanged), [&mesh] (int index) {
-        mesh.setRenderMode((index == 0 ? Raz::RenderMode::TRIANGLE : Raz::RenderMode::POINT));
-      });
-
-      meshLayout->addWidget(renderMode, 2, 1);
-    }
-
-    meshGroup->setLayout(meshLayout);
-  }
-
-  layout.addWidget(meshGroup);
+  layout.addWidget(meshWidget);
 }
 
 void showLightComponent(Raz::Light& light, QVBoxLayout& layout) {
