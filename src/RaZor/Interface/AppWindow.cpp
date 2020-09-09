@@ -1,5 +1,6 @@
 #include "RaZor/Interface/AppWindow.hpp"
 #include "RaZor/Interface/MainWindow.hpp"
+#include "ui_LightComp.h"
 #include "ui_MeshComp.h"
 #include "ui_TransformComp.h"
 
@@ -145,45 +146,30 @@ void showMeshComponent(Raz::Mesh& mesh, QVBoxLayout& layout) {
   layout.addWidget(meshWidget);
 }
 
-void showLightComponent(Raz::Light& light, QVBoxLayout& layout) {
-  auto* lightGroup = createComponentGroupBox("Light");
+void showLightComponent(Raz::Light& light, QVBoxLayout& layout, Raz::RenderSystem& renderSystem) {
+  Ui::LightComp lightComp;
 
-  {
-    auto* lightLayout = new QGridLayout();
-    lightLayout->setAlignment(Qt::AlignmentFlag::AlignTop);
+  auto* lightWidget = new QGroupBox();
+  lightComp.setupUi(lightWidget);
 
-    {
-      lightLayout->addWidget(new QLabel("Direction"), 0, 0);
+  lightComp.directionX->setValue(static_cast<double>(light.getDirection()[0]));
+  lightComp.directionY->setValue(static_cast<double>(light.getDirection()[1]));
+  lightComp.directionZ->setValue(static_cast<double>(light.getDirection()[2]));
 
-      auto* directionLayout = new QHBoxLayout();
+  QObject::connect(lightComp.directionX, QOverload<double>::of(&QDoubleSpinBox::valueChanged), [&light, &renderSystem] (double val) {
+    light.setDirection(Raz::Vec3f(static_cast<float>(val), light.getDirection()[1], light.getDirection()[2]));
+    renderSystem.updateLights();
+  });
+  QObject::connect(lightComp.directionY, QOverload<double>::of(&QDoubleSpinBox::valueChanged), [&light, &renderSystem] (double val) {
+    light.setDirection(Raz::Vec3f(light.getDirection()[0], static_cast<float>(val), light.getDirection()[2]));
+    renderSystem.updateLights();
+  });
+  QObject::connect(lightComp.directionZ, QOverload<double>::of(&QDoubleSpinBox::valueChanged), [&light, &renderSystem] (double val) {
+    light.setDirection(Raz::Vec3f(light.getDirection()[0], light.getDirection()[1], static_cast<float>(val)));
+    renderSystem.updateLights();
+  });
 
-      {
-        auto* xDir = createComponentSpinBox(light.getDirection()[0]);
-        QObject::connect(xDir, QOverload<double>::of(&QDoubleSpinBox::valueChanged), [&light] (double val) {
-          light.setDirection(Raz::Vec3f(static_cast<float>(val), light.getDirection()[1], light.getDirection()[2]));
-        });
-        directionLayout->addWidget(xDir);
-
-        auto* yDir = createComponentSpinBox(light.getDirection()[1]);
-        QObject::connect(yDir, QOverload<double>::of(&QDoubleSpinBox::valueChanged), [&light] (double val) {
-          light.setDirection(Raz::Vec3f(light.getDirection()[0], static_cast<float>(val), light.getDirection()[2]));
-        });
-        directionLayout->addWidget(yDir);
-
-        auto* zDir = createComponentSpinBox(light.getDirection()[2]);
-        QObject::connect(zDir, QOverload<double>::of(&QDoubleSpinBox::valueChanged), [&light] (double val) {
-          light.setDirection(Raz::Vec3f(light.getDirection()[0], light.getDirection()[1], static_cast<float>(val)));
-        });
-        directionLayout->addWidget(zDir);
-      }
-
-      lightLayout->addLayout(directionLayout, 0, 1);
-    }
-
-    lightGroup->setLayout(lightLayout);
-  }
-
-  layout.addWidget(lightGroup);
+  layout.addWidget(lightWidget);
 }
 
 } // namespace
@@ -498,17 +484,19 @@ void AppWindow::loadComponents(const QString& entityName) {
   }
 
   if (entity.hasComponent<Raz::Light>()) {
-    showLightComponent(entity.getComponent<Raz::Light>(), *m_parentWindow->m_window.componentsLayout);
+    showLightComponent(entity.getComponent<Raz::Light>(),
+                       *m_parentWindow->m_window.componentsLayout,
+                       m_application.getWorlds().back().getSystem<Raz::RenderSystem>());
     --remainingComponentCount;
   }
 
   if (remainingComponentCount > 0)
     m_parentWindow->m_window.componentsLayout->addWidget(new QLabel(QString::number(remainingComponentCount) + tr(" component(s) not displayed.")));
 
-  showAddComponent(entity, entityName);
+  showAddComponent(entity, entityName, m_application.getWorlds().back().getSystem<Raz::RenderSystem>());
 }
 
-void AppWindow::showAddComponent(Raz::Entity& entity, const QString& entityName) {
+void AppWindow::showAddComponent(Raz::Entity& entity, const QString& entityName, Raz::RenderSystem& renderSystem) {
   auto* addComponent = new QPushButton(tr("Add component"));
 
   auto* contextMenu  = new QMenu(tr("Add component"), addComponent);
@@ -530,14 +518,16 @@ void AppWindow::showAddComponent(Raz::Entity& entity, const QString& entityName)
     addLight->setEnabled(false);
   } else {
     QAction* addPointLight = addLight->addAction(tr("Point light"));
-    connect(addPointLight, &QAction::triggered, [this, &entity, entityName] () {
+    connect(addPointLight, &QAction::triggered, [this, &entity, entityName, &renderSystem] () {
       entity.addComponent<Raz::Light>(Raz::LightType::POINT, 1.f);
+      renderSystem.updateLights();
       loadComponents(entityName);
     });
 
     QAction* addDirectionalLight = addLight->addAction(tr("Directional light"));
-    connect(addDirectionalLight, &QAction::triggered, [this, &entity, entityName] () {
+    connect(addDirectionalLight, &QAction::triggered, [this, &entity, entityName, &renderSystem] () {
       entity.addComponent<Raz::Light>(Raz::LightType::DIRECTIONAL, Raz::Axis::Z, 1.f);
+      renderSystem.updateLights();
       loadComponents(entityName);
     });
   }
