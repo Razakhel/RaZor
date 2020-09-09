@@ -28,7 +28,11 @@ using namespace std::literals;
 
 namespace {
 
-void showTransformComponent(Raz::Transform& transform, QVBoxLayout& layout) {
+void showTransformComponent(Raz::Entity& entity, QVBoxLayout& layout, const Raz::RenderSystem& renderSystem) {
+  assert("Error: The entity must have a Transform component to be shown." && entity.hasComponent<Raz::Transform>());
+
+  auto& transform = entity.getComponent<Raz::Transform>();
+
   Ui::TransformComp transformComp;
 
   auto* transformWidget = new QGroupBox();
@@ -40,14 +44,23 @@ void showTransformComponent(Raz::Transform& transform, QVBoxLayout& layout) {
   transformComp.positionY->setValue(static_cast<double>(transform.getPosition()[1]));
   transformComp.positionZ->setValue(static_cast<double>(transform.getPosition()[2]));
 
-  QObject::connect(transformComp.positionX, QOverload<double>::of(&QDoubleSpinBox::valueChanged), [&transform] (double val) {
+  QObject::connect(transformComp.positionX, QOverload<double>::of(&QDoubleSpinBox::valueChanged), [&transform, &entity, &renderSystem] (double val) {
     transform.setPosition(static_cast<float>(val), transform.getPosition()[1], transform.getPosition()[2]);
+
+    if (entity.hasComponent<Raz::Light>())
+      renderSystem.updateLights();
   });
-  QObject::connect(transformComp.positionY, QOverload<double>::of(&QDoubleSpinBox::valueChanged), [&transform] (double val) {
+  QObject::connect(transformComp.positionY, QOverload<double>::of(&QDoubleSpinBox::valueChanged), [&transform, &entity, &renderSystem] (double val) {
     transform.setPosition(transform.getPosition()[0], static_cast<float>(val), transform.getPosition()[2]);
+
+    if (entity.hasComponent<Raz::Light>())
+      renderSystem.updateLights();
   });
-  QObject::connect(transformComp.positionZ, QOverload<double>::of(&QDoubleSpinBox::valueChanged), [&transform] (double val) {
+  QObject::connect(transformComp.positionZ, QOverload<double>::of(&QDoubleSpinBox::valueChanged), [&transform, &entity, &renderSystem] (double val) {
     transform.setPosition(transform.getPosition()[0], transform.getPosition()[1], static_cast<float>(val));
+
+    if (entity.hasComponent<Raz::Light>())
+      renderSystem.updateLights();
   });
 
   // Rotation
@@ -126,7 +139,7 @@ void showMeshComponent(Raz::Mesh& mesh, QVBoxLayout& layout) {
   layout.addWidget(meshWidget);
 }
 
-void showLightComponent(Raz::Light& light, QVBoxLayout& layout, Raz::RenderSystem& renderSystem) {
+void showLightComponent(Raz::Light& light, QVBoxLayout& layout, const Raz::RenderSystem& renderSystem) {
   Ui::LightComp lightComp;
 
   auto* lightWidget = new QGroupBox();
@@ -185,9 +198,9 @@ void AppWindow::initialize() {
   renderSystem.getGeometryProgram().setShaders(Raz::VertexShader(RAZ_ROOT + std::string("shaders/common.vert")),
                                                Raz::FragmentShader(RAZ_ROOT + std::string("shaders/cook-torrance.frag")));
 
-  Raz::Entity& camera = addEntity("Camera");
-  m_cameraComp        = &camera.addComponent<Raz::Camera>(windowSize.width(), windowSize.height());
-  m_cameraTrans       = &camera.addComponent<Raz::Transform>(Raz::Vec3f(0.f, 0.f, -5.f));
+  m_cameraEntity = &addEntity("Camera");
+  m_cameraComp   = &m_cameraEntity->addComponent<Raz::Camera>(windowSize.width(), windowSize.height());
+  m_cameraTrans  = &m_cameraEntity->addComponent<Raz::Transform>(Raz::Vec3f(0.f, 0.f, -5.f));
 
   Raz::Entity& light = addEntity("Light");
   light.addComponent<Raz::Light>(Raz::LightType::DIRECTIONAL, // Type
@@ -373,6 +386,10 @@ void AppWindow::mouseMoveEvent(QMouseEvent* event) {
   if (m_middleClickPressed)
     m_cameraTrans->move(-mouseMoveX * 10.f, mouseMoveY * 10.f, 0);
 
+  // If the camera has a light & has moved, update all of them
+  if (m_cameraEntity->hasComponent<Raz::Light>() && (m_rightClickPressed || m_middleClickPressed))
+    m_application.getWorlds().back().getSystem<Raz::RenderSystem>().updateLights();
+
   m_prevMousePos = currMousePos;
 }
 
@@ -382,6 +399,10 @@ void AppWindow::wheelEvent(QWheelEvent* event) {
   const auto yOffset = static_cast<float>(event->angleDelta().y()) / 120.f * m_application.getDeltaTime();
 
   m_cameraTrans->move(Raz::Vec3f(0.f, 0.f, -200.f * yOffset));
+
+  // If the camera has a non-directional light, update all of them
+  if (m_cameraEntity->hasComponent<Raz::Light>() && (m_cameraEntity->getComponent<Raz::Light>().getType() != Raz::LightType::DIRECTIONAL))
+    m_application.getWorlds().back().getSystem<Raz::RenderSystem>().updateLights();
 
   // If handled, the event must be accepted to not be propagated
   event->accept();
@@ -451,7 +472,7 @@ void AppWindow::loadComponents(const QString& entityName) {
   std::size_t remainingComponentCount = entity.getEnabledComponents().getEnabledBitCount();
 
   if (entity.hasComponent<Raz::Transform>()) {
-    showTransformComponent(entity.getComponent<Raz::Transform>(), *m_parentWindow->m_window.componentsLayout);
+    showTransformComponent(entity, *m_parentWindow->m_window.componentsLayout, m_application.getWorlds().back().getSystem<Raz::RenderSystem>());
     --remainingComponentCount;
   }
 
@@ -478,7 +499,7 @@ void AppWindow::loadComponents(const QString& entityName) {
   showAddComponent(entity, entityName, m_application.getWorlds().back().getSystem<Raz::RenderSystem>());
 }
 
-void AppWindow::showAddComponent(Raz::Entity& entity, const QString& entityName, Raz::RenderSystem& renderSystem) {
+void AppWindow::showAddComponent(Raz::Entity& entity, const QString& entityName, const Raz::RenderSystem& renderSystem) {
   auto* addComponent = new QPushButton(tr("Add component"));
 
   auto* contextMenu  = new QMenu(tr("Add component"), addComponent);
@@ -547,4 +568,8 @@ void AppWindow::processActions() {
     m_cameraComp->setOrthoBoundX(m_cameraComp->getOrthoBoundX() + moveVal / 2);
     m_cameraComp->setOrthoBoundY(m_cameraComp->getOrthoBoundY() + moveVal / 2);
   }
+
+  // If the camera entity has a Light component & has moved, update all of them
+  if (m_cameraEntity->hasComponent<Raz::Light>() && (m_movingRight || m_movingLeft || m_movingUp || m_movingDown || m_movingForward || m_movingBackward))
+    m_application.getWorlds().back().getSystem<Raz::RenderSystem>().updateLights();
 }

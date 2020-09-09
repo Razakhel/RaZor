@@ -4,48 +4,48 @@
 <context>
     <name>AppWindow</name>
     <message>
-        <location filename="../../src/RaZor/Interface/AppWindow.cpp" line="475"/>
+        <location filename="../../src/RaZor/Interface/AppWindow.cpp" line="438"/>
         <source>Importing </source>
         <translation>Importing </translation>
     </message>
     <message>
-        <location filename="../../src/RaZor/Interface/AppWindow.cpp" line="485"/>
+        <location filename="../../src/RaZor/Interface/AppWindow.cpp" line="448"/>
         <source>Finished importing</source>
         <translation>Finished importing</translation>
     </message>
     <message>
-        <location filename="../../src/RaZor/Interface/AppWindow.cpp" line="504"/>
+        <location filename="../../src/RaZor/Interface/AppWindow.cpp" line="467"/>
         <source>Failed to find an entity named</source>
         <translation>Failed to find an entity named</translation>
     </message>
     <message>
-        <location filename="../../src/RaZor/Interface/AppWindow.cpp" line="532"/>
+        <location filename="../../src/RaZor/Interface/AppWindow.cpp" line="497"/>
         <source> component(s) not displayed.</source>
         <translation> component(s) not displayed.</translation>
     </message>
     <message>
-        <location filename="../../src/RaZor/Interface/AppWindow.cpp" line="538"/>
-        <location filename="../../src/RaZor/Interface/AppWindow.cpp" line="540"/>
+        <location filename="../../src/RaZor/Interface/AppWindow.cpp" line="503"/>
+        <location filename="../../src/RaZor/Interface/AppWindow.cpp" line="505"/>
         <source>Add component</source>
         <translation>Add component</translation>
     </message>
     <message>
-        <location filename="../../src/RaZor/Interface/AppWindow.cpp" line="542"/>
+        <location filename="../../src/RaZor/Interface/AppWindow.cpp" line="507"/>
         <source>Transform</source>
         <translation>Transform</translation>
     </message>
     <message>
-        <location filename="../../src/RaZor/Interface/AppWindow.cpp" line="553"/>
+        <location filename="../../src/RaZor/Interface/AppWindow.cpp" line="518"/>
         <source>Light</source>
         <translation>Light</translation>
     </message>
     <message>
-        <location filename="../../src/RaZor/Interface/AppWindow.cpp" line="558"/>
+        <location filename="../../src/RaZor/Interface/AppWindow.cpp" line="523"/>
         <source>Point light</source>
         <translation>Point light</translation>
     </message>
     <message>
-        <location filename="../../src/RaZor/Interface/AppWindow.cpp" line="564"/>
+        <location filename="../../src/RaZor/Interface/AppWindow.cpp" line="530"/>
         <source>Directional light</source>
         <translation>Directional light</translation>
     </message>

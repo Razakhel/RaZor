@@ -53,7 +53,7 @@ private:
   void importMesh(const Raz::FilePath& filePath);
   void clearComponents();
   void loadComponents(const QString& entityName);
-  void showAddComponent(Raz::Entity& entity, const QString& entityName, Raz::RenderSystem& renderSystem);
+  void showAddComponent(Raz::Entity& entity, const QString& entityName, const Raz::RenderSystem& renderSystem);
   void processActions();
 
   MainWindow* m_parentWindow {};
@@ -61,6 +61,7 @@ private:
   QOpenGLContext* m_context {};
 
   Raz::Application m_application {};
+  Raz::Entity* m_cameraEntity {};
   Raz::Camera* m_cameraComp {};
   Raz::Transform* m_cameraTrans {};
 
