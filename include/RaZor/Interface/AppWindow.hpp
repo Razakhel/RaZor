@@ -23,6 +23,8 @@ class MainWindow;
 namespace Raz {
 
 class Camera;
+class Light;
+class Mesh;
 class RenderSystem;
 class Transform;
 
@@ -53,6 +55,10 @@ private:
   void importMesh(const Raz::FilePath& filePath);
   void clearComponents();
   void loadComponents(const QString& entityName);
+  void showTransformComponent(Raz::Entity& entity);
+  void showCameraComponent(Raz::Camera& camera);
+  void showMeshComponent(Raz::Mesh& mesh);
+  void showLightComponent(Raz::Light& light);
   void showAddComponent(Raz::Entity& entity, const QString& entityName, const Raz::RenderSystem& renderSystem);
   void processActions();
 
