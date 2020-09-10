@@ -24,28 +24,28 @@
         <translation> composant(s) non affiché(s).</translation>
     </message>
     <message>
-        <location filename="../../src/RaZor/Interface/AppComponents.cpp" line="233"/>
-        <location filename="../../src/RaZor/Interface/AppComponents.cpp" line="235"/>
+        <location filename="../../src/RaZor/Interface/AppComponents.cpp" line="242"/>
+        <location filename="../../src/RaZor/Interface/AppComponents.cpp" line="244"/>
         <source>Add component</source>
         <translation>Ajouter composant</translation>
     </message>
     <message>
-        <location filename="../../src/RaZor/Interface/AppComponents.cpp" line="237"/>
+        <location filename="../../src/RaZor/Interface/AppComponents.cpp" line="246"/>
         <source>Transform</source>
         <translation>Transformation</translation>
     </message>
     <message>
-        <location filename="../../src/RaZor/Interface/AppComponents.cpp" line="248"/>
+        <location filename="../../src/RaZor/Interface/AppComponents.cpp" line="257"/>
         <source>Light</source>
         <translation>Lumière</translation>
     </message>
     <message>
-        <location filename="../../src/RaZor/Interface/AppComponents.cpp" line="253"/>
+        <location filename="../../src/RaZor/Interface/AppComponents.cpp" line="262"/>
         <source>Point light</source>
         <translation>Lumière positionnelle</translation>
     </message>
     <message>
-        <location filename="../../src/RaZor/Interface/AppComponents.cpp" line="260"/>
+        <location filename="../../src/RaZor/Interface/AppComponents.cpp" line="269"/>
         <source>Directional light</source>
         <translation>Lumière directionnelle</translation>
     </message>
@@ -235,7 +235,7 @@
         <translation>Points</translation>
     </message>
     <message>
-        <location filename="../../interface/MeshComp.ui" line="82"/>
+        <location filename="../../interface/MeshComp.ui" line="72"/>
         <source>Mesh file</source>
         <translation>Fichier de maillage</translation>
     </message>

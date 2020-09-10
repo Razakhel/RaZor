@@ -24,28 +24,28 @@
         <translation> component(s) not displayed.</translation>
     </message>
     <message>
-        <location filename="../../src/RaZor/Interface/AppComponents.cpp" line="233"/>
-        <location filename="../../src/RaZor/Interface/AppComponents.cpp" line="235"/>
+        <location filename="../../src/RaZor/Interface/AppComponents.cpp" line="242"/>
+        <location filename="../../src/RaZor/Interface/AppComponents.cpp" line="244"/>
         <source>Add component</source>
         <translation>Add component</translation>
     </message>
     <message>
-        <location filename="../../src/RaZor/Interface/AppComponents.cpp" line="237"/>
+        <location filename="../../src/RaZor/Interface/AppComponents.cpp" line="246"/>
         <source>Transform</source>
         <translation>Transform</translation>
     </message>
     <message>
-        <location filename="../../src/RaZor/Interface/AppComponents.cpp" line="248"/>
+        <location filename="../../src/RaZor/Interface/AppComponents.cpp" line="257"/>
         <source>Light</source>
         <translation>Light</translation>
     </message>
     <message>
-        <location filename="../../src/RaZor/Interface/AppComponents.cpp" line="253"/>
+        <location filename="../../src/RaZor/Interface/AppComponents.cpp" line="262"/>
         <source>Point light</source>
         <translation>Point light</translation>
     </message>
     <message>
-        <location filename="../../src/RaZor/Interface/AppComponents.cpp" line="260"/>
+        <location filename="../../src/RaZor/Interface/AppComponents.cpp" line="269"/>
         <source>Directional light</source>
         <translation>Directional light</translation>
     </message>
@@ -235,7 +235,7 @@
         <translation>Points</translation>
     </message>
     <message>
-        <location filename="../../interface/MeshComp.ui" line="82"/>
+        <location filename="../../interface/MeshComp.ui" line="72"/>
         <source>Mesh file</source>
         <translation>Mesh file</translation>
     </message>

@@ -147,6 +147,8 @@ void AppWindow::showCameraComponent(Raz::Camera& camera) {
 }
 
 void AppWindow::showMeshComponent(Raz::Mesh& mesh) {
+  const Raz::RenderSystem& renderSystem = m_application.getWorlds().back().getSystem<Raz::RenderSystem>();
+
   Ui::MeshComp meshComp;
 
   auto* meshWidget = new QGroupBox();
@@ -166,6 +168,13 @@ void AppWindow::showMeshComponent(Raz::Mesh& mesh) {
 
   QObject::connect(meshComp.renderMode, QOverload<int>::of(&QComboBox::currentIndexChanged), [&mesh] (int index) {
     mesh.setRenderMode((index == 0 ? Raz::RenderMode::TRIANGLE : Raz::RenderMode::POINT));
+  });
+
+  // Mesh file
+
+  QObject::connect(meshComp.meshFile, &QLineEdit::textChanged, [&mesh, &renderSystem] (const QString& filePath) {
+    mesh.import(filePath.toStdString());
+    mesh.load(renderSystem.getGeometryProgram());
   });
 
   m_parentWindow->m_window.componentsLayout->addWidget(meshWidget);
