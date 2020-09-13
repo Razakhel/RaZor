@@ -53,6 +53,10 @@ protected:
 private:
   Raz::Entity& addEntity(QString name);
   void importMesh(const Raz::FilePath& filePath);
+  void loadCubemap(const Raz::FilePath& rightTexturePath, const Raz::FilePath& leftTexturePath,
+                   const Raz::FilePath& topTexturePath, const Raz::FilePath& bottomTexturePath,
+                   const Raz::FilePath& frontTexturePath, const Raz::FilePath& backTexturePath);
+
   void clearComponents();
   void loadComponents(const QString& entityName);
   void showTransformComponent(Raz::Entity& entity);

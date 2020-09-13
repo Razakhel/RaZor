@@ -13,6 +13,9 @@
   <property name="windowTitle">
    <string notr="true">RaZor</string>
   </property>
+  <property name="locale">
+   <locale language="English" country="UnitedStates"/>
+  </property>
   <widget class="QWidget" name="centralWidget"/>
   <widget class="QMenuBar" name="menuBar">
    <property name="geometry">
@@ -44,8 +47,30 @@
     </widget>
     <addaction name="viewWindows"/>
    </widget>
+   <widget class="QMenu" name="menu_Tools">
+    <property name="title">
+     <string>&amp;Tools</string>
+    </property>
+    <widget class="QMenu" name="toolsSystems">
+     <property name="title">
+      <string>&amp;Systems</string>
+     </property>
+     <addaction name="renderSystemSettings"/>
+    </widget>
+    <addaction name="toolsSystems"/>
+    <addaction name="separator"/>
+    <addaction name="action_Options"/>
+   </widget>
+   <widget class="QMenu" name="menu_Help">
+    <property name="title">
+     <string>&amp;Help</string>
+    </property>
+    <addaction name="action_About"/>
+   </widget>
    <addaction name="menu_File"/>
    <addaction name="menu_View"/>
+   <addaction name="menu_Tools"/>
+   <addaction name="menu_Help"/>
   </widget>
   <widget class="QStatusBar" name="statusBar"/>
   <widget class="QDockWidget" name="entitiesPanel">
@@ -226,6 +251,27 @@
   <action name="viewWindowComponents">
    <property name="text">
     <string>&amp;Components</string>
+   </property>
+  </action>
+  <action name="renderSystemSettings">
+   <property name="text">
+    <string>&amp;Render system settings...</string>
+   </property>
+  </action>
+  <action name="action_Options">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
+   <property name="text">
+    <string>&amp;Options...</string>
+   </property>
+  </action>
+  <action name="action_About">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
+   <property name="text">
+    <string>&amp;About</string>
    </property>
   </action>
  </widget>

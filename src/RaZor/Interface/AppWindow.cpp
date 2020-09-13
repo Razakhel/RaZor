@@ -300,6 +300,14 @@ void AppWindow::importMesh(const Raz::FilePath& filePath) {
   m_parentWindow->m_window.statusBar->showMessage(tr("Finished importing"), 3000);
 }
 
+void AppWindow::loadCubemap(const Raz::FilePath& rightTexturePath, const Raz::FilePath& leftTexturePath,
+                            const Raz::FilePath& topTexturePath, const Raz::FilePath& bottomTexturePath,
+                            const Raz::FilePath& frontTexturePath, const Raz::FilePath& backTexturePath) {
+  m_application.getWorlds().back().getSystem<Raz::RenderSystem>().setCubemap(Raz::Cubemap(rightTexturePath, leftTexturePath,
+                                                                                          topTexturePath, bottomTexturePath,
+                                                                                          frontTexturePath, backTexturePath));
+}
+
 void AppWindow::processActions() {
   const float moveVal = 10.f * m_application.getDeltaTime();
 

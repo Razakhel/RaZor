@@ -5,6 +5,7 @@
 
 #include "RaZor/Interface/AppWindow.hpp"
 #include "ui_RaZor.h"
+#include "ui_RenderSystemSettings.h"
 
 class MainWindow : public QMainWindow {
   Q_OBJECT
@@ -28,6 +29,9 @@ private:
 
   Ui::MainWindow m_window {};
   AppWindow m_appWindow {};
+
+  Ui::RenderSystemSettings m_renderSystemSettings {};
+  QDialog m_renderSystemSettingsDialog {};
 };
 
 #endif // RAZOR_MAINWINDOW_HPP
