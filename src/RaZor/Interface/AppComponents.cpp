@@ -243,6 +243,8 @@ void AppWindow::showAddComponent(Raz::Entity& entity, const QString& entityName,
 
   auto* contextMenu  = new QMenu(tr("Add component"), addComponent);
 
+  // Transform
+
   QAction* addTransform = contextMenu->addAction(tr("Transform"));
 
   if (entity.hasComponent<Raz::Transform>()) {
@@ -253,6 +255,21 @@ void AppWindow::showAddComponent(Raz::Entity& entity, const QString& entityName,
       loadComponents(entityName);
     });
   }
+
+  // Mesh
+
+  QAction* addMesh = contextMenu->addAction(tr("Mesh"));
+
+  if (entity.hasComponent<Raz::Mesh>() || !entity.hasComponent<Raz::Transform>()) {
+    addMesh->setEnabled(false);
+  } else {
+    connect(addMesh, &QAction::triggered, [this, &entity, entityName] () {
+      entity.addComponent<Raz::Mesh>();
+      loadComponents(entityName);
+    });
+  }
+
+  // Light
 
   QMenu* addLight = contextMenu->addMenu(tr("Light"));
 

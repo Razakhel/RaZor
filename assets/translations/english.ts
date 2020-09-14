@@ -30,22 +30,27 @@
         <translation>Add component</translation>
     </message>
     <message>
-        <location filename="../../src/RaZor/Interface/AppComponents.cpp" line="246"/>
+        <location filename="../../src/RaZor/Interface/AppComponents.cpp" line="248"/>
         <source>Transform</source>
         <translation>Transform</translation>
     </message>
     <message>
-        <location filename="../../src/RaZor/Interface/AppComponents.cpp" line="257"/>
+        <location filename="../../src/RaZor/Interface/AppComponents.cpp" line="261"/>
+        <source>Mesh</source>
+        <translation>Mesh</translation>
+    </message>
+    <message>
+        <location filename="../../src/RaZor/Interface/AppComponents.cpp" line="274"/>
         <source>Light</source>
         <translation>Light</translation>
     </message>
     <message>
-        <location filename="../../src/RaZor/Interface/AppComponents.cpp" line="262"/>
+        <location filename="../../src/RaZor/Interface/AppComponents.cpp" line="279"/>
         <source>Point light</source>
         <translation>Point light</translation>
     </message>
     <message>
-        <location filename="../../src/RaZor/Interface/AppComponents.cpp" line="269"/>
+        <location filename="../../src/RaZor/Interface/AppComponents.cpp" line="286"/>
         <source>Directional light</source>
         <translation>Directional light</translation>
     </message>
