@@ -23,6 +23,12 @@ bool isValid(const QString& filePath) {
 } // namespace
 
 template <FileType FileT>
+FileWidget<FileT>::FileWidget(QWidget* parent) : QLineEdit(parent) {
+  setAcceptDrops(true);
+  setReadOnly(true);
+}
+
+template <FileType FileT>
 void FileWidget<FileT>::dragEnterEvent(QDragEnterEvent* event) {
   if (!isValid<FileT>(event->mimeData()->text()))
     return;

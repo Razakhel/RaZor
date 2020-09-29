@@ -236,7 +236,7 @@ void AppWindow::mouseMoveEvent(QMouseEvent* event) {
 
   // If the camera has a light & has moved, update all of them
   if (m_cameraEntity->hasComponent<Raz::Light>() && (m_rightClickPressed || m_middleClickPressed))
-    m_application.getWorlds().back().getSystem<Raz::RenderSystem>().updateLights();
+    updateLights();
 
   m_prevMousePos = currMousePos;
 }
@@ -254,7 +254,7 @@ void AppWindow::wheelEvent(QWheelEvent* event) {
 
   // If the camera has a non-directional light, update all of them
   if (m_cameraEntity->hasComponent<Raz::Light>() && (m_cameraEntity->getComponent<Raz::Light>().getType() != Raz::LightType::DIRECTIONAL))
-    m_application.getWorlds().back().getSystem<Raz::RenderSystem>().updateLights();
+    updateLights();
 
   // If handled, the event must be accepted to not be propagated
   event->accept();
@@ -278,7 +278,10 @@ Raz::Entity& AppWindow::addEntity(QString name) {
   while (m_entities.find(name) != m_entities.cend())
     name = origName + QString::number(entityId++);
 
-  m_parentWindow->m_window.entitiesList->addItem(name);
+  auto* entityItem = new QListWidgetItem(name);
+  entityItem->setFlags(entityItem->flags() | Qt::ItemFlag::ItemIsUserCheckable);
+  entityItem->setCheckState(Qt::CheckState::Checked);
+  m_parentWindow->m_window.entitiesList->addItem(entityItem);
 
   Raz::Entity& entity = m_application.getWorlds().back().addEntity();
   m_entities.emplace(std::move(name), &entity);
@@ -306,6 +309,10 @@ void AppWindow::loadCubemap(const Raz::FilePath& rightTexturePath, const Raz::Fi
   m_application.getWorlds().back().getSystem<Raz::RenderSystem>().setCubemap(Raz::Cubemap(rightTexturePath, leftTexturePath,
                                                                                           topTexturePath, bottomTexturePath,
                                                                                           frontTexturePath, backTexturePath));
+}
+
+void AppWindow::updateLights() const {
+  m_application.getWorlds().back().getSystem<Raz::RenderSystem>().updateLights();
 }
 
 void AppWindow::processActions() {
@@ -339,5 +346,5 @@ void AppWindow::processActions() {
 
   // If the camera entity has a Light component & has moved, update all of them
   if (m_cameraEntity->hasComponent<Raz::Light>() && (m_movingRight || m_movingLeft || m_movingUp || m_movingDown || m_movingForward || m_movingBackward))
-    m_application.getWorlds().back().getSystem<Raz::RenderSystem>().updateLights();
+    updateLights();
 }

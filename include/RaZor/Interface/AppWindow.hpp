@@ -56,6 +56,7 @@ private:
   void loadCubemap(const Raz::FilePath& rightTexturePath, const Raz::FilePath& leftTexturePath,
                    const Raz::FilePath& topTexturePath, const Raz::FilePath& bottomTexturePath,
                    const Raz::FilePath& frontTexturePath, const Raz::FilePath& backTexturePath);
+  void updateLights() const;
 
   void clearComponents();
   void loadComponents(const QString& entityName);

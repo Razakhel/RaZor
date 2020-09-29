@@ -13,7 +13,7 @@ enum class FileType {
 template <FileType FileT>
 class FileWidget : public QLineEdit {
 public:
-  explicit FileWidget(QWidget* parent) : QLineEdit(parent) { setAcceptDrops(true); }
+  explicit FileWidget(QWidget* parent);
 
 protected:
   void dragEnterEvent(QDragEnterEvent* event) override;

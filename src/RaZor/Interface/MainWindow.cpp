@@ -1,5 +1,8 @@
 #include "RaZor/Interface/MainWindow.hpp"
 
+#include <RaZ/Render/Light.hpp>
+#include <RaZ/Render/RenderSystem.hpp>
+
 #include <QFileDialog>
 #include <QKeyEvent>
 
@@ -102,6 +105,15 @@ void MainWindow::setupActions() {
 
   // Entities list
 
+  connect(m_window.entitiesList, &QListWidget::itemChanged, [this] (QListWidgetItem* item) {
+    Raz::Entity* entity = m_appWindow.m_entities.find(item->text())->second;
+    assert("Error: Unrecognized enabled/disabled entity." && (entity != nullptr)); // There should be a big problem if this ever occurs...
+
+    entity->enable((item->checkState() != Qt::CheckState::Unchecked));
+
+    if (entity->hasComponent<Raz::Light>())
+      m_appWindow.updateLights();
+  });
   connect(m_window.entitiesList, &QListWidget::itemSelectionChanged, &m_appWindow, [this] () {
     if (m_window.entitiesList->currentItem()->isSelected())
       m_appWindow.loadComponents(m_window.entitiesList->currentItem()->text());
