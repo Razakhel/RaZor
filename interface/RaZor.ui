@@ -123,7 +123,7 @@
       <number>0</number>
      </property>
      <item row="0" column="0">
-      <widget class="QListWidget" name="entitiesList">
+      <widget class="EntitiesList" name="entitiesList">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
          <horstretch>0</horstretch>
@@ -275,6 +275,13 @@
    </property>
   </action>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>EntitiesList</class>
+   <extends>QListWidget</extends>
+   <header>RaZor/Interface/EntitiesList.hpp</header>
+  </customwidget>
+ </customwidgets>
  <resources/>
  <connections/>
 </ui>

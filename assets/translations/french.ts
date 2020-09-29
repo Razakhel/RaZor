@@ -4,22 +4,22 @@
 <context>
     <name>AppWindow</name>
     <message>
-        <location filename="../../src/RaZor/Interface/AppWindow.cpp" line="290"/>
+        <location filename="../../src/RaZor/Interface/AppWindow.cpp" line="311"/>
         <source>Importing </source>
         <translation>Chargement de </translation>
     </message>
     <message>
-        <location filename="../../src/RaZor/Interface/AppWindow.cpp" line="300"/>
+        <location filename="../../src/RaZor/Interface/AppWindow.cpp" line="321"/>
         <source>Finished importing</source>
         <translation>Chargement terminé</translation>
     </message>
     <message>
-        <location filename="../../src/RaZor/Interface/AppComponents.cpp" line="29"/>
+        <location filename="../../src/RaZor/Interface/AppComponents.cpp" line="20"/>
         <source>Failed to find an entity named</source>
         <translation>N&apos;a pas pu trouver une entité appelée</translation>
     </message>
     <message>
-        <location filename="../../src/RaZor/Interface/AppComponents.cpp" line="57"/>
+        <location filename="../../src/RaZor/Interface/AppComponents.cpp" line="48"/>
         <source> component(s) not displayed.</source>
         <translation> composant(s) non affiché(s).</translation>
     </message>
@@ -126,22 +126,22 @@
 <context>
     <name>MainWindow</name>
     <message>
-        <location filename="../../src/RaZor/Interface/MainWindow.cpp" line="27"/>
+        <location filename="../../src/RaZor/Interface/MainWindow.cpp" line="31"/>
         <source>Ready</source>
         <translation>Prêt</translation>
     </message>
     <message>
-        <location filename="../../src/RaZor/Interface/MainWindow.cpp" line="47"/>
+        <location filename="../../src/RaZor/Interface/MainWindow.cpp" line="51"/>
         <source>Import a file</source>
         <translation>Importer un fichier</translation>
     </message>
     <message>
-        <location filename="../../src/RaZor/Interface/MainWindow.cpp" line="47"/>
+        <location filename="../../src/RaZor/Interface/MainWindow.cpp" line="51"/>
         <source>Mesh</source>
         <translation>Maillage</translation>
     </message>
     <message>
-        <location filename="../../src/RaZor/Interface/MainWindow.cpp" line="72"/>
+        <location filename="../../src/RaZor/Interface/MainWindow.cpp" line="76"/>
         <source>Unexpected empty field</source>
         <translation>Champ vide inattendu</translation>
     </message>

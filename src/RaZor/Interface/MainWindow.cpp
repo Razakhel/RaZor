@@ -18,6 +18,7 @@ MainWindow::MainWindow() {
   setCentralWidget(renderSurface);
 
   m_appWindow.m_parentWindow = this;
+  m_window.entitiesList->m_appWindow = &m_appWindow;
 
   QIcon icon;
   icon.addFile(QString::fromUtf8(":/logo/256"), QSize(), QIcon::Mode::Normal, QIcon::State::Off);
@@ -103,23 +104,8 @@ void MainWindow::setupActions() {
   // Help menu
   // TODO
 
-  // Entities list
+  // Entities
 
-  connect(m_window.entitiesList, &QListWidget::itemChanged, [this] (QListWidgetItem* item) {
-    Raz::Entity* entity = m_appWindow.m_entities.find(item->text())->second;
-    assert("Error: Unrecognized enabled/disabled entity." && (entity != nullptr)); // There should be a big problem if this ever occurs...
-
-    entity->enable((item->checkState() != Qt::CheckState::Unchecked));
-
-    if (entity->hasComponent<Raz::Light>())
-      m_appWindow.updateLights();
-  });
-  connect(m_window.entitiesList, &QListWidget::itemSelectionChanged, &m_appWindow, [this] () {
-    if (m_window.entitiesList->currentItem()->isSelected())
-      m_appWindow.loadComponents(m_window.entitiesList->currentItem()->text());
-    else
-      m_appWindow.clearComponents(); // If the selection has been cleared, removing everything from the components panel
-  });
-  connect(m_window.addEntity, &QPushButton::clicked, &m_appWindow, [this] () { m_appWindow.addEntity("NewEntity"); });
+  connect(m_window.addEntity, &QPushButton::clicked, [this] () { m_appWindow.addEntity("NewEntity"); });
   connect(m_window.unselectEntity, &QPushButton::clicked, m_window.entitiesList, &QListWidget::clearSelection);
 }

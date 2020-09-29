@@ -80,6 +80,43 @@ void AppWindow::render() {
   requestUpdate(); // So that the window is always refreshed
 }
 
+void AppWindow::updateLights() const {
+  m_application.getWorlds().back().getSystem<Raz::RenderSystem>().updateLights();
+}
+
+Raz::Entity& AppWindow::addEntity(QString name) {
+  // If an entity with the same name already exists, append a number incremented as long as the name isn't unique
+  const QString origName = name;
+  std::size_t entityId   = 2;
+
+  while (m_entities.find(name) != m_entities.cend())
+    name = origName + QString::number(entityId++);
+
+  m_parentWindow->m_window.entitiesList->addEntity(name);
+
+  Raz::Entity& entity = m_application.getWorlds().back().addEntity();
+  m_entities.emplace(std::move(name), &entity);
+
+  return entity;
+}
+
+Raz::Entity& AppWindow::recoverEntity(const QString& name) {
+  Raz::Entity* entity = m_entities.find(name)->second;
+
+  if (entity == nullptr)
+    throw std::invalid_argument("[RaZor] Error: Unrecognized entity name '" + name.toStdString() + "'.");
+
+  return *entity;
+}
+
+void AppWindow::enableEntity(const QString& name, bool enabled) {
+  Raz::Entity& entity = recoverEntity(name);
+  entity.enable(enabled);
+
+  if (entity.hasComponent<Raz::Light>())
+    updateLights();
+}
+
 bool AppWindow::event(QEvent* event) {
   switch (event->type()) {
     case QEvent::UpdateRequest:
@@ -270,25 +307,6 @@ void AppWindow::resizeEvent(QResizeEvent* event) {
                                                                                  static_cast<unsigned int>(event->size().height()));
 }
 
-Raz::Entity& AppWindow::addEntity(QString name) {
-  // If an entity with the same name already exists, append a number incremented as long as the name isn't unique
-  const QString origName = name;
-  std::size_t entityId   = 2;
-
-  while (m_entities.find(name) != m_entities.cend())
-    name = origName + QString::number(entityId++);
-
-  auto* entityItem = new QListWidgetItem(name);
-  entityItem->setFlags(entityItem->flags() | Qt::ItemFlag::ItemIsUserCheckable);
-  entityItem->setCheckState(Qt::CheckState::Checked);
-  m_parentWindow->m_window.entitiesList->addItem(entityItem);
-
-  Raz::Entity& entity = m_application.getWorlds().back().addEntity();
-  m_entities.emplace(std::move(name), &entity);
-
-  return entity;
-}
-
 void AppWindow::importMesh(const Raz::FilePath& filePath) {
   m_parentWindow->m_window.statusBar->showMessage(tr("Importing ") + filePath.toUtf8().c_str() + "...");
 
@@ -309,10 +327,6 @@ void AppWindow::loadCubemap(const Raz::FilePath& rightTexturePath, const Raz::Fi
   m_application.getWorlds().back().getSystem<Raz::RenderSystem>().setCubemap(Raz::Cubemap(rightTexturePath, leftTexturePath,
                                                                                           topTexturePath, bottomTexturePath,
                                                                                           frontTexturePath, backTexturePath));
-}
-
-void AppWindow::updateLights() const {
-  m_application.getWorlds().back().getSystem<Raz::RenderSystem>().updateLights();
 }
 
 void AppWindow::processActions() {

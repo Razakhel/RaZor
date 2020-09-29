@@ -10,15 +10,6 @@
 #include <RaZ/Render/Mesh.hpp>
 #include <RaZ/Render/RenderSystem.hpp>
 
-void AppWindow::clearComponents() {
-  while (QLayoutItem* item = m_parentWindow->m_window.componentsLayout->takeAt(0)) {
-    QWidget* widget = item->widget();
-
-    if (widget)
-      widget->deleteLater();
-  }
-}
-
 void AppWindow::loadComponents(const QString& entityName) {
   // Removing all widgets from the components panel
   clearComponents();
@@ -57,6 +48,15 @@ void AppWindow::loadComponents(const QString& entityName) {
     m_parentWindow->m_window.componentsLayout->addWidget(new QLabel(QString::number(remainingComponentCount) + tr(" component(s) not displayed.")));
 
   showAddComponent(entity, entityName, m_application.getWorlds().back().getSystem<Raz::RenderSystem>());
+}
+
+void AppWindow::clearComponents() {
+  while (QLayoutItem* item = m_parentWindow->m_window.componentsLayout->takeAt(0)) {
+    QWidget* widget = item->widget();
+
+    if (widget)
+      widget->deleteLater();
+  }
 }
 
 void AppWindow::showTransformComponent(Raz::Entity& entity) {

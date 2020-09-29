@@ -38,6 +38,13 @@ public:
 
   void initialize();
   void render();
+  void updateLights() const;
+  Raz::Entity& addEntity(QString name);
+  Raz::Entity& recoverEntity(const QString& name);
+  void enableEntity(const QString& name, bool enabled = true);
+  void disableEntity(const QString& name) { enableEntity(name, false); }
+  void loadComponents(const QString& entityName);
+  void clearComponents();
 
 protected:
   bool event(QEvent* event) override;
@@ -51,15 +58,11 @@ protected:
   void resizeEvent(QResizeEvent* event) override;
 
 private:
-  Raz::Entity& addEntity(QString name);
   void importMesh(const Raz::FilePath& filePath);
   void loadCubemap(const Raz::FilePath& rightTexturePath, const Raz::FilePath& leftTexturePath,
                    const Raz::FilePath& topTexturePath, const Raz::FilePath& bottomTexturePath,
                    const Raz::FilePath& frontTexturePath, const Raz::FilePath& backTexturePath);
-  void updateLights() const;
 
-  void clearComponents();
-  void loadComponents(const QString& entityName);
   void showTransformComponent(Raz::Entity& entity);
   void showCameraComponent(Raz::Camera& camera);
   void showMeshComponent(Raz::Mesh& mesh);
