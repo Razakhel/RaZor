@@ -7,7 +7,8 @@
 
 enum class FileType {
   MESH,
-  IMAGE
+  IMAGE,
+  SOUND
 };
 
 template <FileType FileT>

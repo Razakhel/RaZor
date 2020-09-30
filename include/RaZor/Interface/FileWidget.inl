@@ -6,16 +6,22 @@
 namespace {
 
 template <FileType FileT>
+std::vector<std::string_view> recoverFileFormats() {
+  if constexpr (FileT == FileType::MESH)
+    return { "obj", "fbx", "off" };
+  else if constexpr (FileT == FileType::IMAGE)
+    return { "png", "tga" };
+  else if constexpr (FileT == FileType::SOUND)
+    return { "wav" };
+}
+
+template <FileType FileT>
 bool isValid(const QString& filePath) {
   const QStringRef fileExt = filePath.splitRef('.').back();
+  const std::vector<std::string_view> formats = recoverFileFormats<FileT>();
 
-  if constexpr (FileT == FileType::MESH) {
-    if (fileExt == "obj" || fileExt == "fbx" || fileExt == "off")
-      return true;
-  } else if constexpr (FileT == FileType::IMAGE) {
-    if (fileExt == "png" || fileExt == "tga")
-      return true;
-  }
+  if (std::find(formats.cbegin(), formats.cend(), fileExt.toString().toStdString()) != formats.cend())
+    return true;
 
   return false;
 }
