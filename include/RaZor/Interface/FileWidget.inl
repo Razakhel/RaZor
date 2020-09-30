@@ -1,4 +1,5 @@
 #include <QDropEvent>
+#include <QFileDialog>
 #include <QMimeData>
 
 #include <iostream>
@@ -32,6 +33,35 @@ template <FileType FileT>
 FileWidget<FileT>::FileWidget(QWidget* parent) : QLineEdit(parent) {
   setAcceptDrops(true);
   setReadOnly(true);
+}
+
+template <FileType FileT>
+void FileWidget<FileT>::mouseDoubleClickEvent(QMouseEvent* event) {
+  if (event->button() != Qt::MouseButton::LeftButton)
+    return;
+
+  const std::vector<std::string_view> formats = recoverFileFormats<FileT>();
+
+  QString formatsStr;
+
+  if constexpr (FileT == FileType::MESH)
+    formatsStr += tr("Mesh");
+  else if constexpr (FileT == FileType::IMAGE)
+    formatsStr += tr("Image");
+  else if constexpr (FileT == FileType::SOUND)
+    formatsStr += tr("Sound");
+
+  formatsStr += " (";
+  for (const std::string_view& format : formats)
+    formatsStr += "*." + QString(format.data());
+  formatsStr += ')';
+
+  const QString filePath = QFileDialog::getOpenFileName(this, tr("Import a file"), QString(), formatsStr);
+
+  if (filePath.isEmpty())
+    return;
+
+  setText(filePath);
 }
 
 template <FileType FileT>

@@ -48,12 +48,12 @@ void MainWindow::keyPressEvent(QKeyEvent* event) {
 }
 
 void MainWindow::openFile() {
-  const QString fileName = QFileDialog::getOpenFileName(this, tr("Import a file"), QString(), tr("Mesh") + " (*.obj *.fbx *.off)");
+  const QString filePath = QFileDialog::getOpenFileName(this, tr("Import a file"), QString(), tr("Mesh") + " (*.obj *.fbx *.off)");
 
-  if (fileName.isEmpty())
+  if (filePath.isEmpty())
     return;
 
-  m_appWindow.importMesh(fileName.toStdString());
+  m_appWindow.importMesh(filePath.toStdString());
 }
 
 void MainWindow::setupActions() {
