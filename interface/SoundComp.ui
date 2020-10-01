@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>SoundComp</class>
+ <widget class="QGroupBox" name="SoundComp">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>316</width>
+    <height>197</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Sound</string>
+  </property>
+  <property name="title">
+   <string>Sound</string>
+  </property>
+  <layout class="QFormLayout" name="soundLayout">
+   <item row="2" column="0">
+    <widget class="QLabel" name="repeatLabel">
+     <property name="text">
+      <string>Repeat</string>
+     </property>
+    </widget>
+   </item>
+   <item row="2" column="1">
+    <widget class="QCheckBox" name="repeat">
+     <property name="text">
+      <string notr="true"/>
+     </property>
+    </widget>
+   </item>
+   <item row="6" column="0">
+    <widget class="QLabel" name="soundFileLabel">
+     <property name="text">
+      <string>Sound file</string>
+     </property>
+    </widget>
+   </item>
+   <item row="6" column="1">
+    <widget class="FileWidget&lt;FileType::SOUND&gt;" name="soundFile"/>
+   </item>
+   <item row="3" column="0">
+    <widget class="QLabel" name="actionsLabel">
+     <property name="text">
+      <string>Actions</string>
+     </property>
+    </widget>
+   </item>
+   <item row="3" column="1">
+    <layout class="QHBoxLayout" name="horizontalLayout">
+     <item>
+      <widget class="QPushButton" name="play">
+       <property name="text">
+        <string>Play</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="pause">
+       <property name="text">
+        <string>Pause</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="stop">
+       <property name="text">
+        <string>Stop</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+   <item row="5" column="0">
+    <widget class="QLabel" name="volumeLabel">
+     <property name="text">
+      <string>Volume</string>
+     </property>
+    </widget>
+   </item>
+   <item row="5" column="1">
+    <widget class="QSlider" name="volume">
+     <property name="maximum">
+      <number>100</number>
+     </property>
+     <property name="value">
+      <number>100</number>
+     </property>
+     <property name="orientation">
+      <enum>Qt::Horizontal</enum>
+     </property>
+    </widget>
+   </item>
+   <item row="4" column="0">
+    <widget class="QLabel" name="pitchLabel">
+     <property name="text">
+      <string>Pitch</string>
+     </property>
+    </widget>
+   </item>
+   <item row="4" column="1">
+    <widget class="QSlider" name="pitch">
+     <property name="maximum">
+      <number>100</number>
+     </property>
+     <property name="value">
+      <number>100</number>
+     </property>
+     <property name="orientation">
+      <enum>Qt::Horizontal</enum>
+     </property>
+    </widget>
+   </item>
+   <item row="0" column="0">
+    <widget class="QLabel" name="formatLabel">
+     <property name="text">
+      <string>Format</string>
+     </property>
+    </widget>
+   </item>
+   <item row="0" column="1">
+    <widget class="QLabel" name="format">
+     <property name="text">
+      <string notr="true"/>
+     </property>
+    </widget>
+   </item>
+   <item row="1" column="0">
+    <widget class="QLabel" name="frequencyLabel">
+     <property name="text">
+      <string>Frequency</string>
+     </property>
+    </widget>
+   </item>
+   <item row="1" column="1">
+    <widget class="QLabel" name="frequency">
+     <property name="text">
+      <string notr="true"/>
+     </property>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <customwidgets>
+  <customwidget>
+   <class>FileWidget&lt;FileType::SOUND&gt;</class>
+   <extends>QLineEdit</extends>
+   <header>RaZor/Interface/FileWidget.hpp</header>
+  </customwidget>
+ </customwidgets>
+ <resources/>
+ <connections/>
+</ui>

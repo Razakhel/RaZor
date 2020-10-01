@@ -4,55 +4,60 @@
 <context>
     <name>AppWindow</name>
     <message>
-        <location filename="../../src/RaZor/Interface/AppWindow.cpp" line="311"/>
+        <location filename="../../src/RaZor/Interface/AppWindow.cpp" line="314"/>
         <source>Importing </source>
         <translation>Importing </translation>
     </message>
     <message>
-        <location filename="../../src/RaZor/Interface/AppWindow.cpp" line="321"/>
+        <location filename="../../src/RaZor/Interface/AppWindow.cpp" line="324"/>
         <source>Finished importing</source>
         <translation>Finished importing</translation>
     </message>
     <message>
-        <location filename="../../src/RaZor/Interface/AppComponents.cpp" line="20"/>
+        <location filename="../../src/RaZor/Interface/AppComponents.cpp" line="22"/>
         <source>Failed to find an entity named</source>
         <translation>Failed to find an entity named</translation>
     </message>
     <message>
-        <location filename="../../src/RaZor/Interface/AppComponents.cpp" line="48"/>
+        <location filename="../../src/RaZor/Interface/AppComponents.cpp" line="55"/>
         <source> component(s) not displayed.</source>
         <translation> component(s) not displayed.</translation>
     </message>
     <message>
-        <location filename="../../src/RaZor/Interface/AppComponents.cpp" line="242"/>
-        <location filename="../../src/RaZor/Interface/AppComponents.cpp" line="244"/>
+        <location filename="../../src/RaZor/Interface/AppComponents.cpp" line="330"/>
+        <location filename="../../src/RaZor/Interface/AppComponents.cpp" line="332"/>
         <source>Add component</source>
         <translation>Add component</translation>
     </message>
     <message>
-        <location filename="../../src/RaZor/Interface/AppComponents.cpp" line="248"/>
+        <location filename="../../src/RaZor/Interface/AppComponents.cpp" line="336"/>
         <source>Transform</source>
         <translation>Transform</translation>
     </message>
     <message>
-        <location filename="../../src/RaZor/Interface/AppComponents.cpp" line="261"/>
+        <location filename="../../src/RaZor/Interface/AppComponents.cpp" line="349"/>
         <source>Mesh</source>
         <translation>Mesh</translation>
     </message>
     <message>
-        <location filename="../../src/RaZor/Interface/AppComponents.cpp" line="274"/>
+        <location filename="../../src/RaZor/Interface/AppComponents.cpp" line="362"/>
         <source>Light</source>
         <translation>Light</translation>
     </message>
     <message>
-        <location filename="../../src/RaZor/Interface/AppComponents.cpp" line="279"/>
+        <location filename="../../src/RaZor/Interface/AppComponents.cpp" line="367"/>
         <source>Point light</source>
         <translation>Point light</translation>
     </message>
     <message>
-        <location filename="../../src/RaZor/Interface/AppComponents.cpp" line="286"/>
+        <location filename="../../src/RaZor/Interface/AppComponents.cpp" line="374"/>
         <source>Directional light</source>
         <translation>Directional light</translation>
+    </message>
+    <message>
+        <location filename="../../src/RaZor/Interface/AppComponents.cpp" line="384"/>
+        <source>Sound</source>
+        <translation>Sound</translation>
     </message>
 </context>
 <context>
@@ -316,6 +321,65 @@
         <location filename="../../interface/RenderSystemSettings.ui" line="188"/>
         <source>Front</source>
         <translation>Front</translation>
+    </message>
+</context>
+<context>
+    <name>SoundComp</name>
+    <message>
+        <location filename="../../interface/SoundComp.ui" line="14"/>
+        <location filename="../../interface/SoundComp.ui" line="17"/>
+        <source>Sound</source>
+        <translation>Sound</translation>
+    </message>
+    <message>
+        <location filename="../../interface/SoundComp.ui" line="23"/>
+        <source>Repeat</source>
+        <translation>Repeat</translation>
+    </message>
+    <message>
+        <location filename="../../interface/SoundComp.ui" line="37"/>
+        <source>Sound file</source>
+        <translation>Sound file</translation>
+    </message>
+    <message>
+        <location filename="../../interface/SoundComp.ui" line="47"/>
+        <source>Actions</source>
+        <translation>Actions</translation>
+    </message>
+    <message>
+        <location filename="../../interface/SoundComp.ui" line="56"/>
+        <source>Play</source>
+        <translation>Play</translation>
+    </message>
+    <message>
+        <location filename="../../interface/SoundComp.ui" line="63"/>
+        <source>Pause</source>
+        <translation>Pause</translation>
+    </message>
+    <message>
+        <location filename="../../interface/SoundComp.ui" line="70"/>
+        <source>Stop</source>
+        <translation>Stop</translation>
+    </message>
+    <message>
+        <location filename="../../interface/SoundComp.ui" line="79"/>
+        <source>Volume</source>
+        <translation>Volume</translation>
+    </message>
+    <message>
+        <location filename="../../interface/SoundComp.ui" line="99"/>
+        <source>Pitch</source>
+        <translation>Pitch</translation>
+    </message>
+    <message>
+        <location filename="../../interface/SoundComp.ui" line="119"/>
+        <source>Format</source>
+        <translation>Format</translation>
+    </message>
+    <message>
+        <location filename="../../interface/SoundComp.ui" line="133"/>
+        <source>Frequency</source>
+        <translation>Frequency</translation>
     </message>
 </context>
 <context>

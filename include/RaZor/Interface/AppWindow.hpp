@@ -26,6 +26,7 @@ class Camera;
 class Light;
 class Mesh;
 class RenderSystem;
+class Sound;
 class Transform;
 
 } // namespace Raz
@@ -67,6 +68,7 @@ private:
   void showCameraComponent(Raz::Camera& camera);
   void showMeshComponent(Raz::Mesh& mesh);
   void showLightComponent(Raz::Light& light);
+  void showSoundComponent(Raz::Sound& sound);
   void showAddComponent(Raz::Entity& entity, const QString& entityName, const Raz::RenderSystem& renderSystem);
   void processActions();
 

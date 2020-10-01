@@ -3,8 +3,10 @@
 #include "ui_CameraComp.h"
 #include "ui_LightComp.h"
 #include "ui_MeshComp.h"
+#include "ui_SoundComp.h"
 #include "ui_TransformComp.h"
 
+#include <RaZ/Audio/Sound.hpp>
 #include <RaZ/Math/Transform.hpp>
 #include <RaZ/Render/Light.hpp>
 #include <RaZ/Render/Mesh.hpp>
@@ -44,6 +46,11 @@ void AppWindow::loadComponents(const QString& entityName) {
     --remainingComponentCount;
   }
 
+  if (entity.hasComponent<Raz::Sound>()) {
+    showSoundComponent(entity.getComponent<Raz::Sound>());
+    --remainingComponentCount;
+  }
+
   if (remainingComponentCount > 0)
     m_parentWindow->m_window.componentsLayout->addWidget(new QLabel(QString::number(remainingComponentCount) + tr(" component(s) not displayed.")));
 
@@ -76,19 +83,19 @@ void AppWindow::showTransformComponent(Raz::Entity& entity) {
   transformComp.positionY->setValue(static_cast<double>(transform.getPosition()[1]));
   transformComp.positionZ->setValue(static_cast<double>(transform.getPosition()[2]));
 
-  QObject::connect(transformComp.positionX, QOverload<double>::of(&QDoubleSpinBox::valueChanged), [&transform, &entity, &renderSystem] (double val) {
+  connect(transformComp.positionX, QOverload<double>::of(&QDoubleSpinBox::valueChanged), [&transform, &entity, &renderSystem] (double val) {
     transform.setPosition(static_cast<float>(val), transform.getPosition()[1], transform.getPosition()[2]);
 
     if (entity.hasComponent<Raz::Light>())
       renderSystem.updateLights();
   });
-  QObject::connect(transformComp.positionY, QOverload<double>::of(&QDoubleSpinBox::valueChanged), [&transform, &entity, &renderSystem] (double val) {
+  connect(transformComp.positionY, QOverload<double>::of(&QDoubleSpinBox::valueChanged), [&transform, &entity, &renderSystem] (double val) {
     transform.setPosition(transform.getPosition()[0], static_cast<float>(val), transform.getPosition()[2]);
 
     if (entity.hasComponent<Raz::Light>())
       renderSystem.updateLights();
   });
-  QObject::connect(transformComp.positionZ, QOverload<double>::of(&QDoubleSpinBox::valueChanged), [&transform, &entity, &renderSystem] (double val) {
+  connect(transformComp.positionZ, QOverload<double>::of(&QDoubleSpinBox::valueChanged), [&transform, &entity, &renderSystem] (double val) {
     transform.setPosition(transform.getPosition()[0], transform.getPosition()[1], static_cast<float>(val));
 
     if (entity.hasComponent<Raz::Light>())
@@ -104,13 +111,13 @@ void AppWindow::showTransformComponent(Raz::Entity& entity) {
   transformComp.scaleY->setValue(static_cast<double>(transform.getScale()[1]));
   transformComp.scaleZ->setValue(static_cast<double>(transform.getScale()[2]));
 
-  QObject::connect(transformComp.scaleX, QOverload<double>::of(&QDoubleSpinBox::valueChanged), [&transform] (double val) {
+  connect(transformComp.scaleX, QOverload<double>::of(&QDoubleSpinBox::valueChanged), [&transform] (double val) {
     transform.setScale(static_cast<float>(val), transform.getScale()[1], transform.getScale()[2]);
   });
-  QObject::connect(transformComp.scaleY, QOverload<double>::of(&QDoubleSpinBox::valueChanged), [&transform] (double val) {
+  connect(transformComp.scaleY, QOverload<double>::of(&QDoubleSpinBox::valueChanged), [&transform] (double val) {
     transform.setScale(transform.getScale()[0], static_cast<float>(val), transform.getScale()[2]);
   });
-  QObject::connect(transformComp.scaleZ, QOverload<double>::of(&QDoubleSpinBox::valueChanged), [&transform] (double val) {
+  connect(transformComp.scaleZ, QOverload<double>::of(&QDoubleSpinBox::valueChanged), [&transform] (double val) {
     transform.setScale(transform.getScale()[0], transform.getScale()[1], static_cast<float>(val));
   });
 
@@ -127,19 +134,19 @@ void AppWindow::showCameraComponent(Raz::Camera& camera) {
 
   cameraComp.fieldOfView->setValue(static_cast<double>(Raz::Degreesf(camera.getFieldOfView()).value));
 
-  QObject::connect(cameraComp.fieldOfView, QOverload<double>::of(&QDoubleSpinBox::valueChanged), [&camera] (double val) {
+  connect(cameraComp.fieldOfView, QOverload<double>::of(&QDoubleSpinBox::valueChanged), [&camera] (double val) {
     camera.setFieldOfView(Raz::Degreesd(val));
   });
 
   // Camera type
 
-  QObject::connect(cameraComp.camType, QOverload<int>::of(&QComboBox::currentIndexChanged), [&camera] (int index) {
+  connect(cameraComp.camType, QOverload<int>::of(&QComboBox::currentIndexChanged), [&camera] (int index) {
     camera.setCameraType((index == 0 ? Raz::CameraType::FREE_FLY : Raz::CameraType::LOOK_AT));
   });
 
   // Projection type
 
-  QObject::connect(cameraComp.projType, QOverload<int>::of(&QComboBox::currentIndexChanged), [&camera] (int index) {
+  connect(cameraComp.projType, QOverload<int>::of(&QComboBox::currentIndexChanged), [&camera] (int index) {
     camera.setProjectionType((index == 0 ? Raz::ProjectionType::PERSPECTIVE : Raz::ProjectionType::ORTHOGRAPHIC));
   });
 
@@ -166,13 +173,13 @@ void AppWindow::showMeshComponent(Raz::Mesh& mesh) {
 
   meshComp.renderMode->setCurrentIndex((mesh.getSubmeshes().front().getRenderMode() == Raz::RenderMode::TRIANGLE ? 0 : 1));
 
-  QObject::connect(meshComp.renderMode, QOverload<int>::of(&QComboBox::currentIndexChanged), [&mesh] (int index) {
+  connect(meshComp.renderMode, QOverload<int>::of(&QComboBox::currentIndexChanged), [&mesh] (int index) {
     mesh.setRenderMode((index == 0 ? Raz::RenderMode::TRIANGLE : Raz::RenderMode::POINT));
   });
 
   // Mesh file
 
-  QObject::connect(meshComp.meshFile, &QLineEdit::textChanged, [&mesh, &renderSystem] (const QString& filePath) {
+  connect(meshComp.meshFile, &QLineEdit::textChanged, [&mesh, &renderSystem] (const QString& filePath) {
     mesh.import(filePath.toStdString());
     mesh.load(renderSystem.getGeometryProgram());
   });
@@ -194,15 +201,15 @@ void AppWindow::showLightComponent(Raz::Light& light) {
   lightComp.directionY->setValue(static_cast<double>(light.getDirection()[1]));
   lightComp.directionZ->setValue(static_cast<double>(light.getDirection()[2]));
 
-  QObject::connect(lightComp.directionX, QOverload<double>::of(&QDoubleSpinBox::valueChanged), [&light, &renderSystem] (double val) {
+  connect(lightComp.directionX, QOverload<double>::of(&QDoubleSpinBox::valueChanged), [&light, &renderSystem] (double val) {
     light.setDirection(Raz::Vec3f(static_cast<float>(val), light.getDirection()[1], light.getDirection()[2]));
     renderSystem.updateLights();
   });
-  QObject::connect(lightComp.directionY, QOverload<double>::of(&QDoubleSpinBox::valueChanged), [&light, &renderSystem] (double val) {
+  connect(lightComp.directionY, QOverload<double>::of(&QDoubleSpinBox::valueChanged), [&light, &renderSystem] (double val) {
     light.setDirection(Raz::Vec3f(light.getDirection()[0], static_cast<float>(val), light.getDirection()[2]));
     renderSystem.updateLights();
   });
-  QObject::connect(lightComp.directionZ, QOverload<double>::of(&QDoubleSpinBox::valueChanged), [&light, &renderSystem] (double val) {
+  connect(lightComp.directionZ, QOverload<double>::of(&QDoubleSpinBox::valueChanged), [&light, &renderSystem] (double val) {
     light.setDirection(Raz::Vec3f(light.getDirection()[0], light.getDirection()[1], static_cast<float>(val)));
     renderSystem.updateLights();
   });
@@ -211,7 +218,7 @@ void AppWindow::showLightComponent(Raz::Light& light) {
 
   lightComp.energy->setValue(static_cast<double>(light.getEnergy()));
 
-  QObject::connect(lightComp.energy, QOverload<double>::of(&QDoubleSpinBox::valueChanged), [&light, &renderSystem] (double val) {
+  connect(lightComp.energy, QOverload<double>::of(&QDoubleSpinBox::valueChanged), [&light, &renderSystem] (double val) {
     light.setEnergy(static_cast<float>(val));
     renderSystem.updateLights();
   });
@@ -231,11 +238,92 @@ void AppWindow::showLightComponent(Raz::Light& light) {
     renderSystem.updateLights();
   };
 
-  QObject::connect(lightComp.colorR, &QSlider::valueChanged, updateLightColor);
-  QObject::connect(lightComp.colorG, &QSlider::valueChanged, updateLightColor);
-  QObject::connect(lightComp.colorB, &QSlider::valueChanged, updateLightColor);
+  connect(lightComp.colorR, &QSlider::valueChanged, updateLightColor);
+  connect(lightComp.colorG, &QSlider::valueChanged, updateLightColor);
+  connect(lightComp.colorB, &QSlider::valueChanged, updateLightColor);
 
   m_parentWindow->m_window.componentsLayout->addWidget(lightWidget);
+}
+
+void AppWindow::showSoundComponent(Raz::Sound& sound) {
+  Ui::SoundComp soundComp;
+
+  auto* soundWidget = new QGroupBox();
+  soundComp.setupUi(soundWidget);
+
+  // Format & frequency
+
+  const auto updateFormat = [&sound, format = soundComp.format] () {
+    QString formatStr;
+
+    switch (sound.getFormat()) {
+      case Raz::SoundFormat::MONO_U8:
+        formatStr = "Mono (8)";
+        break;
+
+      case Raz::SoundFormat::MONO_I16:
+        formatStr = "Mono (16)";
+        break;
+
+      case Raz::SoundFormat::MONO_F32:
+        formatStr = "Mono (32)";
+        break;
+
+      case Raz::SoundFormat::MONO_F64:
+        formatStr = "Mono (64)";
+        break;
+
+      case Raz::SoundFormat::STEREO_U8:
+        formatStr = "Stereo (8)";
+        break;
+
+      case Raz::SoundFormat::STEREO_I16:
+        formatStr = "Stereo (16)";
+        break;
+
+      case Raz::SoundFormat::STEREO_F32:
+        formatStr = "Stereo (32)";
+        break;
+
+      case Raz::SoundFormat::STEREO_F64:
+        formatStr = "Stereo (64)";
+        break;
+
+      default:
+        formatStr = "None";
+        break;
+    }
+
+    format->setText(formatStr);
+  };
+
+  updateFormat();
+  soundComp.frequency->setText(QString::number(sound.getFrequency()));
+
+  // Repeat
+
+  connect(soundComp.repeat, &QCheckBox::toggled, [&sound] (bool checked) { sound.repeat(checked); });
+
+  // Actions
+
+  connect(soundComp.play, &QPushButton::clicked, [&sound] () { sound.play(); });
+  connect(soundComp.pause, &QPushButton::clicked, [&sound] () { sound.pause(); });
+  connect(soundComp.stop, &QPushButton::clicked, [&sound] () { sound.stop(); });
+
+  // Volume
+
+  const auto maxVolume = static_cast<float>(soundComp.volume->maximum());
+  connect(soundComp.volume, &QSlider::valueChanged, [&sound, maxVolume] (int value) { sound.setGain(static_cast<float>(value) / maxVolume); });
+
+  // Sound file
+
+  connect(soundComp.soundFile, &QLineEdit::textChanged, [&sound, updateFormat, frequency = soundComp.frequency] (const QString& filePath) {
+    sound.load(filePath.toStdString());
+    updateFormat();
+    frequency->setText(QString::number(sound.getFrequency()));
+  });
+
+  m_parentWindow->m_window.componentsLayout->addWidget(soundWidget);
 }
 
 void AppWindow::showAddComponent(Raz::Entity& entity, const QString& entityName, const Raz::RenderSystem& renderSystem) {
@@ -277,16 +365,29 @@ void AppWindow::showAddComponent(Raz::Entity& entity, const QString& entityName,
     addLight->setEnabled(false);
   } else {
     QAction* addPointLight = addLight->addAction(tr("Point light"));
-    connect(addPointLight, &QAction::triggered, [this, &entity, entityName, &renderSystem] () {
+    connect(addPointLight, &QAction::triggered, [this, &entity, &renderSystem, entityName] () {
       entity.addComponent<Raz::Light>(Raz::LightType::POINT, 1.f);
       renderSystem.updateLights();
       loadComponents(entityName);
     });
 
     QAction* addDirectionalLight = addLight->addAction(tr("Directional light"));
-    connect(addDirectionalLight, &QAction::triggered, [this, &entity, entityName, &renderSystem] () {
+    connect(addDirectionalLight, &QAction::triggered, [this, &entity, &renderSystem, entityName] () {
       entity.addComponent<Raz::Light>(Raz::LightType::DIRECTIONAL, Raz::Axis::Z, 1.f);
       renderSystem.updateLights();
+      loadComponents(entityName);
+    });
+  }
+
+  // Sound
+
+  QAction* addSound = contextMenu->addAction(tr("Sound"));
+
+  if (entity.hasComponent<Raz::Sound>()) {
+    addSound->setEnabled(false);
+  } else {
+    connect(addSound, &QAction::triggered, [this, &entity, entityName] () {
+      entity.addComponent<Raz::Sound>();
       loadComponents(entityName);
     });
   }

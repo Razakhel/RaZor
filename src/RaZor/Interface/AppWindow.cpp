@@ -1,6 +1,7 @@
 #include "RaZor/Interface/AppWindow.hpp"
 #include "RaZor/Interface/MainWindow.hpp"
 
+#include <RaZ/Audio/AudioSystem.hpp>
 #include <RaZ/Math/Transform.hpp>
 #include <RaZ/Render/Light.hpp>
 #include <RaZ/Render/Mesh.hpp>
@@ -42,6 +43,7 @@ void AppWindow::initialize() {
   const QSize windowSize = size();
 
   Raz::World& world = m_application.addWorld(3);
+
   auto& renderSystem = world.addSystem<Raz::RenderSystem>(windowSize.width(), windowSize.height());
   renderSystem.getGeometryProgram().setShaders(Raz::VertexShader(RAZ_ROOT + "shaders/common.vert"s),
                                                Raz::FragmentShader(RAZ_ROOT + "shaders/cook-torrance.frag"s));
@@ -60,6 +62,8 @@ void AppWindow::initialize() {
   Raz::Entity& mesh = addEntity("Ball");
   mesh.addComponent<Raz::Mesh>(RAZ_ROOT + "assets/meshes/ball.obj"s);
   mesh.addComponent<Raz::Transform>();
+
+  world.addSystem<Raz::AudioSystem>();
 }
 
 void AppWindow::render() {
