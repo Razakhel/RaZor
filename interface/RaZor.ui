@@ -55,6 +55,7 @@
      <property name="title">
       <string>&amp;Systems</string>
      </property>
+     <addaction name="audioSystemSettings"/>
      <addaction name="renderSystemSettings"/>
     </widget>
     <addaction name="toolsSystems"/>
@@ -272,6 +273,11 @@
    </property>
    <property name="text">
     <string>&amp;About</string>
+   </property>
+  </action>
+  <action name="audioSystemSettings">
+   <property name="text">
+    <string>&amp;Audio system settings...</string>
    </property>
   </action>
  </widget>

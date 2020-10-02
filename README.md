@@ -50,6 +50,6 @@ The editor is available under Windows & Linux; macOS is planned in the future.
 
 ### Gallery
 
-![Multiple lights](https://imgur.com/1ozRGvg.jpg)
+![RaZor interface](https://imgur.com/8Z4bX0C.jpg)
 
 More examples are available [here](https://github.com/Razakhel/RaZor/wiki/Examples).

@@ -1,8 +1,5 @@
 #include "RaZor/Interface/MainWindow.hpp"
 
-#include <RaZ/Render/Light.hpp>
-#include <RaZ/Render/RenderSystem.hpp>
-
 #include <QFileDialog>
 #include <QKeyEvent>
 
@@ -12,6 +9,7 @@ MainWindow::MainWindow() {
   ////////////////////////
 
   m_window.setupUi(this);
+  m_audioSystemSettings.setupUi(&m_audioSystemSettingsDialog);
   m_renderSystemSettings.setupUi(&m_renderSystemSettingsDialog);
 
   QWidget* renderSurface = QWidget::createWindowContainer(&m_appWindow);
@@ -69,7 +67,9 @@ void MainWindow::setupActions() {
 
   // Tools menu
 
+  connect(m_window.audioSystemSettings, &QAction::triggered, &m_audioSystemSettingsDialog, &QDialog::show);
   connect(m_window.renderSystemSettings, &QAction::triggered, &m_renderSystemSettingsDialog, &QDialog::show);
+
   connect(&m_renderSystemSettingsDialog, &QDialog::accepted, [this] () {
     const auto isFieldEmpty = [] (FileWidget<FileType::IMAGE>& fileWidget) -> bool {
       if (fileWidget.text().isEmpty()) {

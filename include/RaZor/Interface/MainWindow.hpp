@@ -5,6 +5,7 @@
 
 #include "RaZor/Interface/AppWindow.hpp"
 #include "ui_RaZor.h"
+#include "ui_AudioSystemSettings.h"
 #include "ui_RenderSystemSettings.h"
 
 class MainWindow : public QMainWindow {
@@ -29,6 +30,9 @@ private:
 
   Ui::MainWindow m_window {};
   AppWindow m_appWindow {};
+
+  Ui::AudioSystemSettings m_audioSystemSettings {};
+  QDialog m_audioSystemSettingsDialog {};
 
   Ui::RenderSystemSettings m_renderSystemSettings {};
   QDialog m_renderSystemSettingsDialog {};

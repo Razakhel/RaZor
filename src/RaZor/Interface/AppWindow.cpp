@@ -2,6 +2,7 @@
 #include "RaZor/Interface/MainWindow.hpp"
 
 #include <RaZ/Audio/AudioSystem.hpp>
+#include <RaZ/Audio/Sound.hpp>
 #include <RaZ/Math/Transform.hpp>
 #include <RaZ/Render/Light.hpp>
 #include <RaZ/Render/Mesh.hpp>
@@ -12,6 +13,7 @@
 struct IUnknown; // Workaround for "combaseapi.h(229): error C2187: syntax error: 'identifier' was unexpected here" when using /permissive-
 #endif
 
+#include <QComboBox>
 #include <QDropEvent>
 #include <QMimeData>
 #include <QOpenGLContext>
@@ -63,7 +65,26 @@ void AppWindow::initialize() {
   mesh.addComponent<Raz::Mesh>(RAZ_ROOT + "assets/meshes/ball.obj"s);
   mesh.addComponent<Raz::Transform>();
 
-  world.addSystem<Raz::AudioSystem>();
+  auto& audioSystem = world.addSystem<Raz::AudioSystem>();
+
+  const std::vector<std::string> audioDevices = Raz::AudioSystem::recoverDevices();
+
+  for (const std::string& device : Raz::AudioSystem::recoverDevices())
+    m_parentWindow->m_audioSystemSettings.audioDevices->addItem(device.c_str());
+
+  m_parentWindow->m_audioSystemSettings.audioDevices->setCurrentText(audioSystem.recoverCurrentDevice().c_str());
+
+  connect(m_parentWindow->m_audioSystemSettings.audioDevices, &QComboBox::currentTextChanged, [this, &audioSystem] (const QString& deviceName) {
+    audioSystem.openDevice(deviceName.toStdString().c_str());
+
+    // Since the audio device has changed, every Sound object must be recreated
+    for (std::pair<const QString, Raz::Entity*>& entityPair : m_entities) {
+      Raz::Entity& entity = *entityPair.second;
+
+      if (entity.hasComponent<Raz::Sound>())
+        entity.getComponent<Raz::Sound>().init();
+    }
+  });
 }
 
 void AppWindow::render() {
