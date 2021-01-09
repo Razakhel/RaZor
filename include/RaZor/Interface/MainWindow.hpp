@@ -7,6 +7,7 @@
 #include "ui_RaZor.h"
 #include "ui_AudioSystemSettings.h"
 #include "ui_RenderSystemSettings.h"
+#include "ui_About.h"
 
 class MainWindow : public QMainWindow {
   Q_OBJECT
@@ -36,6 +37,9 @@ private:
 
   Ui::RenderSystemSettings m_renderSystemSettings {};
   QDialog m_renderSystemSettingsDialog {};
+
+  Ui::About m_about {};
+  QDialog m_aboutDialog {};
 };
 
 #endif // RAZOR_MAINWINDOW_HPP

@@ -2,6 +2,24 @@
 <!DOCTYPE TS>
 <TS version="2.1" language="en_US">
 <context>
+    <name>About</name>
+    <message>
+        <location filename="../../interface/About.ui" line="17"/>
+        <source>About</source>
+        <translation>About</translation>
+    </message>
+    <message>
+        <location filename="../../interface/About.ui" line="41"/>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Made with &lt;span style=&quot; font-family:&apos;apple color emoji&apos;,&apos;segoe ui emoji&apos;,&apos;noto color emoji&apos;,&apos;android emoji&apos;,&apos;emojisymbols&apos;,&apos;emojione mozilla&apos;,&apos;twemoji mozilla&apos;,&apos;segoe ui symbol&apos;; font-size:12pt; color:#80b4e3;&quot;&gt;❤️&lt;/span&gt; by Romain &lt;span style=&quot; font-style:italic;&quot;&gt;&amp;quot;Razakhel&amp;quot;&lt;/span&gt; Milbert&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Made with &lt;span style=&quot; font-family:&apos;apple color emoji&apos;,&apos;segoe ui emoji&apos;,&apos;noto color emoji&apos;,&apos;android emoji&apos;,&apos;emojisymbols&apos;,&apos;emojione mozilla&apos;,&apos;twemoji mozilla&apos;,&apos;segoe ui symbol&apos;; font-size:12pt; color:#80b4e3;&quot;&gt;❤️&lt;/span&gt; by Romain &lt;span style=&quot; font-style:italic;&quot;&gt;&amp;quot;Razakhel&amp;quot;&lt;/span&gt; Milbert&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+    </message>
+    <message>
+        <location filename="../../interface/About.ui" line="51"/>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Based on the &lt;a href=&quot;https://github.com/Razakhel/RaZ&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;RaZ game engine&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Based on the &lt;a href=&quot;https://github.com/Razakhel/RaZ&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;RaZ game engine&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+    </message>
+</context>
+<context>
     <name>AppWindow</name>
     <message>
         <location filename="../../src/RaZor/Interface/AppWindow.cpp" line="336"/>
@@ -144,22 +162,22 @@
 <context>
     <name>MainWindow</name>
     <message>
-        <location filename="../../src/RaZor/Interface/MainWindow.cpp" line="29"/>
+        <location filename="../../src/RaZor/Interface/MainWindow.cpp" line="30"/>
         <source>Ready</source>
         <translation>Ready</translation>
     </message>
     <message>
-        <location filename="../../src/RaZor/Interface/MainWindow.cpp" line="49"/>
+        <location filename="../../src/RaZor/Interface/MainWindow.cpp" line="50"/>
         <source>Import a file</source>
         <translation>Import a file</translation>
     </message>
     <message>
-        <location filename="../../src/RaZor/Interface/MainWindow.cpp" line="49"/>
+        <location filename="../../src/RaZor/Interface/MainWindow.cpp" line="50"/>
         <source>Mesh</source>
         <translation>Mesh</translation>
     </message>
     <message>
-        <location filename="../../src/RaZor/Interface/MainWindow.cpp" line="76"/>
+        <location filename="../../src/RaZor/Interface/MainWindow.cpp" line="77"/>
         <source>Unexpected empty field</source>
         <translation>Unexpected empty field</translation>
     </message>
@@ -254,12 +272,12 @@
         <translation>&amp;Options...</translation>
     </message>
     <message>
-        <location filename="../../interface/RaZor.ui" line="275"/>
+        <location filename="../../interface/RaZor.ui" line="272"/>
         <source>&amp;About</source>
         <translation>&amp;About</translation>
     </message>
     <message>
-        <location filename="../../interface/RaZor.ui" line="280"/>
+        <location filename="../../interface/RaZor.ui" line="277"/>
         <source>&amp;Audio system settings...</source>
         <translation>&amp;Audio system settings...</translation>
     </message>

@@ -11,6 +11,7 @@ MainWindow::MainWindow() {
   m_window.setupUi(this);
   m_audioSystemSettings.setupUi(&m_audioSystemSettingsDialog);
   m_renderSystemSettings.setupUi(&m_renderSystemSettingsDialog);
+  m_about.setupUi(&m_aboutDialog);
 
   QWidget* renderSurface = QWidget::createWindowContainer(&m_appWindow);
   setCentralWidget(renderSurface);
@@ -102,7 +103,7 @@ void MainWindow::setupActions() {
   });
 
   // Help menu
-  // TODO
+  connect(m_window.actionAbout, &QAction::triggered, &m_aboutDialog, &QDialog::show);
 
   // Entities
 
