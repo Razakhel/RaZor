@@ -23,6 +23,7 @@ class MainWindow;
 namespace Raz {
 
 class Camera;
+class Collider;
 class Light;
 class Mesh;
 class RenderSystem;
@@ -68,6 +69,7 @@ private:
   void showCameraComponent(Raz::Camera& camera);
   void showMeshComponent(Raz::Mesh& mesh);
   void showLightComponent(Raz::Light& light);
+  void showColliderComponent(Raz::Collider& collider);
   void showSoundComponent(Raz::Sound& sound);
   void showAddComponent(Raz::Entity& entity, const QString& entityName, const Raz::RenderSystem& renderSystem);
   void processActions();

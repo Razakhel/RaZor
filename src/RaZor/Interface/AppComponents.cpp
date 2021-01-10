@@ -1,6 +1,7 @@
 #include "RaZor/Interface/AppWindow.hpp"
 #include "RaZor/Interface/MainWindow.hpp"
 #include "ui_CameraComp.h"
+#include "ui_ColliderComp.h"
 #include "ui_LightComp.h"
 #include "ui_MeshComp.h"
 #include "ui_SoundComp.h"
@@ -8,6 +9,7 @@
 
 #include <RaZ/Audio/Sound.hpp>
 #include <RaZ/Math/Transform.hpp>
+#include <RaZ/Physics/Collider.hpp>
 #include <RaZ/Render/Light.hpp>
 #include <RaZ/Render/Mesh.hpp>
 #include <RaZ/Render/RenderSystem.hpp>
@@ -43,6 +45,11 @@ void AppWindow::loadComponents(const QString& entityName) {
 
   if (entity.hasComponent<Raz::Light>()) {
     showLightComponent(entity.getComponent<Raz::Light>());
+    --remainingComponentCount;
+  }
+
+  if (entity.hasComponent<Raz::Collider>()) {
+    showColliderComponent(entity.getComponent<Raz::Collider>());
     --remainingComponentCount;
   }
 
@@ -245,6 +252,65 @@ void AppWindow::showLightComponent(Raz::Light& light) {
   m_parentWindow->m_window.componentsLayout->addWidget(lightWidget);
 }
 
+void AppWindow::showColliderComponent(Raz::Collider& collider) {
+  Ui::ColliderComp colliderComp;
+
+  auto* colliderWidget = new QGroupBox();
+  colliderComp.setupUi(colliderWidget);
+
+  // Shape type
+
+  colliderComp.shapeType->addItem(tr("Line"));
+  colliderComp.shapeType->addItem(tr("Plane"));
+  colliderComp.shapeType->addItem(tr("Sphere"));
+  colliderComp.shapeType->addItem(tr("Triangle"));
+  colliderComp.shapeType->addItem(tr("Quad"));
+  colliderComp.shapeType->addItem(tr("AABB"));
+  colliderComp.shapeType->addItem(tr("OBB"));
+
+  colliderComp.shapeType->setCurrentIndex(static_cast<int>(collider.getShapeType()));
+
+  connect(colliderComp.shapeType, QOverload<int>::of(&QComboBox::currentIndexChanged), [&collider] (int index) {
+    switch (static_cast<Raz::ShapeType>(index)) {
+      case Raz::ShapeType::LINE:
+        collider.setShape(Raz::Line(Raz::Vec3f(-1.f, 0.f, 0.f), Raz::Vec3f(1.f, 0.f, 0.f)));
+        break;
+
+      case Raz::ShapeType::PLANE:
+        collider.setShape(Raz::Plane(0.f, Raz::Axis::Y));
+        break;
+
+      case Raz::ShapeType::SPHERE:
+        collider.setShape(Raz::Sphere(Raz::Vec3f(0.f), 1.f));
+        break;
+
+      case Raz::ShapeType::TRIANGLE:
+        collider.setShape(Raz::Triangle(Raz::Vec3f(-1.f, -1.f, 0.f), Raz::Vec3f(0.f, 1.f, 0.f), Raz::Vec3f(1.f, -1.f, 0.f)));
+        break;
+
+      case Raz::ShapeType::QUAD:
+        collider.setShape(Raz::Quad(Raz::Vec3f(-1.f, 1.f, 0.f), Raz::Vec3f(1.f, 1.f, 0.f),
+                                    Raz::Vec3f(1.f, -1.f, 0.f), Raz::Vec3f(-1.f, -1.f, 0.f)));
+        break;
+
+      case Raz::ShapeType::AABB:
+        collider.setShape(Raz::AABB(Raz::Vec3f(-1.f), Raz::Vec3f(1.f)));
+        break;
+
+      case Raz::ShapeType::OBB:
+        collider.setShape(Raz::OBB(Raz::Vec3f(-1.f), Raz::Vec3f(1.f)));
+        break;
+
+      default:
+        assert("[RaZor] Error: Unhandled collider shape type." && false);
+    }
+  });
+
+  // TODO: show a widget corresponding to the collider's shape type to allow modifying it
+
+  m_parentWindow->m_window.componentsLayout->addWidget(colliderWidget);
+}
+
 void AppWindow::showSoundComponent(Raz::Sound& sound) {
   Ui::SoundComp soundComp;
 
@@ -375,6 +441,57 @@ void AppWindow::showAddComponent(Raz::Entity& entity, const QString& entityName,
     connect(addDirectionalLight, &QAction::triggered, [this, &entity, &renderSystem, entityName] () {
       entity.addComponent<Raz::Light>(Raz::LightType::DIRECTIONAL, Raz::Axis::Z, 1.f);
       renderSystem.updateLights();
+      loadComponents(entityName);
+    });
+  }
+
+  // Collider
+
+  QMenu* addCollider = contextMenu->addMenu(tr("Collider"));
+
+  if (entity.hasComponent<Raz::Collider>() || !entity.hasComponent<Raz::Transform>()) {
+    addCollider->setEnabled(false);
+  } else {
+    QAction* addLineCollider = addCollider->addAction(tr("Line"));
+    connect(addLineCollider, &QAction::triggered, [this, &entity, entityName] () {
+      entity.addComponent<Raz::Collider>(Raz::Line(Raz::Vec3f(-1.f, 0.f, 0.f), Raz::Vec3f(1.f, 0.f, 0.f)));
+      loadComponents(entityName);
+    });
+
+    QAction* addPlaneCollider = addCollider->addAction(tr("Plane"));
+    connect(addPlaneCollider, &QAction::triggered, [this, &entity, entityName] () {
+      entity.addComponent<Raz::Collider>(Raz::Plane(0.f, Raz::Axis::Y));
+      loadComponents(entityName);
+    });
+
+    QAction* addSphereCollider = addCollider->addAction(tr("Sphere"));
+    connect(addSphereCollider, &QAction::triggered, [this, &entity, entityName] () {
+      entity.addComponent<Raz::Collider>(Raz::Sphere(Raz::Vec3f(0.f), 1.f));
+      loadComponents(entityName);
+    });
+
+    QAction* addTriangleCollider = addCollider->addAction(tr("Triangle"));
+    connect(addTriangleCollider, &QAction::triggered, [this, &entity, entityName] () {
+      entity.addComponent<Raz::Collider>(Raz::Triangle(Raz::Vec3f(-1.f, -1.f, 0.f), Raz::Vec3f(0.f, 1.f, 0.f), Raz::Vec3f(1.f, -1.f, 0.f)));
+      loadComponents(entityName);
+    });
+
+    QAction* addQuadCollider = addCollider->addAction(tr("Quad"));
+    connect(addQuadCollider, &QAction::triggered, [this, &entity, entityName] () {
+      entity.addComponent<Raz::Collider>(Raz::Quad(Raz::Vec3f(-1.f, 1.f, 0.f), Raz::Vec3f(1.f, 1.f, 0.f),
+                                                   Raz::Vec3f(1.f, -1.f, 0.f), Raz::Vec3f(-1.f, -1.f, 0.f)));
+      loadComponents(entityName);
+    });
+
+    QAction* addAABBCollider = addCollider->addAction(tr("AABB"));
+    connect(addAABBCollider, &QAction::triggered, [this, &entity, entityName] () {
+      entity.addComponent<Raz::Collider>(Raz::AABB(Raz::Vec3f(-1.f), Raz::Vec3f(1.f)));
+      loadComponents(entityName);
+    });
+
+    QAction* addOBBCollider = addCollider->addAction(tr("OBB"));
+    connect(addOBBCollider, &QAction::triggered, [this, &entity, entityName] () {
+      entity.addComponent<Raz::Collider>(Raz::OBB(Raz::Vec3f(-1.f), Raz::Vec3f(1.f)));
       loadComponents(entityName);
     });
   }
