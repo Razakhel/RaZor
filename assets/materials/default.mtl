@@ -1,0 +1,11 @@
+newmtl default
+illum 4
+Kd 0.50 0.50 0.50
+Ka 0.00 0.00 0.00
+Tf 1.00 1.00 1.00
+Ni 1.00
+
+map_Kd default_albedo.png
+norm default_normal.png
+map_Pm default_metallic.png
+map_Pr default_roughness.png

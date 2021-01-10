@@ -17,6 +17,21 @@
     <file alias="cook-torrance">../../shaders/cook-torrance.frag</file>
   </qresource>
 
+  <qresource prefix="mesh">
+    <file alias="default">../meshes/default.obj</file>
+  </qresource>
+
+  <qresource prefix="material">
+    <file alias="default">../materials/default.mtl</file>
+  </qresource>
+
+  <qresource prefix="texture">
+    <file alias="default_albedo">../textures/default_albedo.png</file>
+    <file alias="default_metallic">../textures/default_metallic.png</file>
+    <file alias="default_normal">../textures/default_normal.png</file>
+    <file alias="default_roughness">../textures/default_roughness.png</file>
+  </qresource>
+
   <qresource prefix="/lang">
     <file alias="en">../translations/english.ts</file>
     <file alias="fr">../translations/french.ts</file>

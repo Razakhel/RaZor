@@ -74,8 +74,23 @@ void AppWindow::initialize() {
                                  Raz::Vec3f(1.f));            // Color (RGB)
   light.addComponent<Raz::Transform>(Raz::Vec3f(0.f, 1.f, 0.f));
 
+  // Copying the resources to files on disk, to be imported into RaZ objects. This is dirty, but is the best way for now
+  // Note that QFile::copy() doesn't override anything, thus will do nothing if the files already exist
+
+  if (!QDir().exists("assets/")) {
+    if (!QDir().mkdir("assets/"))
+      throw std::invalid_argument("[RaZor] Error: Couldn't create the assets folder.");
+  }
+
+  QFile::copy(":/mesh/default", "assets/default.obj");
+  QFile::copy(":/material/default", "assets/default.mtl");
+  QFile::copy(":/texture/default_albedo", "assets/default_albedo.png");
+  QFile::copy(":/texture/default_normal", "assets/default_normal.png");
+  QFile::copy(":/texture/default_metallic", "assets/default_metallic.png");
+  QFile::copy(":/texture/default_roughness", "assets/default_roughness.png");
+
   Raz::Entity& mesh = addEntity("Ball");
-  mesh.addComponent<Raz::Mesh>(RAZ_ROOT + "assets/meshes/ball.obj"s);
+  mesh.addComponent<Raz::Mesh>("assets/default.obj");
   mesh.addComponent<Raz::Transform>();
 
   // Physics
@@ -416,7 +431,7 @@ void AppWindow::processActions() {
     m_cameraComp->setOrthoBoundY(m_cameraComp->getOrthoBoundY() + moveVal / 2);
   }
 
-  // If the camera entity has a Light component & has moved, update all of them
-  if (m_cameraEntity->hasComponent<Raz::Light>() && (m_movingRight || m_movingLeft || m_movingUp || m_movingDown || m_movingForward || m_movingBackward))
+  // If the camera entity has moved & possesses a Light component, update all lights
+  if ((m_movingRight || m_movingLeft || m_movingUp || m_movingDown || m_movingForward || m_movingBackward) && m_cameraEntity->hasComponent<Raz::Light>())
     updateLights();
 }
