@@ -4,12 +4,14 @@
 #include "ui_ColliderComp.h"
 #include "ui_LightComp.h"
 #include "ui_MeshComp.h"
+#include "ui_RigidBodyComp.h"
 #include "ui_SoundComp.h"
 #include "ui_TransformComp.h"
 
 #include <RaZ/Audio/Sound.hpp>
 #include <RaZ/Math/Transform.hpp>
 #include <RaZ/Physics/Collider.hpp>
+#include <RaZ/Physics/RigidBody.hpp>
 #include <RaZ/Render/Light.hpp>
 #include <RaZ/Render/Mesh.hpp>
 #include <RaZ/Render/RenderSystem.hpp>
@@ -45,6 +47,11 @@ void AppWindow::loadComponents(const QString& entityName) {
 
   if (entity.hasComponent<Raz::Light>()) {
     showLightComponent(entity.getComponent<Raz::Light>());
+    --remainingComponentCount;
+  }
+
+  if (entity.hasComponent<Raz::RigidBody>()) {
+    showRigidBodyComponent(entity.getComponent<Raz::RigidBody>());
     --remainingComponentCount;
   }
 
@@ -252,6 +259,49 @@ void AppWindow::showLightComponent(Raz::Light& light) {
   m_parentWindow->m_window.componentsLayout->addWidget(lightWidget);
 }
 
+void AppWindow::showRigidBodyComponent(Raz::RigidBody& rigidBody) {
+  Ui::RigidBodyComp rigidBodyComp;
+
+  auto* rigidBodyWidget = new QGroupBox();
+  rigidBodyComp.setupUi(rigidBodyWidget);
+
+  // Mass
+
+  rigidBodyComp.mass->setValue(static_cast<double>(rigidBody.getMass()));
+
+  connect(rigidBodyComp.mass, QOverload<double>::of(&QDoubleSpinBox::valueChanged), [&rigidBody] (double val) {
+    rigidBody.setMass(static_cast<float>(val));
+  });
+
+  // Bounciness
+
+  rigidBodyComp.bounciness->setValue(static_cast<double>(rigidBody.getBounciness()));
+
+  connect(rigidBodyComp.bounciness, QOverload<double>::of(&QDoubleSpinBox::valueChanged), [&rigidBody] (double val) {
+    rigidBody.setBounciness(static_cast<float>(val));
+  });
+
+  // Velocity
+
+  rigidBodyComp.velocityX->setValue(static_cast<double>(rigidBody.getVelocity().x()));
+  rigidBodyComp.velocityY->setValue(static_cast<double>(rigidBody.getVelocity().y()));
+  rigidBodyComp.velocityZ->setValue(static_cast<double>(rigidBody.getVelocity().z()));
+
+  const auto updateVelocity = [&rigidBody, rigidBodyComp] (double) {
+    const auto velocityX = static_cast<float>(rigidBodyComp.velocityX->value());
+    const auto velocityY = static_cast<float>(rigidBodyComp.velocityY->value());
+    const auto velocityZ = static_cast<float>(rigidBodyComp.velocityZ->value());
+
+    rigidBody.setVelocity(Raz::Vec3f(velocityX, velocityY, velocityZ));
+  };
+
+  connect(rigidBodyComp.velocityX, QOverload<double>::of(&QDoubleSpinBox::valueChanged), updateVelocity);
+  connect(rigidBodyComp.velocityY, QOverload<double>::of(&QDoubleSpinBox::valueChanged), updateVelocity);
+  connect(rigidBodyComp.velocityZ, QOverload<double>::of(&QDoubleSpinBox::valueChanged), updateVelocity);
+
+  m_parentWindow->m_window.componentsLayout->addWidget(rigidBodyWidget);
+}
+
 void AppWindow::showColliderComponent(Raz::Collider& collider) {
   Ui::ColliderComp colliderComp;
 
@@ -441,6 +491,19 @@ void AppWindow::showAddComponent(Raz::Entity& entity, const QString& entityName,
     connect(addDirectionalLight, &QAction::triggered, [this, &entity, &renderSystem, entityName] () {
       entity.addComponent<Raz::Light>(Raz::LightType::DIRECTIONAL, Raz::Axis::Z, 1.f);
       renderSystem.updateLights();
+      loadComponents(entityName);
+    });
+  }
+
+  // Rigid body
+
+  QAction* addRigidBody = contextMenu->addAction(tr("Rigid body"));
+
+  if (entity.hasComponent<Raz::RigidBody>() || !entity.hasComponent<Raz::Transform>()) {
+    addRigidBody->setEnabled(false);
+  } else {
+    connect(addRigidBody, &QAction::triggered, [this, &entity, entityName] () {
+      entity.addComponent<Raz::RigidBody>(1.f, 0.95f);
       loadComponents(entityName);
     });
   }

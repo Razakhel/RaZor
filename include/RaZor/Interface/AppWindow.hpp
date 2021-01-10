@@ -27,6 +27,7 @@ class Collider;
 class Light;
 class Mesh;
 class RenderSystem;
+class RigidBody;
 class Sound;
 class Transform;
 
@@ -69,6 +70,7 @@ private:
   void showCameraComponent(Raz::Camera& camera);
   void showMeshComponent(Raz::Mesh& mesh);
   void showLightComponent(Raz::Light& light);
+  void showRigidBodyComponent(Raz::RigidBody& rigidBody);
   void showColliderComponent(Raz::Collider& collider);
   void showSoundComponent(Raz::Sound& sound);
   void showAddComponent(Raz::Entity& entity, const QString& entityName, const Raz::RenderSystem& renderSystem);
