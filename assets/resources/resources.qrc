@@ -11,6 +11,12 @@
     <file alias="128">../icons/RaZ_logo_shadow_128.png</file>
   </qresource>
 
+  <qresource prefix="shader">
+    <file alias="vertex">../../shaders/common.vert</file>
+    <file alias="blinn-phong">../../shaders/blinn-phong.frag</file>
+    <file alias="cook-torrance">../../shaders/cook-torrance.frag</file>
+  </qresource>
+
   <qresource prefix="/lang">
     <file alias="en">../translations/english.ts</file>
     <file alias="fr">../translations/french.ts</file>

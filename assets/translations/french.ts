@@ -22,12 +22,12 @@
 <context>
     <name>AppWindow</name>
     <message>
-        <location filename="../../src/RaZor/Interface/AppWindow.cpp" line="336"/>
+        <location filename="../../src/RaZor/Interface/AppWindow.cpp" line="346"/>
         <source>Importing </source>
         <translation>Chargement de </translation>
     </message>
     <message>
-        <location filename="../../src/RaZor/Interface/AppWindow.cpp" line="346"/>
+        <location filename="../../src/RaZor/Interface/AppWindow.cpp" line="356"/>
         <source>Finished importing</source>
         <translation>Chargement terminé</translation>
     </message>
