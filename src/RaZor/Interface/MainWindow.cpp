@@ -10,6 +10,7 @@ MainWindow::MainWindow() {
 
   m_window.setupUi(this);
   m_audioSystemSettings.setupUi(&m_audioSystemSettingsDialog);
+  m_physicsSystemSettings.setupUi(&m_physicsSystemSettingsDialog);
   m_renderSystemSettings.setupUi(&m_renderSystemSettingsDialog);
   m_about.setupUi(&m_aboutDialog);
 
@@ -69,6 +70,7 @@ void MainWindow::setupActions() {
   // Tools menu
 
   connect(m_window.audioSystemSettings, &QAction::triggered, &m_audioSystemSettingsDialog, &QDialog::show);
+  connect(m_window.physicsSystemSettings, &QAction::triggered, &m_physicsSystemSettingsDialog, &QDialog::show);
   connect(m_window.renderSystemSettings, &QAction::triggered, &m_renderSystemSettingsDialog, &QDialog::show);
 
   connect(&m_renderSystemSettingsDialog, &QDialog::accepted, [this] () {

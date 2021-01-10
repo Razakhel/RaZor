@@ -22,12 +22,12 @@
 <context>
     <name>AppWindow</name>
     <message>
-        <location filename="../../src/RaZor/Interface/AppWindow.cpp" line="346"/>
+        <location filename="../../src/RaZor/Interface/AppWindow.cpp" line="367"/>
         <source>Importing </source>
         <translation>Chargement de </translation>
     </message>
     <message>
-        <location filename="../../src/RaZor/Interface/AppWindow.cpp" line="356"/>
+        <location filename="../../src/RaZor/Interface/AppWindow.cpp" line="377"/>
         <source>Finished importing</source>
         <translation>Chargement terminé</translation>
     </message>
@@ -162,22 +162,22 @@
 <context>
     <name>MainWindow</name>
     <message>
-        <location filename="../../src/RaZor/Interface/MainWindow.cpp" line="30"/>
+        <location filename="../../src/RaZor/Interface/MainWindow.cpp" line="31"/>
         <source>Ready</source>
         <translation>Prêt</translation>
     </message>
     <message>
-        <location filename="../../src/RaZor/Interface/MainWindow.cpp" line="50"/>
+        <location filename="../../src/RaZor/Interface/MainWindow.cpp" line="51"/>
         <source>Import a file</source>
         <translation>Importer un fichier</translation>
     </message>
     <message>
-        <location filename="../../src/RaZor/Interface/MainWindow.cpp" line="50"/>
+        <location filename="../../src/RaZor/Interface/MainWindow.cpp" line="51"/>
         <source>Mesh</source>
         <translation>Maillage</translation>
     </message>
     <message>
-        <location filename="../../src/RaZor/Interface/MainWindow.cpp" line="77"/>
+        <location filename="../../src/RaZor/Interface/MainWindow.cpp" line="79"/>
         <source>Unexpected empty field</source>
         <translation>Champ vide inattendu</translation>
     </message>
@@ -197,17 +197,17 @@
         <translation>&amp;Fenêtres</translation>
     </message>
     <message>
-        <location filename="../../interface/RaZor.ui" line="148"/>
+        <location filename="../../interface/RaZor.ui" line="149"/>
         <source>Add entity</source>
         <translation>Ajouter entité</translation>
     </message>
     <message>
-        <location filename="../../interface/RaZor.ui" line="197"/>
+        <location filename="../../interface/RaZor.ui" line="198"/>
         <source>Components</source>
         <translation>Composants</translation>
     </message>
     <message>
-        <location filename="../../interface/RaZor.ui" line="101"/>
+        <location filename="../../interface/RaZor.ui" line="102"/>
         <source>Entities</source>
         <translation>Entités</translation>
     </message>
@@ -222,64 +222,69 @@
         <translation>&amp;Systèmes</translation>
     </message>
     <message>
-        <location filename="../../interface/RaZor.ui" line="67"/>
+        <location filename="../../interface/RaZor.ui" line="68"/>
         <source>&amp;Help</source>
         <translation>&amp;Aide</translation>
     </message>
     <message>
-        <location filename="../../interface/RaZor.ui" line="155"/>
+        <location filename="../../interface/RaZor.ui" line="156"/>
         <source>Unselect</source>
         <translation>Désélectionner</translation>
     </message>
     <message>
-        <location filename="../../interface/RaZor.ui" line="227"/>
+        <location filename="../../interface/RaZor.ui" line="228"/>
         <source>&amp;Open...</source>
         <translation>&amp;Ouvrir...</translation>
     </message>
     <message>
-        <location filename="../../interface/RaZor.ui" line="230"/>
+        <location filename="../../interface/RaZor.ui" line="231"/>
         <source>Open a file</source>
         <translation>Ouvrir un fichier</translation>
     </message>
     <message>
-        <location filename="../../interface/RaZor.ui" line="238"/>
+        <location filename="../../interface/RaZor.ui" line="239"/>
         <source>&amp;Quit</source>
         <translation>&amp;Quitter</translation>
     </message>
     <message>
-        <location filename="../../interface/RaZor.ui" line="241"/>
+        <location filename="../../interface/RaZor.ui" line="242"/>
         <source>Quit RaZor</source>
         <translation>Quitter RaZor</translation>
     </message>
     <message>
-        <location filename="../../interface/RaZor.ui" line="249"/>
+        <location filename="../../interface/RaZor.ui" line="250"/>
         <source>&amp;Entities</source>
         <translation>&amp;Entités</translation>
     </message>
     <message>
-        <location filename="../../interface/RaZor.ui" line="254"/>
+        <location filename="../../interface/RaZor.ui" line="255"/>
         <source>&amp;Components</source>
         <translation>&amp;Composants</translation>
     </message>
     <message>
-        <location filename="../../interface/RaZor.ui" line="259"/>
+        <location filename="../../interface/RaZor.ui" line="260"/>
         <source>&amp;Render system settings...</source>
         <translation>Paramètres du système de &amp;rendu...</translation>
     </message>
     <message>
-        <location filename="../../interface/RaZor.ui" line="267"/>
+        <location filename="../../interface/RaZor.ui" line="268"/>
         <source>&amp;Options...</source>
         <translation>&amp;Options...</translation>
     </message>
     <message>
-        <location filename="../../interface/RaZor.ui" line="272"/>
+        <location filename="../../interface/RaZor.ui" line="273"/>
         <source>&amp;About</source>
         <translation>&amp;A propos</translation>
     </message>
     <message>
-        <location filename="../../interface/RaZor.ui" line="277"/>
+        <location filename="../../interface/RaZor.ui" line="278"/>
         <source>&amp;Audio system settings...</source>
         <translation>Paramètres du système &amp;audio...</translation>
+    </message>
+    <message>
+        <location filename="../../interface/RaZor.ui" line="283"/>
+        <source>&amp;Physics system settings...</source>
+        <translation>Paramètres du système &amp;physique...</translation>
     </message>
 </context>
 <context>
@@ -319,6 +324,24 @@
         <location filename="../../interface/MeshComp.ui" line="72"/>
         <source>Mesh file</source>
         <translation>Fichier de maillage</translation>
+    </message>
+</context>
+<context>
+    <name>PhysicsSystemSettings</name>
+    <message>
+        <location filename="../../interface/PhysicsSystemSettings.ui" line="17"/>
+        <source>Physics system settings</source>
+        <translation>Paramètres du système physique</translation>
+    </message>
+    <message>
+        <location filename="../../interface/PhysicsSystemSettings.ui" line="33"/>
+        <source>Gravity</source>
+        <translation>Gravité</translation>
+    </message>
+    <message>
+        <location filename="../../interface/PhysicsSystemSettings.ui" line="122"/>
+        <source>Friction</source>
+        <translation>Friction</translation>
     </message>
 </context>
 <context>

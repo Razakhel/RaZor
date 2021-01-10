@@ -6,6 +6,7 @@
 #include "RaZor/Interface/AppWindow.hpp"
 #include "ui_RaZor.h"
 #include "ui_AudioSystemSettings.h"
+#include "ui_PhysicsSystemSettings.h"
 #include "ui_RenderSystemSettings.h"
 #include "ui_About.h"
 
@@ -37,6 +38,9 @@ private:
 
   Ui::RenderSystemSettings m_renderSystemSettings {};
   QDialog m_renderSystemSettingsDialog {};
+
+  Ui::PhysicsSystemSettings m_physicsSystemSettings {};
+  QDialog m_physicsSystemSettingsDialog {};
 
   Ui::About m_about {};
   QDialog m_aboutDialog {};

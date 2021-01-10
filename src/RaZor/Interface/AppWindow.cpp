@@ -4,6 +4,7 @@
 #include <RaZ/Audio/AudioSystem.hpp>
 #include <RaZ/Audio/Sound.hpp>
 #include <RaZ/Math/Transform.hpp>
+#include <RaZ/Physics/PhysicsSystem.hpp>
 #include <RaZ/Render/Light.hpp>
 #include <RaZ/Render/Mesh.hpp>
 #include <RaZ/Render/Renderer.hpp>
@@ -74,6 +75,26 @@ void AppWindow::initialize() {
   Raz::Entity& mesh = addEntity("Ball");
   mesh.addComponent<Raz::Mesh>(RAZ_ROOT + "assets/meshes/ball.obj"s);
   mesh.addComponent<Raz::Transform>();
+
+  // Physics
+
+  auto& physicsSystem = world.addSystem<Raz::PhysicsSystem>();
+
+  m_parentWindow->m_physicsSystemSettings.gravityX->setValue(static_cast<double>(physicsSystem.getGravity().x()));
+  m_parentWindow->m_physicsSystemSettings.gravityY->setValue(static_cast<double>(physicsSystem.getGravity().y()));
+  m_parentWindow->m_physicsSystemSettings.gravityZ->setValue(static_cast<double>(physicsSystem.getGravity().z()));
+
+  m_parentWindow->m_physicsSystemSettings.friction->setValue(static_cast<double>(physicsSystem.getFriction()));
+
+  connect(m_parentWindow->m_physicsSystemSettings.buttonBox, &QDialogButtonBox::accepted, [this, &physicsSystem] () {
+    physicsSystem.setGravity(Raz::Vec3f(static_cast<float>(m_parentWindow->m_physicsSystemSettings.gravityX->value()),
+                                        static_cast<float>(m_parentWindow->m_physicsSystemSettings.gravityY->value()),
+                                        static_cast<float>(m_parentWindow->m_physicsSystemSettings.gravityZ->value())));
+
+    physicsSystem.setFriction(static_cast<float>(m_parentWindow->m_physicsSystemSettings.friction->value()));
+  });
+
+  // Audio
 
   auto& audioSystem = world.addSystem<Raz::AudioSystem>();
 
