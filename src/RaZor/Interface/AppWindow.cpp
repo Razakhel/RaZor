@@ -30,7 +30,9 @@ void AppWindow::initialize() {
   format.setRenderableType(QSurfaceFormat::RenderableType::OpenGL);
   format.setVersion(3, 3);
   format.setProfile(QSurfaceFormat::OpenGLContextProfile::CoreProfile);
+#if QT_VERSION >= QT_VERSION_CHECK(5, 10, 0) // QSurfaceFormat::ColorSpace & setColorSpace() are only available with Qt 5.10+
   format.setColorSpace(QSurfaceFormat::ColorSpace::DefaultColorSpace);
+#endif
   format.setSwapBehavior(QSurfaceFormat::SwapBehavior::DoubleBuffer);
 
   m_context->setFormat(format);

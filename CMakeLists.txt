@@ -433,14 +433,14 @@ else ()
     set(RAZ_ROOT "${CMAKE_CURRENT_SOURCE_DIR}/extern/RaZ")
 
     if (EXISTS "${RAZ_ROOT}")
-        # No need to keep the examples, unit test & documentation generation
-        set(RAZ_BUILD_EXAMPLES OFF)
-        set(RAZ_BUILD_TESTS OFF)
-        set(RAZ_GEN_DOC OFF)
+        # No need to keep the examples, unit tests & documentation generation
+        set(RAZ_BUILD_EXAMPLES OFF CACHE BOOL "" FORCE)
+        set(RAZ_BUILD_TESTS OFF CACHE BOOL "" FORCE)
+        set(RAZ_GEN_DOC OFF CACHE BOOL "" FORCE)
 
         # Qt will handle all the windowing part; GLFW & ImGui must not be used
-        set(RAZ_USE_GLFW OFF)
-        set(RAZ_USE_IMGUI OFF)
+        set(RAZ_USE_GLFW OFF CACHE BOOL "" FORCE)
+        set(RAZ_USE_IMGUI OFF CACHE BOOL "" FORCE)
 
         add_subdirectory("${RAZ_ROOT}")
     else ()
