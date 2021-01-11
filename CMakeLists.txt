@@ -150,8 +150,6 @@ if (ENABLE_DEBUG_INFO)
     )
 endif ()
 
-target_compile_definitions(RaZor PRIVATE RAZOR_ROOT="${CMAKE_CURRENT_SOURCE_DIR}/")
-
 ##########################
 # RaZor - Compiler flags #
 ##########################
@@ -448,8 +446,6 @@ else ()
     endif ()
 endif ()
 
-target_compile_definitions(RaZor PRIVATE RAZ_ROOT="${RAZ_ROOT}/")
-
 ####################
 # RaZor - Qt usage #
 ####################
@@ -580,24 +576,37 @@ endif ()
 if (RAZOR_PLATFORM_WINDOWS)
     # Copying all necessary DLLs to launch RaZor
 
-    file(
-        GLOB
-        RAZOR_INSTALL_DLLS
+    set(RAZOR_DLLS_LOCATION "${CMAKE_BINARY_DIR}")
 
-        "${CMAKE_BINARY_DIR}/Qt5*.dll"
+    # Visual Studio's binary directory doesn't contain the config folder suffix; it is needed & thus manually appended
+    # This probably needs more research to find a better way for this...
+    if (CMAKE_GENERATOR MATCHES "Visual Studio*")
+        set(RAZOR_DLLS_LOCATION "${RAZOR_DLLS_LOCATION}/$<CONFIG>")
+    endif ()
+
+    if (RAZOR_COMPILER_MSVC)
+        set(DLLS_SUFFIX "$<IF:$<CONFIG:Debug>,d,>") # windeployqt appends a 'd' in Debug at the end of each dll with MSVC
+    endif ()
+
+    install(
+        FILES
+
+        "${RAZOR_DLLS_LOCATION}/Qt5Core${DLLS_SUFFIX}.dll"
+        "${RAZOR_DLLS_LOCATION}/Qt5Gui${DLLS_SUFFIX}.dll"
+        "${RAZOR_DLLS_LOCATION}/Qt5Widgets${DLLS_SUFFIX}.dll"
+
+        DESTINATION "${CMAKE_INSTALL_PREFIX}"
     )
 
-    install(FILES ${RAZOR_INSTALL_DLLS} DESTINATION "${CMAKE_INSTALL_PREFIX}")
-
-    # Deploying Qt adds several folders & DLLs; some are necessary for RaZ to run
+    # Deploying Qt adds several folders & DLLs; some are necessary for RaZor to run
     install(
         DIRECTORY
 
-        #"${CMAKE_BINARY_DIR}/iconengines"
-        #"${CMAKE_BINARY_DIR}/imageformats"
-        "${CMAKE_BINARY_DIR}/platforms"
-        "${CMAKE_BINARY_DIR}/styles"
-        #"${CMAKE_BINARY_DIR}/translations"
+        #"${RAZOR_DLLS_LOCATION}/iconengines"
+        #"${RAZOR_DLLS_LOCATION}/imageformats"
+        "${RAZOR_DLLS_LOCATION}/platforms"
+        "${RAZOR_DLLS_LOCATION}/styles"
+        #"${RAZOR_DLLS_LOCATION}/translations"
 
         DESTINATION "${CMAKE_INSTALL_PREFIX}"
     )
