@@ -598,6 +598,10 @@ if (RAZOR_PLATFORM_WINDOWS)
         DESTINATION "${CMAKE_INSTALL_PREFIX}"
     )
 
+    # RaZor links itself against OpenAL32.dll
+    # The system's may be automatically found, but OpenAL-soft's is installed in case the former doesn't exist
+    install(FILES "${OPENAL_DLL}" RENAME "OpenAL32.dll" DESTINATION "${CMAKE_INSTALL_PREFIX}")
+
     # Deploying Qt adds several folders & DLLs; some are necessary for RaZor to run
     install(
         DIRECTORY
