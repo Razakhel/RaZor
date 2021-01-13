@@ -16,6 +16,8 @@
 #include <RaZ/Render/Mesh.hpp>
 #include <RaZ/Render/RenderSystem.hpp>
 
+#include <QStandardItemModel>
+
 void AppWindow::loadComponents(const QString& entityName) {
   // Removing all widgets from the components panel
   clearComponents();
@@ -310,13 +312,20 @@ void AppWindow::showColliderComponent(Raz::Collider& collider) {
 
   // Shape type
 
+  auto* model = static_cast<QStandardItemModel*>(colliderComp.shapeType->model());
+
   colliderComp.shapeType->addItem(tr("Line"));
+  model->item(0)->setEnabled(false);
   colliderComp.shapeType->addItem(tr("Plane"));
   colliderComp.shapeType->addItem(tr("Sphere"));
+  model->item(2)->setEnabled(false);
   colliderComp.shapeType->addItem(tr("Triangle"));
+  model->item(3)->setEnabled(false);
   colliderComp.shapeType->addItem(tr("Quad"));
+  model->item(4)->setEnabled(false);
   colliderComp.shapeType->addItem(tr("AABB"));
   colliderComp.shapeType->addItem(tr("OBB"));
+  model->item(6)->setEnabled(false);
 
   colliderComp.shapeType->setCurrentIndex(static_cast<int>(collider.getShapeType()));
 
@@ -520,6 +529,7 @@ void AppWindow::showAddComponent(Raz::Entity& entity, const QString& entityName,
       entity.addComponent<Raz::Collider>(Raz::Line(Raz::Vec3f(-1.f, 0.f, 0.f), Raz::Vec3f(1.f, 0.f, 0.f)));
       loadComponents(entityName);
     });
+    addLineCollider->setEnabled(false);
 
     QAction* addPlaneCollider = addCollider->addAction(tr("Plane"));
     connect(addPlaneCollider, &QAction::triggered, [this, &entity, entityName] () {
@@ -532,12 +542,14 @@ void AppWindow::showAddComponent(Raz::Entity& entity, const QString& entityName,
       entity.addComponent<Raz::Collider>(Raz::Sphere(Raz::Vec3f(0.f), 1.f));
       loadComponents(entityName);
     });
+    addSphereCollider->setEnabled(false);
 
     QAction* addTriangleCollider = addCollider->addAction(tr("Triangle"));
     connect(addTriangleCollider, &QAction::triggered, [this, &entity, entityName] () {
       entity.addComponent<Raz::Collider>(Raz::Triangle(Raz::Vec3f(-1.f, -1.f, 0.f), Raz::Vec3f(0.f, 1.f, 0.f), Raz::Vec3f(1.f, -1.f, 0.f)));
       loadComponents(entityName);
     });
+    addTriangleCollider->setEnabled(false);
 
     QAction* addQuadCollider = addCollider->addAction(tr("Quad"));
     connect(addQuadCollider, &QAction::triggered, [this, &entity, entityName] () {
@@ -545,6 +557,7 @@ void AppWindow::showAddComponent(Raz::Entity& entity, const QString& entityName,
                                                    Raz::Vec3f(1.f, -1.f, 0.f), Raz::Vec3f(-1.f, -1.f, 0.f)));
       loadComponents(entityName);
     });
+    addQuadCollider->setEnabled(false);
 
     QAction* addAABBCollider = addCollider->addAction(tr("AABB"));
     connect(addAABBCollider, &QAction::triggered, [this, &entity, entityName] () {
@@ -557,6 +570,7 @@ void AppWindow::showAddComponent(Raz::Entity& entity, const QString& entityName,
       entity.addComponent<Raz::Collider>(Raz::OBB(Raz::Vec3f(-1.f), Raz::Vec3f(1.f)));
       loadComponents(entityName);
     });
+    addOBBCollider->setEnabled(false);
   }
 
   // Sound
