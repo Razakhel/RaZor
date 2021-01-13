@@ -2,6 +2,12 @@
 #include <QFileDialog>
 #include <QMimeData>
 
+#if QT_VERSION >= QT_VERSION_CHECK(5, 10, 0)
+#include <QStringView>
+#else
+#include <QStringRef>
+#endif
+
 #include <iostream>
 
 namespace {
@@ -18,7 +24,12 @@ std::vector<std::string_view> recoverFileFormats() {
 
 template <FileType FileT>
 bool isValid(const QString& filePath) {
+#if QT_VERSION >= QT_VERSION_CHECK(5, 10, 0)
+  const QStringView fileExt = QStringView(filePath).split('.').back();
+#else
   const QStringRef fileExt = filePath.splitRef('.').back();
+#endif
+
   const std::vector<std::string_view> formats = recoverFileFormats<FileT>();
 
   if (std::find(formats.cbegin(), formats.cend(), fileExt.toString().toStdString()) != formats.cend())
