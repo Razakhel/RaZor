@@ -393,6 +393,7 @@ set(
 
     src/RaZor/*.cpp
     src/RaZor/Interface/*.cpp
+    src/RaZor/Interface/Component/*.cpp
 
     include/RaZor/*.hpp
     include/RaZor/Interface/*.hpp

@@ -19,6 +19,7 @@ struct std::hash<QString> {
 #endif
 
 class MainWindow;
+class QMenu;
 
 namespace Raz {
 
@@ -46,6 +47,10 @@ public:
   Raz::Entity& recoverEntity(const QString& name);
   void enableEntity(const QString& name, bool enabled = true);
   void disableEntity(const QString& name) { enableEntity(name, false); }
+  /// Loads the components of the currently selected entity.
+  void loadComponents();
+  /// Loads the components of the entity corresponding to the given name.
+  /// \param entityName Name of the entity to load the components of.
   void loadComponents(const QString& entityName);
   void clearComponents();
 
@@ -74,6 +79,7 @@ private:
   void showColliderComponent(Raz::Collider& collider);
   void showSoundComponent(Raz::Sound& sound);
   void showAddComponent(Raz::Entity& entity, const QString& entityName, const Raz::RenderSystem& renderSystem);
+  void showAddCollider(Raz::Entity& entity, const QString& entityName, QMenu& contextMenu);
   void processActions();
 
   MainWindow* m_parentWindow {};
