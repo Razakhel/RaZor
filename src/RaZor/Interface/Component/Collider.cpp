@@ -1,11 +1,63 @@
 #include "RaZor/Interface/AppWindow.hpp"
 #include "RaZor/Interface/MainWindow.hpp"
 #include "ui_ColliderComp.h"
+#include "ui_PlaneInfo.h"
 
 #include <RaZ/Math/Transform.hpp>
 #include <RaZ/Physics/Collider.hpp>
 
 #include <QStandardItemModel>
+
+namespace {
+
+QFrame* createPlaneWidget(const Raz::Plane& plane) {
+  Ui::PlaneInfo planeComp;
+
+  auto* planeWidget = new QFrame();
+  planeComp.setupUi(planeWidget);
+
+  planeComp.distance->setValue(static_cast<double>(plane.getDistance()));
+
+  planeComp.normalX->setValue(static_cast<double>(plane.getNormal().x()));
+  planeComp.normalY->setValue(static_cast<double>(plane.getNormal().y()));
+  planeComp.normalZ->setValue(static_cast<double>(plane.getNormal().z()));
+
+  return planeWidget;
+}
+
+void showShapeInfo(Raz::Collider& collider, Ui::ColliderComp& colliderComp) {
+  switch (collider.getShapeType()) {
+    case Raz::ShapeType::LINE:
+//      colliderComp.shapeInfoLayout->addWidget(createLineWidget(collider.getShape<Raz::Line>()));
+      break;
+
+    case Raz::ShapeType::PLANE:
+      colliderComp.shapeInfoLayout->addWidget(createPlaneWidget(collider.getShape<Raz::Plane>()));
+      break;
+
+    case Raz::ShapeType::SPHERE:
+//      colliderComp.shapeInfoLayout->addWidget(createSphereWidget(collider.getShape<Raz::Sphere>()));
+      break;
+
+    case Raz::ShapeType::TRIANGLE:
+//      colliderComp.shapeInfoLayout->addWidget(createTriangleWidget(collider.getShape<Raz::Triangle>()));
+      break;
+
+    case Raz::ShapeType::QUAD:
+//      colliderComp.shapeInfoLayout->addWidget(createQuadWidget(collider.getShape<Raz::Quad>()));
+      break;
+
+    case Raz::ShapeType::AABB:
+//      colliderComp.shapeInfoLayout->addWidget(createAABBWidget(collider.getShape<Raz::AABB>()));
+      break;
+
+    case Raz::ShapeType::OBB:
+//      colliderComp.shapeInfoLayout->addWidget(createOBBWidget(collider.getShape<Raz::OBB>()));
+      break;
+  }
+}
+
+} // namespace
 
 void AppWindow::showColliderComponent(Raz::Collider& collider) {
   Ui::ColliderComp colliderComp;
@@ -69,6 +121,8 @@ void AppWindow::showColliderComponent(Raz::Collider& collider) {
 
     loadComponents();
   });
+
+  showShapeInfo(collider, colliderComp);
 
   m_parentWindow->m_window.componentsLayout->addWidget(colliderWidget);
 }

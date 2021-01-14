@@ -42,44 +42,44 @@
         <translation> component(s) not displayed.</translation>
     </message>
     <message>
-        <location filename="../../src/RaZor/Interface/Component/Collider.cpp" line="20"/>
-        <location filename="../../src/RaZor/Interface/Component/Collider.cpp" line="84"/>
+        <location filename="../../src/RaZor/Interface/Component/Collider.cpp" line="72"/>
+        <location filename="../../src/RaZor/Interface/Component/Collider.cpp" line="138"/>
         <source>Line</source>
         <translation>Line</translation>
     </message>
     <message>
-        <location filename="../../src/RaZor/Interface/Component/Collider.cpp" line="22"/>
-        <location filename="../../src/RaZor/Interface/Component/Collider.cpp" line="91"/>
+        <location filename="../../src/RaZor/Interface/Component/Collider.cpp" line="74"/>
+        <location filename="../../src/RaZor/Interface/Component/Collider.cpp" line="145"/>
         <source>Plane</source>
         <translation>Plane</translation>
     </message>
     <message>
-        <location filename="../../src/RaZor/Interface/Component/Collider.cpp" line="23"/>
-        <location filename="../../src/RaZor/Interface/Component/Collider.cpp" line="97"/>
+        <location filename="../../src/RaZor/Interface/Component/Collider.cpp" line="75"/>
+        <location filename="../../src/RaZor/Interface/Component/Collider.cpp" line="151"/>
         <source>Sphere</source>
         <translation>Sphere</translation>
     </message>
     <message>
-        <location filename="../../src/RaZor/Interface/Component/Collider.cpp" line="25"/>
-        <location filename="../../src/RaZor/Interface/Component/Collider.cpp" line="104"/>
+        <location filename="../../src/RaZor/Interface/Component/Collider.cpp" line="77"/>
+        <location filename="../../src/RaZor/Interface/Component/Collider.cpp" line="158"/>
         <source>Triangle</source>
         <translation>Triangle</translation>
     </message>
     <message>
-        <location filename="../../src/RaZor/Interface/Component/Collider.cpp" line="27"/>
-        <location filename="../../src/RaZor/Interface/Component/Collider.cpp" line="111"/>
+        <location filename="../../src/RaZor/Interface/Component/Collider.cpp" line="79"/>
+        <location filename="../../src/RaZor/Interface/Component/Collider.cpp" line="165"/>
         <source>Quad</source>
         <translation>Quad</translation>
     </message>
     <message>
-        <location filename="../../src/RaZor/Interface/Component/Collider.cpp" line="29"/>
-        <location filename="../../src/RaZor/Interface/Component/Collider.cpp" line="119"/>
+        <location filename="../../src/RaZor/Interface/Component/Collider.cpp" line="81"/>
+        <location filename="../../src/RaZor/Interface/Component/Collider.cpp" line="173"/>
         <source>AABB</source>
         <translation>AABB</translation>
     </message>
     <message>
-        <location filename="../../src/RaZor/Interface/Component/Collider.cpp" line="30"/>
-        <location filename="../../src/RaZor/Interface/Component/Collider.cpp" line="125"/>
+        <location filename="../../src/RaZor/Interface/Component/Collider.cpp" line="82"/>
+        <location filename="../../src/RaZor/Interface/Component/Collider.cpp" line="179"/>
         <source>OBB</source>
         <translation>OBB</translation>
     </message>
@@ -120,7 +120,7 @@
         <translation>Rigid body</translation>
     </message>
     <message>
-        <location filename="../../src/RaZor/Interface/Component/Collider.cpp" line="77"/>
+        <location filename="../../src/RaZor/Interface/Component/Collider.cpp" line="131"/>
         <source>Collider</source>
         <translation>Collider</translation>
     </message>
@@ -408,6 +408,24 @@
         <location filename="../../interface/PhysicsSystemSettings.ui" line="122"/>
         <source>Friction</source>
         <translation>Friction</translation>
+    </message>
+</context>
+<context>
+    <name>PlaneInfo</name>
+    <message>
+        <location filename="../../interface/PlaneInfo.ui" line="14"/>
+        <source>Plane</source>
+        <translation>Plane</translation>
+    </message>
+    <message>
+        <location filename="../../interface/PlaneInfo.ui" line="20"/>
+        <source>Distance</source>
+        <translation>Distance</translation>
+    </message>
+    <message>
+        <location filename="../../interface/PlaneInfo.ui" line="59"/>
+        <source>Normal</source>
+        <translation>Normal</translation>
     </message>
 </context>
 <context>
