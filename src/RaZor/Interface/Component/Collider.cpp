@@ -1,6 +1,7 @@
 #include "RaZor/Interface/AppWindow.hpp"
 #include "RaZor/Interface/MainWindow.hpp"
 #include "ui_ColliderComp.h"
+#include "ui_AABBInfo.h"
 #include "ui_PlaneInfo.h"
 
 #include <RaZ/Math/Transform.hpp>
@@ -23,6 +24,23 @@ QFrame* createPlaneWidget(const Raz::Plane& plane) {
   planeComp.normalZ->setValue(static_cast<double>(plane.getNormal().z()));
 
   return planeWidget;
+}
+
+QFrame* createAABBWidget(const Raz::AABB& aabb) {
+  Ui::AABBInfo aabbComp;
+
+  auto* aabbWidget = new QFrame();
+  aabbComp.setupUi(aabbWidget);
+
+  aabbComp.lowerPointX->setValue(static_cast<double>(aabb.getLeftBottomBackPos().x()));
+  aabbComp.lowerPointY->setValue(static_cast<double>(aabb.getLeftBottomBackPos().y()));
+  aabbComp.lowerPointZ->setValue(static_cast<double>(aabb.getLeftBottomBackPos().z()));
+
+  aabbComp.upperPointX->setValue(static_cast<double>(aabb.getRightTopFrontPos().x()));
+  aabbComp.upperPointY->setValue(static_cast<double>(aabb.getRightTopFrontPos().y()));
+  aabbComp.upperPointZ->setValue(static_cast<double>(aabb.getRightTopFrontPos().z()));
+
+  return aabbWidget;
 }
 
 void showShapeInfo(Raz::Collider& collider, Ui::ColliderComp& colliderComp) {
@@ -48,7 +66,7 @@ void showShapeInfo(Raz::Collider& collider, Ui::ColliderComp& colliderComp) {
       break;
 
     case Raz::ShapeType::AABB:
-//      colliderComp.shapeInfoLayout->addWidget(createAABBWidget(collider.getShape<Raz::AABB>()));
+      colliderComp.shapeInfoLayout->addWidget(createAABBWidget(collider.getShape<Raz::AABB>()));
       break;
 
     case Raz::ShapeType::OBB:

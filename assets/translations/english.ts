@@ -2,6 +2,24 @@
 <!DOCTYPE TS>
 <TS version="2.1" language="en_US">
 <context>
+    <name>AABBInfo</name>
+    <message>
+        <location filename="../../interface/AABBInfo.ui" line="14"/>
+        <source>AABB</source>
+        <translation>AABB</translation>
+    </message>
+    <message>
+        <location filename="../../interface/AABBInfo.ui" line="20"/>
+        <source>Lower point</source>
+        <translation>Lower point</translation>
+    </message>
+    <message>
+        <location filename="../../interface/AABBInfo.ui" line="27"/>
+        <source>Upper point</source>
+        <translation>Upper point</translation>
+    </message>
+</context>
+<context>
     <name>About</name>
     <message>
         <location filename="../../interface/About.ui" line="17"/>
@@ -42,44 +60,44 @@
         <translation> component(s) not displayed.</translation>
     </message>
     <message>
-        <location filename="../../src/RaZor/Interface/Component/Collider.cpp" line="72"/>
-        <location filename="../../src/RaZor/Interface/Component/Collider.cpp" line="138"/>
+        <location filename="../../src/RaZor/Interface/Component/Collider.cpp" line="90"/>
+        <location filename="../../src/RaZor/Interface/Component/Collider.cpp" line="156"/>
         <source>Line</source>
         <translation>Line</translation>
     </message>
     <message>
-        <location filename="../../src/RaZor/Interface/Component/Collider.cpp" line="74"/>
-        <location filename="../../src/RaZor/Interface/Component/Collider.cpp" line="145"/>
+        <location filename="../../src/RaZor/Interface/Component/Collider.cpp" line="92"/>
+        <location filename="../../src/RaZor/Interface/Component/Collider.cpp" line="163"/>
         <source>Plane</source>
         <translation>Plane</translation>
     </message>
     <message>
-        <location filename="../../src/RaZor/Interface/Component/Collider.cpp" line="75"/>
-        <location filename="../../src/RaZor/Interface/Component/Collider.cpp" line="151"/>
+        <location filename="../../src/RaZor/Interface/Component/Collider.cpp" line="93"/>
+        <location filename="../../src/RaZor/Interface/Component/Collider.cpp" line="169"/>
         <source>Sphere</source>
         <translation>Sphere</translation>
     </message>
     <message>
-        <location filename="../../src/RaZor/Interface/Component/Collider.cpp" line="77"/>
-        <location filename="../../src/RaZor/Interface/Component/Collider.cpp" line="158"/>
+        <location filename="../../src/RaZor/Interface/Component/Collider.cpp" line="95"/>
+        <location filename="../../src/RaZor/Interface/Component/Collider.cpp" line="176"/>
         <source>Triangle</source>
         <translation>Triangle</translation>
     </message>
     <message>
-        <location filename="../../src/RaZor/Interface/Component/Collider.cpp" line="79"/>
-        <location filename="../../src/RaZor/Interface/Component/Collider.cpp" line="165"/>
+        <location filename="../../src/RaZor/Interface/Component/Collider.cpp" line="97"/>
+        <location filename="../../src/RaZor/Interface/Component/Collider.cpp" line="183"/>
         <source>Quad</source>
         <translation>Quad</translation>
     </message>
     <message>
-        <location filename="../../src/RaZor/Interface/Component/Collider.cpp" line="81"/>
-        <location filename="../../src/RaZor/Interface/Component/Collider.cpp" line="173"/>
+        <location filename="../../src/RaZor/Interface/Component/Collider.cpp" line="99"/>
+        <location filename="../../src/RaZor/Interface/Component/Collider.cpp" line="191"/>
         <source>AABB</source>
         <translation>AABB</translation>
     </message>
     <message>
-        <location filename="../../src/RaZor/Interface/Component/Collider.cpp" line="82"/>
-        <location filename="../../src/RaZor/Interface/Component/Collider.cpp" line="179"/>
+        <location filename="../../src/RaZor/Interface/Component/Collider.cpp" line="100"/>
+        <location filename="../../src/RaZor/Interface/Component/Collider.cpp" line="197"/>
         <source>OBB</source>
         <translation>OBB</translation>
     </message>
@@ -120,7 +138,7 @@
         <translation>Rigid body</translation>
     </message>
     <message>
-        <location filename="../../src/RaZor/Interface/Component/Collider.cpp" line="131"/>
+        <location filename="../../src/RaZor/Interface/Component/Collider.cpp" line="149"/>
         <source>Collider</source>
         <translation>Collider</translation>
     </message>
