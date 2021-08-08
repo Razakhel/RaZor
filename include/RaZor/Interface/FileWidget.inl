@@ -24,7 +24,7 @@ std::vector<std::string_view> recoverFileFormats() {
 
 template <FileType FileT>
 bool isValid(const QString& filePath) {
-#if QT_VERSION >= QT_VERSION_CHECK(5, 10, 0)
+#if QT_VERSION >= QT_VERSION_CHECK(5, 15, 2)
   const QStringView fileExt = QStringView(filePath).split('.').back();
 #else
   const QStringRef fileExt = filePath.splitRef('.').back();
@@ -64,8 +64,8 @@ void FileWidget<FileT>::mouseDoubleClickEvent(QMouseEvent* event) {
 
   formatsStr += " (";
   for (const std::string_view& format : formats)
-    formatsStr += "*." + QString(format.data());
-  formatsStr += ')';
+    formatsStr += "*." + QString(format.data()) + ' ';
+  formatsStr.back() = ')';
 
   const QString filePath = QFileDialog::getOpenFileName(this, tr("Import a file"), QString(), formatsStr);
 
