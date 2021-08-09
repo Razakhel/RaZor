@@ -568,6 +568,16 @@ endif ()
 
 install(TARGETS RaZor DESTINATION "${CMAKE_INSTALL_PREFIX}")
 
+# Installing translation files
+file(
+    GLOB
+    RAZOR_QM_FILES
+
+    "${CMAKE_BINARY_DIR}/*.qm"
+)
+
+install(FILES ${RAZOR_QM_FILES} DESTINATION "${CMAKE_INSTALL_PREFIX}")
+
 # If the FBX SDK is used, install the DLL file into the install root folder
 if (RAZOR_COMPILER_MSVC AND RAZOR_USE_FBX AND FBX_FOUND)
     install(FILES "${FBX_CONFIG_DLL}" DESTINATION "${CMAKE_INSTALL_PREFIX}")

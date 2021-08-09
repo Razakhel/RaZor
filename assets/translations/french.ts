@@ -447,6 +447,14 @@
     </message>
 </context>
 <context>
+    <name>QCoreApplication</name>
+    <message>
+        <location filename="../../main.cpp" line="21"/>
+        <source>Change the application&apos;s language.</source>
+        <translation>Changer la langue de l&apos;application.</translation>
+    </message>
+</context>
+<context>
     <name>RenderSystemSettings</name>
     <message>
         <location filename="../../interface/RenderSystemSettings.ui" line="17"/>
