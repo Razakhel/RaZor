@@ -31,8 +31,8 @@
     <tbody>
         <tr>
             <th align="center">Compilation</th>
-            <td align="center">No CI yet</td>
-            <td align="center">No CI yet</td>
+            <td align="center"><a alt="Linux build status" href="https://github.com/Razakhel/RaZor/actions/workflows/Linux.yml"><img src="https://github.com/Razakhel/RaZor/actions/workflows/Linux.yml/badge.svg?branch=master&event=push" /></a></td>
+            <td align="center"><a alt="Windows build status" href="https://github.com/Razakhel/RaZor/actions/workflows/Windows.yml"><img src="https://github.com/Razakhel/RaZor/actions/workflows/Windows.yml/badge.svg?branch=master&event=push" /></a></td>
             <!--<td align="center">No CI yet</td>-->
         </tr>
     </tbody>
