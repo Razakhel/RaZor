@@ -100,19 +100,19 @@ void AppWindow::showTransformComponent(Raz::Entity& entity) {
   transformComp.positionY->setValue(static_cast<double>(transform.getPosition()[1]));
   transformComp.positionZ->setValue(static_cast<double>(transform.getPosition()[2]));
 
-  connect(transformComp.positionX, QOverload<double>::of(&QDoubleSpinBox::valueChanged), [&transform, &entity, &renderSystem] (double val) {
+  connect(transformComp.positionX, QOverload<double>::of(&ValuePicker::valueChanged), [&transform, &entity, &renderSystem] (double val) {
     transform.setPosition(static_cast<float>(val), transform.getPosition()[1], transform.getPosition()[2]);
 
     if (entity.hasComponent<Raz::Light>())
       renderSystem.updateLights();
   });
-  connect(transformComp.positionY, QOverload<double>::of(&QDoubleSpinBox::valueChanged), [&transform, &entity, &renderSystem] (double val) {
+  connect(transformComp.positionY, QOverload<double>::of(&ValuePicker::valueChanged), [&transform, &entity, &renderSystem] (double val) {
     transform.setPosition(transform.getPosition()[0], static_cast<float>(val), transform.getPosition()[2]);
 
     if (entity.hasComponent<Raz::Light>())
       renderSystem.updateLights();
   });
-  connect(transformComp.positionZ, QOverload<double>::of(&QDoubleSpinBox::valueChanged), [&transform, &entity, &renderSystem] (double val) {
+  connect(transformComp.positionZ, QOverload<double>::of(&ValuePicker::valueChanged), [&transform, &entity, &renderSystem] (double val) {
     transform.setPosition(transform.getPosition()[0], transform.getPosition()[1], static_cast<float>(val));
 
     if (entity.hasComponent<Raz::Light>())
@@ -128,13 +128,13 @@ void AppWindow::showTransformComponent(Raz::Entity& entity) {
   transformComp.scaleY->setValue(static_cast<double>(transform.getScale()[1]));
   transformComp.scaleZ->setValue(static_cast<double>(transform.getScale()[2]));
 
-  connect(transformComp.scaleX, QOverload<double>::of(&QDoubleSpinBox::valueChanged), [&transform] (double val) {
+  connect(transformComp.scaleX, QOverload<double>::of(&ValuePicker::valueChanged), [&transform] (double val) {
     transform.setScale(static_cast<float>(val), transform.getScale()[1], transform.getScale()[2]);
   });
-  connect(transformComp.scaleY, QOverload<double>::of(&QDoubleSpinBox::valueChanged), [&transform] (double val) {
+  connect(transformComp.scaleY, QOverload<double>::of(&ValuePicker::valueChanged), [&transform] (double val) {
     transform.setScale(transform.getScale()[0], static_cast<float>(val), transform.getScale()[2]);
   });
-  connect(transformComp.scaleZ, QOverload<double>::of(&QDoubleSpinBox::valueChanged), [&transform] (double val) {
+  connect(transformComp.scaleZ, QOverload<double>::of(&ValuePicker::valueChanged), [&transform] (double val) {
     transform.setScale(transform.getScale()[0], transform.getScale()[1], static_cast<float>(val));
   });
 
@@ -151,7 +151,7 @@ void AppWindow::showCameraComponent(Raz::Camera& camera) {
 
   cameraComp.fieldOfView->setValue(static_cast<double>(Raz::Degreesf(camera.getFieldOfView()).value));
 
-  connect(cameraComp.fieldOfView, QOverload<double>::of(&QDoubleSpinBox::valueChanged), [&camera] (double val) {
+  connect(cameraComp.fieldOfView, QOverload<double>::of(&ValuePicker::valueChanged), [&camera] (double val) {
     camera.setFieldOfView(Raz::Degreesd(val));
   });
 
@@ -218,15 +218,15 @@ void AppWindow::showLightComponent(Raz::Light& light) {
   lightComp.directionY->setValue(static_cast<double>(light.getDirection()[1]));
   lightComp.directionZ->setValue(static_cast<double>(light.getDirection()[2]));
 
-  connect(lightComp.directionX, QOverload<double>::of(&QDoubleSpinBox::valueChanged), [&light, &renderSystem] (double val) {
+  connect(lightComp.directionX, QOverload<double>::of(&ValuePicker::valueChanged), [&light, &renderSystem] (double val) {
     light.setDirection(Raz::Vec3f(static_cast<float>(val), light.getDirection()[1], light.getDirection()[2]));
     renderSystem.updateLights();
   });
-  connect(lightComp.directionY, QOverload<double>::of(&QDoubleSpinBox::valueChanged), [&light, &renderSystem] (double val) {
+  connect(lightComp.directionY, QOverload<double>::of(&ValuePicker::valueChanged), [&light, &renderSystem] (double val) {
     light.setDirection(Raz::Vec3f(light.getDirection()[0], static_cast<float>(val), light.getDirection()[2]));
     renderSystem.updateLights();
   });
-  connect(lightComp.directionZ, QOverload<double>::of(&QDoubleSpinBox::valueChanged), [&light, &renderSystem] (double val) {
+  connect(lightComp.directionZ, QOverload<double>::of(&ValuePicker::valueChanged), [&light, &renderSystem] (double val) {
     light.setDirection(Raz::Vec3f(light.getDirection()[0], light.getDirection()[1], static_cast<float>(val)));
     renderSystem.updateLights();
   });
@@ -235,7 +235,7 @@ void AppWindow::showLightComponent(Raz::Light& light) {
 
   lightComp.energy->setValue(static_cast<double>(light.getEnergy()));
 
-  connect(lightComp.energy, QOverload<double>::of(&QDoubleSpinBox::valueChanged), [&light, &renderSystem] (double val) {
+  connect(lightComp.energy, QOverload<double>::of(&ValuePicker::valueChanged), [&light, &renderSystem] (double val) {
     light.setEnergy(static_cast<float>(val));
     renderSystem.updateLights();
   });
@@ -272,7 +272,7 @@ void AppWindow::showRigidBodyComponent(Raz::RigidBody& rigidBody) {
 
   rigidBodyComp.mass->setValue(static_cast<double>(rigidBody.getMass()));
 
-  connect(rigidBodyComp.mass, QOverload<double>::of(&QDoubleSpinBox::valueChanged), [&rigidBody] (double val) {
+  connect(rigidBodyComp.mass, QOverload<double>::of(&ValuePicker::valueChanged), [&rigidBody] (double val) {
     rigidBody.setMass(static_cast<float>(val));
   });
 
@@ -280,7 +280,7 @@ void AppWindow::showRigidBodyComponent(Raz::RigidBody& rigidBody) {
 
   rigidBodyComp.bounciness->setValue(static_cast<double>(rigidBody.getBounciness()));
 
-  connect(rigidBodyComp.bounciness, QOverload<double>::of(&QDoubleSpinBox::valueChanged), [&rigidBody] (double val) {
+  connect(rigidBodyComp.bounciness, QOverload<double>::of(&ValuePicker::valueChanged), [&rigidBody] (double val) {
     rigidBody.setBounciness(static_cast<float>(val));
   });
 
@@ -298,9 +298,9 @@ void AppWindow::showRigidBodyComponent(Raz::RigidBody& rigidBody) {
     rigidBody.setVelocity(Raz::Vec3f(velocityX, velocityY, velocityZ));
   };
 
-  connect(rigidBodyComp.velocityX, QOverload<double>::of(&QDoubleSpinBox::valueChanged), updateVelocity);
-  connect(rigidBodyComp.velocityY, QOverload<double>::of(&QDoubleSpinBox::valueChanged), updateVelocity);
-  connect(rigidBodyComp.velocityZ, QOverload<double>::of(&QDoubleSpinBox::valueChanged), updateVelocity);
+  connect(rigidBodyComp.velocityX, QOverload<double>::of(&ValuePicker::valueChanged), updateVelocity);
+  connect(rigidBodyComp.velocityY, QOverload<double>::of(&ValuePicker::valueChanged), updateVelocity);
+  connect(rigidBodyComp.velocityZ, QOverload<double>::of(&ValuePicker::valueChanged), updateVelocity);
 
   m_parentWindow->m_window.componentsLayout->addWidget(rigidBodyWidget);
 }

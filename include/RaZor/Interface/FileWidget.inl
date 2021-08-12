@@ -2,7 +2,7 @@
 #include <QFileDialog>
 #include <QMimeData>
 
-#if QT_VERSION >= QT_VERSION_CHECK(5, 10, 0)
+#if QT_VERSION >= QT_VERSION_CHECK(5, 15, 2)
 #include <QStringView>
 #else
 #include <QStringRef>

@@ -2,14 +2,6 @@
 <ui version="4.0">
  <class>ColliderComp</class>
  <widget class="QGroupBox" name="ColliderComp">
-  <property name="geometry">
-   <rect>
-    <x>0</x>
-    <y>0</y>
-    <width>231</width>
-    <height>61</height>
-   </rect>
-  </property>
   <property name="windowTitle">
    <string>Collider</string>
   </property>

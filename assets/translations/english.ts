@@ -4,17 +4,17 @@
 <context>
     <name>AABBInfo</name>
     <message>
-        <location filename="../../interface/AABBInfo.ui" line="14"/>
+        <location filename="../../interface/AABBInfo.ui" line="6"/>
         <source>AABB</source>
         <translation>AABB</translation>
     </message>
     <message>
-        <location filename="../../interface/AABBInfo.ui" line="20"/>
+        <location filename="../../interface/AABBInfo.ui" line="12"/>
         <source>Lower point</source>
         <translation>Lower point</translation>
     </message>
     <message>
-        <location filename="../../interface/AABBInfo.ui" line="27"/>
+        <location filename="../../interface/AABBInfo.ui" line="19"/>
         <source>Upper point</source>
         <translation>Upper point</translation>
     </message>
@@ -22,17 +22,17 @@
 <context>
     <name>About</name>
     <message>
-        <location filename="../../interface/About.ui" line="17"/>
+        <location filename="../../interface/About.ui" line="9"/>
         <source>About</source>
         <translation>About</translation>
     </message>
     <message>
-        <location filename="../../interface/About.ui" line="41"/>
+        <location filename="../../interface/About.ui" line="33"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Made with &lt;span style=&quot; font-family:&apos;apple color emoji&apos;,&apos;segoe ui emoji&apos;,&apos;noto color emoji&apos;,&apos;android emoji&apos;,&apos;emojisymbols&apos;,&apos;emojione mozilla&apos;,&apos;twemoji mozilla&apos;,&apos;segoe ui symbol&apos;; font-size:12pt; color:#80b4e3;&quot;&gt;❤️&lt;/span&gt; by Romain &lt;span style=&quot; font-style:italic;&quot;&gt;&amp;quot;Razakhel&amp;quot;&lt;/span&gt; Milbert&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Made with &lt;span style=&quot; font-family:&apos;apple color emoji&apos;,&apos;segoe ui emoji&apos;,&apos;noto color emoji&apos;,&apos;android emoji&apos;,&apos;emojisymbols&apos;,&apos;emojione mozilla&apos;,&apos;twemoji mozilla&apos;,&apos;segoe ui symbol&apos;; font-size:12pt; color:#80b4e3;&quot;&gt;❤️&lt;/span&gt; by Romain &lt;span style=&quot; font-style:italic;&quot;&gt;&amp;quot;Razakhel&amp;quot;&lt;/span&gt; Milbert&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../../interface/About.ui" line="51"/>
+        <location filename="../../interface/About.ui" line="43"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Based on the &lt;a href=&quot;https://github.com/Razakhel/RaZ&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;RaZ game engine&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Based on the &lt;a href=&quot;https://github.com/Razakhel/RaZ&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;RaZ game engine&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
@@ -151,12 +151,12 @@
 <context>
     <name>AudioSystemSettings</name>
     <message>
-        <location filename="../../interface/AudioSystemSettings.ui" line="17"/>
+        <location filename="../../interface/AudioSystemSettings.ui" line="9"/>
         <source>Audio system settings</source>
         <translation>Audio system settings</translation>
     </message>
     <message>
-        <location filename="../../interface/AudioSystemSettings.ui" line="33"/>
+        <location filename="../../interface/AudioSystemSettings.ui" line="25"/>
         <source>Audio device</source>
         <translation>Audio device</translation>
     </message>
@@ -164,43 +164,43 @@
 <context>
     <name>CameraComp</name>
     <message>
-        <location filename="../../interface/CameraComp.ui" line="14"/>
-        <location filename="../../interface/CameraComp.ui" line="17"/>
+        <location filename="../../interface/CameraComp.ui" line="6"/>
+        <location filename="../../interface/CameraComp.ui" line="9"/>
         <source>Camera</source>
         <translation>Camera</translation>
     </message>
     <message>
-        <location filename="../../interface/CameraComp.ui" line="23"/>
+        <location filename="../../interface/CameraComp.ui" line="15"/>
         <source>Field of view</source>
         <translation>Field of view</translation>
     </message>
     <message>
-        <location filename="../../interface/CameraComp.ui" line="30"/>
+        <location filename="../../interface/CameraComp.ui" line="22"/>
         <source>Camera type</source>
         <translation>Camera type</translation>
     </message>
     <message>
-        <location filename="../../interface/CameraComp.ui" line="37"/>
+        <location filename="../../interface/CameraComp.ui" line="29"/>
         <source>Projection type</source>
         <translation>Projection type</translation>
     </message>
     <message>
-        <location filename="../../interface/CameraComp.ui" line="77"/>
+        <location filename="../../interface/CameraComp.ui" line="47"/>
         <source>Free fly</source>
         <translation>Free fly</translation>
     </message>
     <message>
-        <location filename="../../interface/CameraComp.ui" line="82"/>
+        <location filename="../../interface/CameraComp.ui" line="52"/>
         <source>Look-at</source>
         <translation>Look-at</translation>
     </message>
     <message>
-        <location filename="../../interface/CameraComp.ui" line="91"/>
+        <location filename="../../interface/CameraComp.ui" line="61"/>
         <source>Perspective</source>
         <translation>Perspective</translation>
     </message>
     <message>
-        <location filename="../../interface/CameraComp.ui" line="96"/>
+        <location filename="../../interface/CameraComp.ui" line="66"/>
         <source>Orthographic</source>
         <translation>Orthographic</translation>
     </message>
@@ -208,13 +208,13 @@
 <context>
     <name>ColliderComp</name>
     <message>
-        <location filename="../../interface/ColliderComp.ui" line="14"/>
-        <location filename="../../interface/ColliderComp.ui" line="17"/>
+        <location filename="../../interface/ColliderComp.ui" line="6"/>
+        <location filename="../../interface/ColliderComp.ui" line="9"/>
         <source>Collider</source>
         <translation>Collider</translation>
     </message>
     <message>
-        <location filename="../../interface/ColliderComp.ui" line="23"/>
+        <location filename="../../interface/ColliderComp.ui" line="15"/>
         <source>Shape type</source>
         <translation>Shape type</translation>
     </message>
@@ -222,23 +222,23 @@
 <context>
     <name>LightComp</name>
     <message>
-        <location filename="../../interface/LightComp.ui" line="14"/>
-        <location filename="../../interface/LightComp.ui" line="17"/>
+        <location filename="../../interface/LightComp.ui" line="6"/>
+        <location filename="../../interface/LightComp.ui" line="9"/>
         <source>Light</source>
         <translation>Light</translation>
     </message>
     <message>
-        <location filename="../../interface/LightComp.ui" line="23"/>
+        <location filename="../../interface/LightComp.ui" line="15"/>
         <source>Direction</source>
         <translation>Direction</translation>
     </message>
     <message>
-        <location filename="../../interface/LightComp.ui" line="130"/>
+        <location filename="../../interface/LightComp.ui" line="65"/>
         <source>Energy</source>
         <translation>Energy</translation>
     </message>
     <message>
-        <location filename="../../interface/LightComp.ui" line="160"/>
+        <location filename="../../interface/LightComp.ui" line="85"/>
         <source>Color (RGB)</source>
         <translation>Color (RGB)</translation>
     </message>
@@ -374,38 +374,38 @@
 <context>
     <name>MeshComp</name>
     <message>
-        <location filename="../../interface/MeshComp.ui" line="14"/>
-        <location filename="../../interface/MeshComp.ui" line="17"/>
+        <location filename="../../interface/MeshComp.ui" line="6"/>
+        <location filename="../../interface/MeshComp.ui" line="9"/>
         <source>Mesh</source>
         <translation>Mesh</translation>
     </message>
     <message>
-        <location filename="../../interface/MeshComp.ui" line="23"/>
+        <location filename="../../interface/MeshComp.ui" line="15"/>
         <source>Vertex count</source>
         <translation>Vertex count</translation>
     </message>
     <message>
-        <location filename="../../interface/MeshComp.ui" line="37"/>
+        <location filename="../../interface/MeshComp.ui" line="29"/>
         <source>Triangle count</source>
         <translation>Triangle count</translation>
     </message>
     <message>
-        <location filename="../../interface/MeshComp.ui" line="51"/>
+        <location filename="../../interface/MeshComp.ui" line="43"/>
         <source>Render mode</source>
         <translation>Render mode</translation>
     </message>
     <message>
-        <location filename="../../interface/MeshComp.ui" line="59"/>
+        <location filename="../../interface/MeshComp.ui" line="51"/>
         <source>Triangles</source>
         <translation>Triangles</translation>
     </message>
     <message>
-        <location filename="../../interface/MeshComp.ui" line="64"/>
+        <location filename="../../interface/MeshComp.ui" line="56"/>
         <source>Points</source>
         <translation>Points</translation>
     </message>
     <message>
-        <location filename="../../interface/MeshComp.ui" line="72"/>
+        <location filename="../../interface/MeshComp.ui" line="64"/>
         <source>Mesh file</source>
         <translation>Mesh file</translation>
     </message>
@@ -413,17 +413,17 @@
 <context>
     <name>PhysicsSystemSettings</name>
     <message>
-        <location filename="../../interface/PhysicsSystemSettings.ui" line="17"/>
+        <location filename="../../interface/PhysicsSystemSettings.ui" line="14"/>
         <source>Physics system settings</source>
         <translation>Physics system settings</translation>
     </message>
     <message>
-        <location filename="../../interface/PhysicsSystemSettings.ui" line="33"/>
+        <location filename="../../interface/PhysicsSystemSettings.ui" line="30"/>
         <source>Gravity</source>
         <translation>Gravity</translation>
     </message>
     <message>
-        <location filename="../../interface/PhysicsSystemSettings.ui" line="122"/>
+        <location filename="../../interface/PhysicsSystemSettings.ui" line="71"/>
         <source>Friction</source>
         <translation>Friction</translation>
     </message>
@@ -431,17 +431,17 @@
 <context>
     <name>PlaneInfo</name>
     <message>
-        <location filename="../../interface/PlaneInfo.ui" line="14"/>
+        <location filename="../../interface/PlaneInfo.ui" line="6"/>
         <source>Plane</source>
         <translation>Plane</translation>
     </message>
     <message>
-        <location filename="../../interface/PlaneInfo.ui" line="20"/>
+        <location filename="../../interface/PlaneInfo.ui" line="12"/>
         <source>Distance</source>
         <translation>Distance</translation>
     </message>
     <message>
-        <location filename="../../interface/PlaneInfo.ui" line="59"/>
+        <location filename="../../interface/PlaneInfo.ui" line="35"/>
         <source>Normal</source>
         <translation>Normal</translation>
     </message>
@@ -457,7 +457,7 @@
 <context>
     <name>RenderSystemSettings</name>
     <message>
-        <location filename="../../interface/RenderSystemSettings.ui" line="17"/>
+        <location filename="../../interface/RenderSystemSettings.ui" line="9"/>
         <source>Render system settings</source>
         <translation>Render system settings</translation>
     </message>
@@ -495,23 +495,23 @@
 <context>
     <name>RigidBodyComp</name>
     <message>
-        <location filename="../../interface/RigidBodyComp.ui" line="14"/>
-        <location filename="../../interface/RigidBodyComp.ui" line="17"/>
+        <location filename="../../interface/RigidBodyComp.ui" line="6"/>
+        <location filename="../../interface/RigidBodyComp.ui" line="9"/>
         <source>Rigid body</source>
         <translation>Rigid body</translation>
     </message>
     <message>
-        <location filename="../../interface/RigidBodyComp.ui" line="23"/>
+        <location filename="../../interface/RigidBodyComp.ui" line="15"/>
         <source>Mass</source>
         <translation>Mass</translation>
     </message>
     <message>
-        <location filename="../../interface/RigidBodyComp.ui" line="62"/>
+        <location filename="../../interface/RigidBodyComp.ui" line="35"/>
         <source>Bounciness</source>
         <translation>Bounciness</translation>
     </message>
     <message>
-        <location filename="../../interface/RigidBodyComp.ui" line="69"/>
+        <location filename="../../interface/RigidBodyComp.ui" line="42"/>
         <source>Velocity</source>
         <translation>Velocity</translation>
     </message>
@@ -519,58 +519,58 @@
 <context>
     <name>SoundComp</name>
     <message>
-        <location filename="../../interface/SoundComp.ui" line="14"/>
-        <location filename="../../interface/SoundComp.ui" line="17"/>
+        <location filename="../../interface/SoundComp.ui" line="6"/>
+        <location filename="../../interface/SoundComp.ui" line="9"/>
         <source>Sound</source>
         <translation>Sound</translation>
     </message>
     <message>
-        <location filename="../../interface/SoundComp.ui" line="23"/>
+        <location filename="../../interface/SoundComp.ui" line="15"/>
         <source>Repeat</source>
         <translation>Repeat</translation>
     </message>
     <message>
-        <location filename="../../interface/SoundComp.ui" line="37"/>
+        <location filename="../../interface/SoundComp.ui" line="29"/>
         <source>Sound file</source>
         <translation>Sound file</translation>
     </message>
     <message>
-        <location filename="../../interface/SoundComp.ui" line="47"/>
+        <location filename="../../interface/SoundComp.ui" line="39"/>
         <source>Actions</source>
         <translation>Actions</translation>
     </message>
     <message>
-        <location filename="../../interface/SoundComp.ui" line="56"/>
+        <location filename="../../interface/SoundComp.ui" line="48"/>
         <source>Play</source>
         <translation>Play</translation>
     </message>
     <message>
-        <location filename="../../interface/SoundComp.ui" line="63"/>
+        <location filename="../../interface/SoundComp.ui" line="55"/>
         <source>Pause</source>
         <translation>Pause</translation>
     </message>
     <message>
-        <location filename="../../interface/SoundComp.ui" line="70"/>
+        <location filename="../../interface/SoundComp.ui" line="62"/>
         <source>Stop</source>
         <translation>Stop</translation>
     </message>
     <message>
-        <location filename="../../interface/SoundComp.ui" line="79"/>
+        <location filename="../../interface/SoundComp.ui" line="71"/>
         <source>Volume</source>
         <translation>Volume</translation>
     </message>
     <message>
-        <location filename="../../interface/SoundComp.ui" line="99"/>
+        <location filename="../../interface/SoundComp.ui" line="91"/>
         <source>Pitch</source>
         <translation>Pitch</translation>
     </message>
     <message>
-        <location filename="../../interface/SoundComp.ui" line="119"/>
+        <location filename="../../interface/SoundComp.ui" line="111"/>
         <source>Format</source>
         <translation>Format</translation>
     </message>
     <message>
-        <location filename="../../interface/SoundComp.ui" line="133"/>
+        <location filename="../../interface/SoundComp.ui" line="125"/>
         <source>Frequency</source>
         <translation>Frequency</translation>
     </message>
@@ -578,18 +578,18 @@
 <context>
     <name>TransformComp</name>
     <message>
-        <location filename="../../interface/TransformComp.ui" line="14"/>
-        <location filename="../../interface/TransformComp.ui" line="17"/>
+        <location filename="../../interface/TransformComp.ui" line="6"/>
+        <location filename="../../interface/TransformComp.ui" line="9"/>
         <source>Transform</source>
         <translation>Transform</translation>
     </message>
     <message>
-        <location filename="../../interface/TransformComp.ui" line="23"/>
+        <location filename="../../interface/TransformComp.ui" line="15"/>
         <source>Position</source>
         <translation>Position</translation>
     </message>
     <message>
-        <location filename="../../interface/TransformComp.ui" line="148"/>
+        <location filename="../../interface/TransformComp.ui" line="56"/>
         <source>Scale</source>
         <translation>Scale</translation>
     </message>

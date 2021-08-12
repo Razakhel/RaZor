@@ -2,14 +2,6 @@
 <ui version="4.0">
  <class>SoundComp</class>
  <widget class="QGroupBox" name="SoundComp">
-  <property name="geometry">
-   <rect>
-    <x>0</x>
-    <y>0</y>
-    <width>316</width>
-    <height>197</height>
-   </rect>
-  </property>
   <property name="windowTitle">
    <string>Sound</string>
   </property>

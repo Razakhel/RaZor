@@ -2,14 +2,6 @@
 <ui version="4.0">
  <class>PlaneInfo</class>
  <widget class="QFrame" name="PlaneInfo">
-  <property name="geometry">
-   <rect>
-    <x>0</x>
-    <y>0</y>
-    <width>289</width>
-    <height>66</height>
-   </rect>
-  </property>
   <property name="windowTitle">
    <string>Plane</string>
   </property>
@@ -22,23 +14,7 @@
     </widget>
    </item>
    <item row="0" column="1">
-    <widget class="QDoubleSpinBox" name="distance">
-     <property name="maximumSize">
-      <size>
-       <width>75</width>
-       <height>16777215</height>
-      </size>
-     </property>
-     <property name="font">
-      <font>
-       <pointsize>7</pointsize>
-       <weight>75</weight>
-       <bold>true</bold>
-      </font>
-     </property>
-     <property name="decimals">
-      <number>5</number>
-     </property>
+    <widget class="ValuePicker" name="distance">
      <property name="minimum">
       <double>-340282346638528859811704183484516925440.000000000000000</double>
      </property>
@@ -63,35 +39,7 @@
    <item row="1" column="1">
     <layout class="QHBoxLayout" name="normalLayout">
      <item>
-      <widget class="QDoubleSpinBox" name="normalX">
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
-       </property>
-       <property name="minimumSize">
-        <size>
-         <width>0</width>
-         <height>0</height>
-        </size>
-       </property>
-       <property name="maximumSize">
-        <size>
-         <width>75</width>
-         <height>16777215</height>
-        </size>
-       </property>
-       <property name="font">
-        <font>
-         <pointsize>7</pointsize>
-         <weight>75</weight>
-         <bold>true</bold>
-        </font>
-       </property>
-       <property name="decimals">
-        <number>5</number>
-       </property>
+      <widget class="ValuePicker" name="normalX">
        <property name="minimum">
         <double>-1.000000000000000</double>
        </property>
@@ -104,35 +52,7 @@
       </widget>
      </item>
      <item>
-      <widget class="QDoubleSpinBox" name="normalY">
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
-       </property>
-       <property name="minimumSize">
-        <size>
-         <width>0</width>
-         <height>0</height>
-        </size>
-       </property>
-       <property name="maximumSize">
-        <size>
-         <width>75</width>
-         <height>16777215</height>
-        </size>
-       </property>
-       <property name="font">
-        <font>
-         <pointsize>7</pointsize>
-         <weight>75</weight>
-         <bold>true</bold>
-        </font>
-       </property>
-       <property name="decimals">
-        <number>5</number>
-       </property>
+      <widget class="ValuePicker" name="normalY">
        <property name="minimum">
         <double>-1.000000000000000</double>
        </property>
@@ -145,35 +65,7 @@
       </widget>
      </item>
      <item>
-      <widget class="QDoubleSpinBox" name="normalZ">
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
-       </property>
-       <property name="minimumSize">
-        <size>
-         <width>0</width>
-         <height>0</height>
-        </size>
-       </property>
-       <property name="maximumSize">
-        <size>
-         <width>75</width>
-         <height>16777215</height>
-        </size>
-       </property>
-       <property name="font">
-        <font>
-         <pointsize>7</pointsize>
-         <weight>75</weight>
-         <bold>true</bold>
-        </font>
-       </property>
-       <property name="decimals">
-        <number>5</number>
-       </property>
+      <widget class="ValuePicker" name="normalZ">
        <property name="minimum">
         <double>-1.000000000000000</double>
        </property>
@@ -189,6 +81,13 @@
    </item>
   </layout>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>ValuePicker</class>
+   <extends>QDoubleSpinBox</extends>
+   <header>RaZor/Interface/ValuePicker.hpp</header>
+  </customwidget>
+ </customwidgets>
  <resources/>
  <connections/>
 </ui>

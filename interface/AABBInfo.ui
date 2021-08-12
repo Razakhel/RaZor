@@ -2,14 +2,6 @@
 <ui version="4.0">
  <class>AABBInfo</class>
  <widget class="QFrame" name="AABBInfo">
-  <property name="geometry">
-   <rect>
-    <x>0</x>
-    <y>0</y>
-    <width>304</width>
-    <height>68</height>
-   </rect>
-  </property>
   <property name="windowTitle">
    <string>AABB</string>
   </property>
@@ -31,35 +23,7 @@
    <item row="1" column="1">
     <layout class="QHBoxLayout" name="upperPointLayout">
      <item>
-      <widget class="QDoubleSpinBox" name="upperPointX">
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
-       </property>
-       <property name="minimumSize">
-        <size>
-         <width>0</width>
-         <height>0</height>
-        </size>
-       </property>
-       <property name="maximumSize">
-        <size>
-         <width>75</width>
-         <height>16777215</height>
-        </size>
-       </property>
-       <property name="font">
-        <font>
-         <pointsize>7</pointsize>
-         <weight>75</weight>
-         <bold>true</bold>
-        </font>
-       </property>
-       <property name="decimals">
-        <number>5</number>
-       </property>
+      <widget class="ValuePicker" name="upperPointX">
        <property name="minimum">
         <double>-1.000000000000000</double>
        </property>
@@ -72,35 +36,7 @@
       </widget>
      </item>
      <item>
-      <widget class="QDoubleSpinBox" name="upperPointY">
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
-       </property>
-       <property name="minimumSize">
-        <size>
-         <width>0</width>
-         <height>0</height>
-        </size>
-       </property>
-       <property name="maximumSize">
-        <size>
-         <width>75</width>
-         <height>16777215</height>
-        </size>
-       </property>
-       <property name="font">
-        <font>
-         <pointsize>7</pointsize>
-         <weight>75</weight>
-         <bold>true</bold>
-        </font>
-       </property>
-       <property name="decimals">
-        <number>5</number>
-       </property>
+      <widget class="ValuePicker" name="upperPointY">
        <property name="minimum">
         <double>-1.000000000000000</double>
        </property>
@@ -113,35 +49,7 @@
       </widget>
      </item>
      <item>
-      <widget class="QDoubleSpinBox" name="upperPointZ">
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
-       </property>
-       <property name="minimumSize">
-        <size>
-         <width>0</width>
-         <height>0</height>
-        </size>
-       </property>
-       <property name="maximumSize">
-        <size>
-         <width>75</width>
-         <height>16777215</height>
-        </size>
-       </property>
-       <property name="font">
-        <font>
-         <pointsize>7</pointsize>
-         <weight>75</weight>
-         <bold>true</bold>
-        </font>
-       </property>
-       <property name="decimals">
-        <number>5</number>
-       </property>
+      <widget class="ValuePicker" name="upperPointZ">
        <property name="minimum">
         <double>-1.000000000000000</double>
        </property>
@@ -158,35 +66,7 @@
    <item row="0" column="1">
     <layout class="QHBoxLayout" name="lowerPointLayout">
      <item>
-      <widget class="QDoubleSpinBox" name="lowerPointX">
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
-       </property>
-       <property name="minimumSize">
-        <size>
-         <width>0</width>
-         <height>0</height>
-        </size>
-       </property>
-       <property name="maximumSize">
-        <size>
-         <width>75</width>
-         <height>16777215</height>
-        </size>
-       </property>
-       <property name="font">
-        <font>
-         <pointsize>7</pointsize>
-         <weight>75</weight>
-         <bold>true</bold>
-        </font>
-       </property>
-       <property name="decimals">
-        <number>5</number>
-       </property>
+      <widget class="ValuePicker" name="lowerPointX">
        <property name="minimum">
         <double>-1.000000000000000</double>
        </property>
@@ -199,35 +79,7 @@
       </widget>
      </item>
      <item>
-      <widget class="QDoubleSpinBox" name="lowerPointY">
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
-       </property>
-       <property name="minimumSize">
-        <size>
-         <width>0</width>
-         <height>0</height>
-        </size>
-       </property>
-       <property name="maximumSize">
-        <size>
-         <width>75</width>
-         <height>16777215</height>
-        </size>
-       </property>
-       <property name="font">
-        <font>
-         <pointsize>7</pointsize>
-         <weight>75</weight>
-         <bold>true</bold>
-        </font>
-       </property>
-       <property name="decimals">
-        <number>5</number>
-       </property>
+      <widget class="ValuePicker" name="lowerPointY">
        <property name="minimum">
         <double>-1.000000000000000</double>
        </property>
@@ -240,35 +92,7 @@
       </widget>
      </item>
      <item>
-      <widget class="QDoubleSpinBox" name="lowerPointZ">
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
-       </property>
-       <property name="minimumSize">
-        <size>
-         <width>0</width>
-         <height>0</height>
-        </size>
-       </property>
-       <property name="maximumSize">
-        <size>
-         <width>75</width>
-         <height>16777215</height>
-        </size>
-       </property>
-       <property name="font">
-        <font>
-         <pointsize>7</pointsize>
-         <weight>75</weight>
-         <bold>true</bold>
-        </font>
-       </property>
-       <property name="decimals">
-        <number>5</number>
-       </property>
+      <widget class="ValuePicker" name="lowerPointZ">
        <property name="minimum">
         <double>-1.000000000000000</double>
        </property>
@@ -284,6 +108,13 @@
    </item>
   </layout>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>ValuePicker</class>
+   <extends>QDoubleSpinBox</extends>
+   <header>RaZor/Interface/ValuePicker.hpp</header>
+  </customwidget>
+ </customwidgets>
  <resources/>
  <connections/>
 </ui>

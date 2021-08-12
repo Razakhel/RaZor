@@ -2,14 +2,6 @@
 <ui version="4.0">
  <class>LightComp</class>
  <widget class="QGroupBox" name="LightComp">
-  <property name="geometry">
-   <rect>
-    <x>0</x>
-    <y>0</y>
-    <width>321</width>
-    <height>111</height>
-   </rect>
-  </property>
   <property name="windowTitle">
    <string>Light</string>
   </property>
@@ -27,98 +19,41 @@
    <item row="0" column="1">
     <layout class="QHBoxLayout" name="directionLayout">
      <item>
-      <widget class="QDoubleSpinBox" name="directionX">
-       <property name="minimumSize">
-        <size>
-         <width>0</width>
-         <height>0</height>
-        </size>
-       </property>
-       <property name="maximumSize">
-        <size>
-         <width>75</width>
-         <height>16777215</height>
-        </size>
-       </property>
-       <property name="font">
-        <font>
-         <pointsize>7</pointsize>
-         <weight>75</weight>
-         <bold>true</bold>
-        </font>
-       </property>
-       <property name="decimals">
-        <number>5</number>
-       </property>
+      <widget class="ValuePicker" name="directionX">
        <property name="minimum">
-        <double>-340282346638528859811704183484516925440.000000000000000</double>
+        <double>-1.000000000000000</double>
        </property>
        <property name="maximum">
-        <double>340282346638528859811704183484516925440.000000000000000</double>
+        <double>1.000000000000000</double>
+       </property>
+       <property name="singleStep">
+        <double>0.050000000000000</double>
        </property>
       </widget>
      </item>
      <item>
-      <widget class="QDoubleSpinBox" name="directionY">
-       <property name="minimumSize">
-        <size>
-         <width>0</width>
-         <height>0</height>
-        </size>
-       </property>
-       <property name="maximumSize">
-        <size>
-         <width>75</width>
-         <height>16777215</height>
-        </size>
-       </property>
-       <property name="font">
-        <font>
-         <pointsize>7</pointsize>
-         <weight>75</weight>
-         <bold>true</bold>
-        </font>
-       </property>
-       <property name="decimals">
-        <number>5</number>
-       </property>
+      <widget class="ValuePicker" name="directionY">
        <property name="minimum">
-        <double>-340282346638528859811704183484516925440.000000000000000</double>
+        <double>-1.000000000000000</double>
        </property>
        <property name="maximum">
-        <double>340282346638528859811704183484516925440.000000000000000</double>
+        <double>1.000000000000000</double>
+       </property>
+       <property name="singleStep">
+        <double>0.050000000000000</double>
        </property>
       </widget>
      </item>
      <item>
-      <widget class="QDoubleSpinBox" name="directionZ">
-       <property name="minimumSize">
-        <size>
-         <width>0</width>
-         <height>0</height>
-        </size>
-       </property>
-       <property name="maximumSize">
-        <size>
-         <width>75</width>
-         <height>16777215</height>
-        </size>
-       </property>
-       <property name="font">
-        <font>
-         <pointsize>7</pointsize>
-         <weight>75</weight>
-         <bold>true</bold>
-        </font>
-       </property>
-       <property name="decimals">
-        <number>5</number>
-       </property>
+      <widget class="ValuePicker" name="directionZ">
        <property name="minimum">
-        <double>-340282346638528859811704183484516925440.000000000000000</double>
+        <double>-1.000000000000000</double>
        </property>
        <property name="maximum">
-        <double>340282346638528859811704183484516925440.000000000000000</double>
+        <double>1.000000000000000</double>
+       </property>
+       <property name="singleStep">
+        <double>0.050000000000000</double>
        </property>
       </widget>
      </item>
@@ -132,22 +67,12 @@
     </widget>
    </item>
    <item row="1" column="1">
-    <widget class="QDoubleSpinBox" name="energy">
-     <property name="font">
-      <font>
-       <pointsize>7</pointsize>
-       <weight>75</weight>
-       <bold>true</bold>
-      </font>
-     </property>
-     <property name="decimals">
-      <number>5</number>
-     </property>
+    <widget class="ValuePicker" name="energy">
      <property name="maximum">
-      <double>1.000000000000000</double>
+      <double>10.000000000000000</double>
      </property>
      <property name="singleStep">
-      <double>0.050000000000000</double>
+      <double>0.250000000000000</double>
      </property>
      <property name="value">
       <double>1.000000000000000</double>
@@ -242,6 +167,13 @@
    </item>
   </layout>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>ValuePicker</class>
+   <extends>QDoubleSpinBox</extends>
+   <header>RaZor/Interface/ValuePicker.hpp</header>
+  </customwidget>
+ </customwidgets>
  <resources/>
  <connections/>
 </ui>
