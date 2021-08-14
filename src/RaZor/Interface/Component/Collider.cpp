@@ -1,4 +1,5 @@
 #include "RaZor/Interface/AppWindow.hpp"
+#include "RaZor/Interface/ComponentGroup.hpp"
 #include "RaZor/Interface/MainWindow.hpp"
 #include "ui_ColliderComp.h"
 #include "ui_AABBInfo.h"
@@ -80,7 +81,7 @@ void showShapeInfo(Raz::Collider& collider, Ui::ColliderComp& colliderComp) {
 void AppWindow::showColliderComponent(Raz::Entity& entity) {
   Ui::ColliderComp colliderComp;
 
-  auto* colliderWidget = new QGroupBox();
+  auto* colliderWidget = new ComponentGroup<Raz::Collider>(entity, *this);
   colliderComp.setupUi(colliderWidget);
 
   auto& collider = entity.getComponent<Raz::Collider>();

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
  <class>SoundComp</class>
- <widget class="QGroupBox" name="SoundComp">
+ <widget class="ComponentGroup&lt;Raz::Sound&gt;" name="SoundComp">
   <property name="windowTitle">
    <string>Sound</string>
   </property>
@@ -136,6 +136,11 @@
   </layout>
  </widget>
  <customwidgets>
+  <customwidget>
+   <class>ComponentGroup&lt;Raz::Sound&gt;</class>
+   <extends>QGroupBox</extends>
+   <header>RaZor/Interface/ComponentGroup.hpp</header>
+  </customwidget>
   <customwidget>
    <class>FileWidget&lt;FileType::SOUND&gt;</class>
    <extends>QLineEdit</extends>

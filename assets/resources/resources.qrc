@@ -11,6 +11,10 @@
     <file alias="128">../icons/RaZ_logo_shadow_128.png</file>
   </qresource>
 
+  <qresource prefix="icon">
+    <file alias="cog">../icons/cog.png</file>
+  </qresource>
+
   <qresource prefix="shader">
     <file alias="vertex">../../shaders/common.vert</file>
     <file alias="blinn-phong">../../shaders/blinn-phong.frag</file>

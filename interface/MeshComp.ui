@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
  <class>MeshComp</class>
- <widget class="QGroupBox" name="MeshComp">
+ <widget class="ComponentGroup&lt;Raz::Mesh&gt;" name="MeshComp">
   <property name="windowTitle">
    <string>Mesh</string>
   </property>
@@ -78,6 +78,11 @@
   </layout>
  </widget>
  <customwidgets>
+  <customwidget>
+   <class>ComponentGroup&lt;Raz::Mesh&gt;</class>
+   <extends>QGroupBox</extends>
+   <header>RaZor/Interface/ComponentGroup.hpp</header>
+  </customwidget>
   <customwidget>
    <class>FileWidget&lt;FileType::MESH&gt;</class>
    <extends>QLineEdit</extends>

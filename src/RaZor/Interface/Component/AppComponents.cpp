@@ -91,7 +91,7 @@ void AppWindow::showTransformComponent(Raz::Entity& entity) {
 
   Ui::TransformComp transformComp;
 
-  auto* transformWidget = new QGroupBox();
+  auto* transformWidget = new ComponentGroup<Raz::Transform>(entity, *this);
   transformComp.setupUi(transformWidget);
 
   // Position
@@ -144,7 +144,7 @@ void AppWindow::showTransformComponent(Raz::Entity& entity) {
 void AppWindow::showCameraComponent(Raz::Entity& entity) {
   Ui::CameraComp cameraComp;
 
-  auto* cameraWidget = new QGroupBox();
+  auto* cameraWidget = new ComponentGroup<Raz::Camera>(entity, *this);
   cameraComp.setupUi(cameraWidget);
 
   auto& camera = entity.getComponent<Raz::Camera>();
@@ -177,7 +177,7 @@ void AppWindow::showMeshComponent(Raz::Entity& entity) {
 
   Ui::MeshComp meshComp;
 
-  auto* meshWidget = new QGroupBox();
+  auto* meshWidget = new ComponentGroup<Raz::Mesh>(entity, *this);
   meshComp.setupUi(meshWidget);
 
   auto& mesh = entity.getComponent<Raz::Mesh>();
@@ -211,7 +211,7 @@ void AppWindow::showMeshComponent(Raz::Entity& entity) {
 void AppWindow::showLightComponent(Raz::Entity& entity) {
   Ui::LightComp lightComp;
 
-  auto* lightWidget = new QGroupBox();
+  auto* lightWidget = new ComponentGroup<Raz::Light>(entity, *this);
   lightComp.setupUi(lightWidget);
 
   auto& light = entity.getComponent<Raz::Light>();
@@ -270,7 +270,7 @@ void AppWindow::showLightComponent(Raz::Entity& entity) {
 void AppWindow::showRigidBodyComponent(Raz::Entity& entity) {
   Ui::RigidBodyComp rigidBodyComp;
 
-  auto* rigidBodyWidget = new QGroupBox();
+  auto* rigidBodyWidget = new ComponentGroup<Raz::RigidBody>(entity, *this);
   rigidBodyComp.setupUi(rigidBodyWidget);
 
   auto& rigidBody = entity.getComponent<Raz::RigidBody>();
@@ -315,7 +315,7 @@ void AppWindow::showRigidBodyComponent(Raz::Entity& entity) {
 void AppWindow::showSoundComponent(Raz::Entity& entity) {
   Ui::SoundComp soundComp;
 
-  auto* soundWidget = new QGroupBox();
+  auto* soundWidget = new ComponentGroup<Raz::Sound>(entity, *this);
   soundComp.setupUi(soundWidget);
 
   auto& sound = entity.getComponent<Raz::Sound>();
