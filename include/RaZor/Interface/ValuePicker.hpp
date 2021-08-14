@@ -5,7 +5,7 @@
 
 #include <QDoubleSpinBox>
 
-class ValuePicker : public QDoubleSpinBox {
+class ValuePicker final : public QDoubleSpinBox {
 public:
   explicit ValuePicker(QWidget* parent);
 

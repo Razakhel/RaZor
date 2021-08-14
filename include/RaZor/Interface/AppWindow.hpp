@@ -34,11 +34,13 @@ class Transform;
 
 } // namespace Raz
 
-class AppWindow : public QWindow {
+class AppWindow final : public QWindow {
   friend MainWindow;
 
 public:
   AppWindow();
+
+  Raz::Application& getApplication() { return m_application; }
 
   void initialize();
   void render();
@@ -72,12 +74,12 @@ private:
                    const Raz::FilePath& frontTexturePath, const Raz::FilePath& backTexturePath);
 
   void showTransformComponent(Raz::Entity& entity);
-  void showCameraComponent(Raz::Camera& camera);
-  void showMeshComponent(Raz::Mesh& mesh);
-  void showLightComponent(Raz::Light& light);
-  void showRigidBodyComponent(Raz::RigidBody& rigidBody);
-  void showColliderComponent(Raz::Collider& collider);
-  void showSoundComponent(Raz::Sound& sound);
+  void showCameraComponent(Raz::Entity& entity);
+  void showMeshComponent(Raz::Entity& entity);
+  void showLightComponent(Raz::Entity& entity);
+  void showRigidBodyComponent(Raz::Entity& entity);
+  void showColliderComponent(Raz::Entity& entity);
+  void showSoundComponent(Raz::Entity& entity);
   void showAddComponent(Raz::Entity& entity, const QString& entityName, const Raz::RenderSystem& renderSystem);
   void showAddCollider(Raz::Entity& entity, const QString& entityName, QMenu& contextMenu);
   void processActions();

@@ -174,12 +174,12 @@ Raz::Entity& AppWindow::addEntity(QString name) {
 }
 
 Raz::Entity& AppWindow::recoverEntity(const QString& name) {
-  Raz::Entity* entity = m_entities.find(name)->second;
+  auto entityIter = m_entities.find(name);
 
-  if (entity == nullptr)
+  if (entityIter == m_entities.cend() || entityIter->second == nullptr)
     throw std::invalid_argument("[RaZor] Error: Unrecognized entity name '" + name.toStdString() + "'.");
 
-  return *entity;
+  return *entityIter->second;
 }
 
 void AppWindow::enableEntity(const QString& name, bool enabled) {
@@ -324,8 +324,8 @@ void AppWindow::mouseReleaseEvent(QMouseEvent* event) {
 }
 
 void AppWindow::mouseMoveEvent(QMouseEvent* event) {
-  const QSize windowSize     = size();
-  const QPointF currMousePos = event->localPos();
+  const QSize windowSize      = size();
+  const QPointF& currMousePos = event->localPos();
 
   const auto mouseMoveX = static_cast<float>(currMousePos.x() - m_prevMousePos.x()) / static_cast<float>(windowSize.width());
   const auto mouseMoveY = static_cast<float>(currMousePos.y() - m_prevMousePos.y()) / static_cast<float>(windowSize.height());

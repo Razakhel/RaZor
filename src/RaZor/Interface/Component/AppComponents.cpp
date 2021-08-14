@@ -23,7 +23,7 @@ void AppWindow::loadComponents(const QString& entityName) {
   // Removing all widgets from the components panel
   clearComponents();
 
-  const auto& entityIter = m_entities.find(entityName);
+  const auto entityIter = m_entities.find(entityName);
 
   if (entityIter == m_entities.cend()) {
     m_parentWindow->statusBar()->showMessage(tr("Failed to find an entity named") + "'" + entityName + "'");
@@ -39,32 +39,32 @@ void AppWindow::loadComponents(const QString& entityName) {
   }
 
   if (entity.hasComponent<Raz::Camera>()) {
-    showCameraComponent(entity.getComponent<Raz::Camera>());
+    showCameraComponent(entity);
     --remainingComponentCount;
   }
 
   if (entity.hasComponent<Raz::Mesh>()) {
-    showMeshComponent(entity.getComponent<Raz::Mesh>());
+    showMeshComponent(entity);
     --remainingComponentCount;
   }
 
   if (entity.hasComponent<Raz::Light>()) {
-    showLightComponent(entity.getComponent<Raz::Light>());
+    showLightComponent(entity);
     --remainingComponentCount;
   }
 
   if (entity.hasComponent<Raz::RigidBody>()) {
-    showRigidBodyComponent(entity.getComponent<Raz::RigidBody>());
+    showRigidBodyComponent(entity);
     --remainingComponentCount;
   }
 
   if (entity.hasComponent<Raz::Collider>()) {
-    showColliderComponent(entity.getComponent<Raz::Collider>());
+    showColliderComponent(entity);
     --remainingComponentCount;
   }
 
   if (entity.hasComponent<Raz::Sound>()) {
-    showSoundComponent(entity.getComponent<Raz::Sound>());
+    showSoundComponent(entity);
     --remainingComponentCount;
   }
 
@@ -141,11 +141,13 @@ void AppWindow::showTransformComponent(Raz::Entity& entity) {
   m_parentWindow->m_window.componentsLayout->addWidget(transformWidget);
 }
 
-void AppWindow::showCameraComponent(Raz::Camera& camera) {
+void AppWindow::showCameraComponent(Raz::Entity& entity) {
   Ui::CameraComp cameraComp;
 
   auto* cameraWidget = new QGroupBox();
   cameraComp.setupUi(cameraWidget);
+
+  auto& camera = entity.getComponent<Raz::Camera>();
 
   // Field of view
 
@@ -170,13 +172,15 @@ void AppWindow::showCameraComponent(Raz::Camera& camera) {
   m_parentWindow->m_window.componentsLayout->addWidget(cameraWidget);
 }
 
-void AppWindow::showMeshComponent(Raz::Mesh& mesh) {
+void AppWindow::showMeshComponent(Raz::Entity& entity) {
   const Raz::RenderSystem& renderSystem = m_application.getWorlds().back().getSystem<Raz::RenderSystem>();
 
   Ui::MeshComp meshComp;
 
   auto* meshWidget = new QGroupBox();
   meshComp.setupUi(meshWidget);
+
+  auto& mesh = entity.getComponent<Raz::Mesh>();
 
   // Vertex count
 
@@ -204,13 +208,14 @@ void AppWindow::showMeshComponent(Raz::Mesh& mesh) {
   m_parentWindow->m_window.componentsLayout->addWidget(meshWidget);
 }
 
-void AppWindow::showLightComponent(Raz::Light& light) {
-  const Raz::RenderSystem& renderSystem = m_application.getWorlds().back().getSystem<Raz::RenderSystem>();
-
+void AppWindow::showLightComponent(Raz::Entity& entity) {
   Ui::LightComp lightComp;
 
   auto* lightWidget = new QGroupBox();
   lightComp.setupUi(lightWidget);
+
+  auto& light = entity.getComponent<Raz::Light>();
+  const Raz::RenderSystem& renderSystem = m_application.getWorlds().back().getSystem<Raz::RenderSystem>();
 
   // Direction
 
@@ -262,11 +267,13 @@ void AppWindow::showLightComponent(Raz::Light& light) {
   m_parentWindow->m_window.componentsLayout->addWidget(lightWidget);
 }
 
-void AppWindow::showRigidBodyComponent(Raz::RigidBody& rigidBody) {
+void AppWindow::showRigidBodyComponent(Raz::Entity& entity) {
   Ui::RigidBodyComp rigidBodyComp;
 
   auto* rigidBodyWidget = new QGroupBox();
   rigidBodyComp.setupUi(rigidBodyWidget);
+
+  auto& rigidBody = entity.getComponent<Raz::RigidBody>();
 
   // Mass
 
@@ -305,11 +312,13 @@ void AppWindow::showRigidBodyComponent(Raz::RigidBody& rigidBody) {
   m_parentWindow->m_window.componentsLayout->addWidget(rigidBodyWidget);
 }
 
-void AppWindow::showSoundComponent(Raz::Sound& sound) {
+void AppWindow::showSoundComponent(Raz::Entity& entity) {
   Ui::SoundComp soundComp;
 
   auto* soundWidget = new QGroupBox();
   soundComp.setupUi(soundWidget);
+
+  auto& sound = entity.getComponent<Raz::Sound>();
 
   // Format & frequency
 

@@ -12,7 +12,7 @@ enum class FileType {
 };
 
 template <FileType FileT>
-class FileWidget : public QLineEdit {
+class FileWidget final : public QLineEdit {
 public:
   explicit FileWidget(QWidget* parent);
 

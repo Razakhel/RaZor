@@ -10,7 +10,7 @@
 #include "ui_RenderSystemSettings.h"
 #include "ui_About.h"
 
-class MainWindow : public QMainWindow {
+class MainWindow final : public QMainWindow {
   Q_OBJECT
   friend AppWindow;
 

@@ -8,7 +8,7 @@
 class AppWindow;
 class MainWindow;
 
-class EntitiesList : public QListWidget {
+class EntitiesList final : public QListWidget {
   friend MainWindow;
 
 public:

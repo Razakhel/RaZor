@@ -77,11 +77,13 @@ void showShapeInfo(Raz::Collider& collider, Ui::ColliderComp& colliderComp) {
 
 } // namespace
 
-void AppWindow::showColliderComponent(Raz::Collider& collider) {
+void AppWindow::showColliderComponent(Raz::Entity& entity) {
   Ui::ColliderComp colliderComp;
 
   auto* colliderWidget = new QGroupBox();
   colliderComp.setupUi(colliderWidget);
+
+  auto& collider = entity.getComponent<Raz::Collider>();
 
   // Shape type
 
