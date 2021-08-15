@@ -13,8 +13,8 @@ ComponentGroup<CompT>::ComponentGroup(Raz::Entity& entity, AppWindow& appWindow)
   m_removeButton->setFixedSize(17, 17);
   m_removeButton->setIconSize(QSize(13, 13));
 
-  // A Transform component should not be removed; until more options may be available, disabling the button
-  if constexpr (std::is_same_v<CompT, Raz::Transform>) {
+  // Transform, Camera & Listener components should not be removed; until more options may be available, disabling the button
+  if constexpr (std::is_same_v<CompT, Raz::Transform> || std::is_same_v<CompT, Raz::Camera> || std::is_same_v<CompT, Raz::Listener>) {
     m_removeButton->setDisabled(true);
     return;
   }

@@ -26,6 +26,7 @@ namespace Raz {
 class Camera;
 class Collider;
 class Light;
+class Listener;
 class Mesh;
 class RenderSystem;
 class RigidBody;
@@ -80,6 +81,7 @@ private:
   void showRigidBodyComponent(Raz::Entity& entity);
   void showColliderComponent(Raz::Entity& entity);
   void showSoundComponent(Raz::Entity& entity);
+  void showListenerComponent(Raz::Entity& entity);
   void showAddComponent(Raz::Entity& entity, const QString& entityName, const Raz::RenderSystem& renderSystem);
   void showAddCollider(Raz::Entity& entity, const QString& entityName, QMenu& contextMenu);
   void processActions();

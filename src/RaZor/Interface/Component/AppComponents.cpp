@@ -2,11 +2,13 @@
 #include "RaZor/Interface/MainWindow.hpp"
 #include "ui_CameraComp.h"
 #include "ui_LightComp.h"
+#include "ui_ListenerComp.h"
 #include "ui_MeshComp.h"
 #include "ui_RigidBodyComp.h"
 #include "ui_SoundComp.h"
 #include "ui_TransformComp.h"
 
+#include <RaZ/Audio/Listener.hpp>
 #include <RaZ/Audio/Sound.hpp>
 #include <RaZ/Math/Transform.hpp>
 #include <RaZ/Physics/Collider.hpp>
@@ -65,6 +67,11 @@ void AppWindow::loadComponents(const QString& entityName) {
 
   if (entity.hasComponent<Raz::Sound>()) {
     showSoundComponent(entity);
+    --remainingComponentCount;
+  }
+
+  if (entity.hasComponent<Raz::Listener>()) {
+    showListenerComponent(entity);
     --remainingComponentCount;
   }
 
@@ -393,6 +400,47 @@ void AppWindow::showSoundComponent(Raz::Entity& entity) {
   });
 
   m_parentWindow->m_window.componentsLayout->addWidget(soundWidget);
+}
+
+void AppWindow::showListenerComponent(Raz::Entity& entity) {
+  Ui::ListenerComp listenerComp;
+
+  auto* listenerWidget = new ComponentGroup<Raz::Listener>(entity, *this);
+  listenerComp.setupUi(listenerWidget);
+
+  auto& listener = entity.getComponent<Raz::Listener>();
+
+  // Position
+
+  const Raz::Vec3f position = listener.recoverPosition();
+
+  listenerComp.positionX->setValue(static_cast<double>(position.x()));
+  listenerComp.positionY->setValue(static_cast<double>(position.y()));
+  listenerComp.positionZ->setValue(static_cast<double>(position.z()));
+
+  // Velocity
+
+  const Raz::Vec3f velocity = listener.recoverVelocity();
+
+  listenerComp.velocityX->setValue(static_cast<double>(velocity.x()));
+  listenerComp.velocityY->setValue(static_cast<double>(velocity.y()));
+  listenerComp.velocityZ->setValue(static_cast<double>(velocity.z()));
+
+  // Orientation
+
+  const Raz::Vec3f forward = listener.recoverForwardOrientation();
+
+  listenerComp.forwardX->setValue(static_cast<double>(forward.x()));
+  listenerComp.forwardY->setValue(static_cast<double>(forward.y()));
+  listenerComp.forwardZ->setValue(static_cast<double>(forward.z()));
+
+  const Raz::Vec3f up = listener.recoverUpOrientation();
+
+  listenerComp.upX->setValue(static_cast<double>(up.x()));
+  listenerComp.upY->setValue(static_cast<double>(up.y()));
+  listenerComp.upZ->setValue(static_cast<double>(up.z()));
+
+  m_parentWindow->m_window.componentsLayout->addWidget(listenerWidget);
 }
 
 void AppWindow::showAddComponent(Raz::Entity& entity, const QString& entityName, const Raz::RenderSystem& renderSystem) {

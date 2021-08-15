@@ -40,22 +40,22 @@
 <context>
     <name>AppWindow</name>
     <message>
-        <location filename="../../src/RaZor/Interface/AppWindow.cpp" line="384"/>
+        <location filename="../../src/RaZor/Interface/AppWindow.cpp" line="386"/>
         <source>Importing </source>
         <translation>Importing </translation>
     </message>
     <message>
-        <location filename="../../src/RaZor/Interface/AppWindow.cpp" line="394"/>
+        <location filename="../../src/RaZor/Interface/AppWindow.cpp" line="396"/>
         <source>Finished importing</source>
         <translation>Finished importing</translation>
     </message>
     <message>
-        <location filename="../../src/RaZor/Interface/Component/AppComponents.cpp" line="29"/>
+        <location filename="../../src/RaZor/Interface/Component/AppComponents.cpp" line="31"/>
         <source>Failed to find an entity named</source>
         <translation>Failed to find an entity named</translation>
     </message>
     <message>
-        <location filename="../../src/RaZor/Interface/Component/AppComponents.cpp" line="72"/>
+        <location filename="../../src/RaZor/Interface/Component/AppComponents.cpp" line="79"/>
         <source> component(s) not displayed.</source>
         <translation> component(s) not displayed.</translation>
     </message>
@@ -102,38 +102,38 @@
         <translation>OBB</translation>
     </message>
     <message>
-        <location filename="../../src/RaZor/Interface/Component/AppComponents.cpp" line="399"/>
-        <location filename="../../src/RaZor/Interface/Component/AppComponents.cpp" line="401"/>
+        <location filename="../../src/RaZor/Interface/Component/AppComponents.cpp" line="447"/>
+        <location filename="../../src/RaZor/Interface/Component/AppComponents.cpp" line="449"/>
         <source>Add component</source>
         <translation>Add component</translation>
     </message>
     <message>
-        <location filename="../../src/RaZor/Interface/Component/AppComponents.cpp" line="405"/>
+        <location filename="../../src/RaZor/Interface/Component/AppComponents.cpp" line="453"/>
         <source>Transform</source>
         <translation>Transform</translation>
     </message>
     <message>
-        <location filename="../../src/RaZor/Interface/Component/AppComponents.cpp" line="418"/>
+        <location filename="../../src/RaZor/Interface/Component/AppComponents.cpp" line="466"/>
         <source>Mesh</source>
         <translation>Mesh</translation>
     </message>
     <message>
-        <location filename="../../src/RaZor/Interface/Component/AppComponents.cpp" line="431"/>
+        <location filename="../../src/RaZor/Interface/Component/AppComponents.cpp" line="479"/>
         <source>Light</source>
         <translation>Light</translation>
     </message>
     <message>
-        <location filename="../../src/RaZor/Interface/Component/AppComponents.cpp" line="436"/>
+        <location filename="../../src/RaZor/Interface/Component/AppComponents.cpp" line="484"/>
         <source>Point light</source>
         <translation>Point light</translation>
     </message>
     <message>
-        <location filename="../../src/RaZor/Interface/Component/AppComponents.cpp" line="443"/>
+        <location filename="../../src/RaZor/Interface/Component/AppComponents.cpp" line="491"/>
         <source>Directional light</source>
         <translation>Directional light</translation>
     </message>
     <message>
-        <location filename="../../src/RaZor/Interface/Component/AppComponents.cpp" line="453"/>
+        <location filename="../../src/RaZor/Interface/Component/AppComponents.cpp" line="501"/>
         <source>Rigid body</source>
         <translation>Rigid body</translation>
     </message>
@@ -143,7 +143,7 @@
         <translation>Collider</translation>
     </message>
     <message>
-        <location filename="../../src/RaZor/Interface/Component/AppComponents.cpp" line="470"/>
+        <location filename="../../src/RaZor/Interface/Component/AppComponents.cpp" line="518"/>
         <source>Sound</source>
         <translation>Sound</translation>
     </message>
@@ -241,6 +241,40 @@
         <location filename="../../interface/LightComp.ui" line="85"/>
         <source>Color (RGB)</source>
         <translation>Color (RGB)</translation>
+    </message>
+</context>
+<context>
+    <name>ListenerComp</name>
+    <message>
+        <location filename="../../interface/ListenerComp.ui" line="6"/>
+        <location filename="../../interface/ListenerComp.ui" line="9"/>
+        <source>Listener</source>
+        <translation>Listener</translation>
+    </message>
+    <message>
+        <location filename="../../interface/ListenerComp.ui" line="15"/>
+        <source>Position</source>
+        <translation>Position</translation>
+    </message>
+    <message>
+        <location filename="../../interface/ListenerComp.ui" line="65"/>
+        <source>Velocity</source>
+        <translation>Velocity</translation>
+    </message>
+    <message>
+        <location filename="../../interface/ListenerComp.ui" line="115"/>
+        <source>Orientation</source>
+        <translation>Orientation</translation>
+    </message>
+    <message>
+        <location filename="../../interface/ListenerComp.ui" line="128"/>
+        <source>Forward</source>
+        <translation>Forward</translation>
+    </message>
+    <message>
+        <location filename="../../interface/ListenerComp.ui" line="135"/>
+        <source>Up</source>
+        <translation>Up</translation>
     </message>
 </context>
 <context>

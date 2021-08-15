@@ -1,0 +1,244 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>ListenerComp</class>
+ <widget class="ComponentGroup&lt;Raz::Listener&gt;" name="ListenerComp">
+  <property name="windowTitle">
+   <string>Listener</string>
+  </property>
+  <property name="title">
+   <string>Listener</string>
+  </property>
+  <layout class="QFormLayout" name="listenerLayout">
+   <item row="0" column="0">
+    <widget class="QLabel" name="positionLabel">
+     <property name="text">
+      <string>Position</string>
+     </property>
+    </widget>
+   </item>
+   <item row="0" column="1">
+    <layout class="QHBoxLayout" name="positionLayout">
+     <item>
+      <widget class="ValuePicker" name="positionX">
+       <property name="enabled">
+        <bool>false</bool>
+       </property>
+       <property name="minimum">
+        <double>-340282346638528859811704183484516925440.000000000000000</double>
+       </property>
+       <property name="maximum">
+        <double>340282346638528859811704183484516925440.000000000000000</double>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="ValuePicker" name="positionY">
+       <property name="enabled">
+        <bool>false</bool>
+       </property>
+       <property name="minimum">
+        <double>-340282346638528859811704183484516925440.000000000000000</double>
+       </property>
+       <property name="maximum">
+        <double>340282346638528859811704183484516925440.000000000000000</double>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="ValuePicker" name="positionZ">
+       <property name="enabled">
+        <bool>false</bool>
+       </property>
+       <property name="minimum">
+        <double>-340282346638528859811704183484516925440.000000000000000</double>
+       </property>
+       <property name="maximum">
+        <double>340282346638528859811704183484516925440.000000000000000</double>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+   <item row="1" column="0">
+    <widget class="QLabel" name="velocityLabel">
+     <property name="text">
+      <string>Velocity</string>
+     </property>
+    </widget>
+   </item>
+   <item row="1" column="1">
+    <layout class="QHBoxLayout" name="velocityLayout">
+     <item>
+      <widget class="ValuePicker" name="velocityX">
+       <property name="enabled">
+        <bool>false</bool>
+       </property>
+       <property name="minimum">
+        <double>-340282346638528859811704183484516925440.000000000000000</double>
+       </property>
+       <property name="maximum">
+        <double>340282346638528859811704183484516925440.000000000000000</double>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="ValuePicker" name="velocityY">
+       <property name="enabled">
+        <bool>false</bool>
+       </property>
+       <property name="minimum">
+        <double>-340282346638528859811704183484516925440.000000000000000</double>
+       </property>
+       <property name="maximum">
+        <double>340282346638528859811704183484516925440.000000000000000</double>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="ValuePicker" name="velocityZ">
+       <property name="enabled">
+        <bool>false</bool>
+       </property>
+       <property name="minimum">
+        <double>-340282346638528859811704183484516925440.000000000000000</double>
+       </property>
+       <property name="maximum">
+        <double>340282346638528859811704183484516925440.000000000000000</double>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+   <item row="2" column="0">
+    <widget class="QLabel" name="orientationLabel">
+     <property name="text">
+      <string>Orientation</string>
+     </property>
+    </widget>
+   </item>
+   <item row="2" column="1">
+    <widget class="QGroupBox" name="orientationGroup">
+     <property name="title">
+      <string notr="true"/>
+     </property>
+     <layout class="QFormLayout" name="orientationLayout">
+      <item row="0" column="0">
+       <widget class="QLabel" name="forwardLabel">
+        <property name="text">
+         <string>Forward</string>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="0">
+       <widget class="QLabel" name="upLabel">
+        <property name="text">
+         <string>Up</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="1">
+       <layout class="QHBoxLayout" name="forwardLayout">
+        <item>
+         <widget class="ValuePicker" name="forwardX">
+          <property name="enabled">
+           <bool>false</bool>
+          </property>
+          <property name="minimum">
+           <double>-1.000000000000000</double>
+          </property>
+          <property name="maximum">
+           <double>1.000000000000000</double>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="ValuePicker" name="forwardY">
+          <property name="enabled">
+           <bool>false</bool>
+          </property>
+          <property name="minimum">
+           <double>-1.000000000000000</double>
+          </property>
+          <property name="maximum">
+           <double>1.000000000000000</double>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="ValuePicker" name="forwardZ">
+          <property name="enabled">
+           <bool>false</bool>
+          </property>
+          <property name="minimum">
+           <double>-1.000000000000000</double>
+          </property>
+          <property name="maximum">
+           <double>1.000000000000000</double>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+      <item row="1" column="1">
+       <layout class="QHBoxLayout" name="upLayout">
+        <item>
+         <widget class="ValuePicker" name="upX">
+          <property name="enabled">
+           <bool>false</bool>
+          </property>
+          <property name="minimum">
+           <double>-1.000000000000000</double>
+          </property>
+          <property name="maximum">
+           <double>1.000000000000000</double>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="ValuePicker" name="upY">
+          <property name="enabled">
+           <bool>false</bool>
+          </property>
+          <property name="minimum">
+           <double>-1.000000000000000</double>
+          </property>
+          <property name="maximum">
+           <double>1.000000000000000</double>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="ValuePicker" name="upZ">
+          <property name="enabled">
+           <bool>false</bool>
+          </property>
+          <property name="minimum">
+           <double>-1.000000000000000</double>
+          </property>
+          <property name="maximum">
+           <double>1.000000000000000</double>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+     </layout>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <customwidgets>
+  <customwidget>
+   <class>ComponentGroup&lt;Raz::Listener&gt;</class>
+   <extends>QGroupBox</extends>
+   <header>RaZor/Interface/ComponentGroup.hpp</header>
+  </customwidget>
+  <customwidget>
+   <class>ValuePicker</class>
+   <extends>QDoubleSpinBox</extends>
+   <header>RaZor/Interface/ValuePicker.hpp</header>
+  </customwidget>
+ </customwidgets>
+ <resources/>
+ <connections/>
+</ui>

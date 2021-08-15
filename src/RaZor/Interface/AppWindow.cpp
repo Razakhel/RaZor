@@ -2,6 +2,7 @@
 #include "RaZor/Interface/MainWindow.hpp"
 
 #include <RaZ/Audio/AudioSystem.hpp>
+#include <RaZ/Audio/Listener.hpp>
 #include <RaZ/Audio/Sound.hpp>
 #include <RaZ/Math/Transform.hpp>
 #include <RaZ/Physics/PhysicsSystem.hpp>
@@ -66,6 +67,7 @@ void AppWindow::initialize() {
   m_cameraEntity = &addEntity("Camera");
   m_cameraComp   = &m_cameraEntity->addComponent<Raz::Camera>(windowSize.width(), windowSize.height());
   m_cameraTrans  = &m_cameraEntity->addComponent<Raz::Transform>(Raz::Vec3f(0.f, 0.f, -5.f));
+  m_cameraEntity->addComponent<Raz::Listener>(m_cameraTrans->getPosition(), Raz::Mat3f(m_cameraTrans->computeTransformMatrix()));
 
   Raz::Entity& light = addEntity("Light");
   light.addComponent<Raz::Light>(Raz::LightType::DIRECTIONAL, // Type
