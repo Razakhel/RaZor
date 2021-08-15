@@ -35,6 +35,8 @@ void AppWindow::initialize() {
   format.setColorSpace(QSurfaceFormat::ColorSpace::DefaultColorSpace);
 #endif
   format.setSwapBehavior(QSurfaceFormat::SwapBehavior::DoubleBuffer);
+  format.setDepthBufferSize(24);
+  format.setSamples(2);
 
   m_context->setFormat(format);
   m_context->create();

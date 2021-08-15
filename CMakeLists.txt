@@ -320,6 +320,7 @@ elseif (RAZOR_COMPILER_MSVC)
         RAZOR_COMPILER_FLAGS
 
         /Wall
+        /MP # Enabling multi-processes compilation
 
         /wd4061 # Enum value in a switch not explicitly handled by a case label
         /wd4571 # SEH exceptions aren't caught since Visual C++ 7.1
@@ -368,7 +369,6 @@ if (RAZOR_COMPILER_MSVC OR RAZOR_COMPILER_CLANG_CL)
         /permissive- # Improving standard compliance
         /EHsc # Enabling exceptions
         /utf-8 # Forcing MSVC to actually handle files as UTF-8
-        /MP # Enabling multi-processes compilation
     )
 
     target_compile_definitions(
