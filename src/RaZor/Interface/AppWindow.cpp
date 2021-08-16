@@ -194,6 +194,17 @@ void AppWindow::enableEntity(const QString& name, bool enabled) {
     updateLights();
 }
 
+void AppWindow::removeEntity(const QString& name) {
+  Raz::Entity& entity = recoverEntity(name);
+  const bool hasLight = entity.hasComponent<Raz::Light>();
+
+  m_application.getWorlds().front().removeEntity(entity);
+  m_entities.erase(name);
+
+  if (hasLight)
+    updateLights();
+}
+
 bool AppWindow::event(QEvent* event) {
   switch (event->type()) {
     case QEvent::UpdateRequest:

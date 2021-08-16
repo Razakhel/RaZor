@@ -40,12 +40,12 @@
 <context>
     <name>AppWindow</name>
     <message>
-        <location filename="../../src/RaZor/Interface/AppWindow.cpp" line="386"/>
+        <location filename="../../src/RaZor/Interface/AppWindow.cpp" line="401"/>
         <source>Importing </source>
         <translation>Chargement de </translation>
     </message>
     <message>
-        <location filename="../../src/RaZor/Interface/AppWindow.cpp" line="396"/>
+        <location filename="../../src/RaZor/Interface/AppWindow.cpp" line="411"/>
         <source>Finished importing</source>
         <translation>Chargement terminé</translation>
     </message>
@@ -217,6 +217,14 @@
         <location filename="../../interface/ColliderComp.ui" line="15"/>
         <source>Shape type</source>
         <translation>Type de forme</translation>
+    </message>
+</context>
+<context>
+    <name>EntitiesList</name>
+    <message>
+        <location filename="../../src/RaZor/Interface/EntitiesList.cpp" line="30"/>
+        <source>Remove</source>
+        <translation>Retirer</translation>
     </message>
 </context>
 <context>

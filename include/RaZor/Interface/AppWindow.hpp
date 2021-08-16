@@ -50,6 +50,7 @@ public:
   Raz::Entity& recoverEntity(const QString& name);
   void enableEntity(const QString& name, bool enabled = true);
   void disableEntity(const QString& name) { enableEntity(name, false); }
+  void removeEntity(const QString& name);
   /// Loads the components of the currently selected entity.
   void loadComponents();
   /// Loads the components of the entity corresponding to the given name.
