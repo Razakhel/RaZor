@@ -47,7 +47,19 @@ FileWidget<FileT>::FileWidget(QWidget* parent) : QLineEdit(parent) {
 }
 
 template <FileType FileT>
-void FileWidget<FileT>::mouseDoubleClickEvent(QMouseEvent* event) {
+void FileWidget<FileT>::enterEvent(QEvent* event) {
+  setCursor(Qt::CursorShape::PointingHandCursor);
+  event->accept();
+}
+
+template <FileType FileT>
+void FileWidget<FileT>::leaveEvent(QEvent* event) {
+  setCursor(Qt::CursorShape::ArrowCursor);
+  event->accept();
+}
+
+template <FileType FileT>
+void FileWidget<FileT>::mousePressEvent(QMouseEvent* event) {
   if (event->button() != Qt::MouseButton::LeftButton)
     return;
 
@@ -73,6 +85,7 @@ void FileWidget<FileT>::mouseDoubleClickEvent(QMouseEvent* event) {
     return;
 
   setText(filePath);
+  event->accept();
 }
 
 template <FileType FileT>
@@ -94,4 +107,5 @@ void FileWidget<FileT>::dropEvent(QDropEvent* event) {
   }
 
   setText(filePath);
+  event->accept();
 }

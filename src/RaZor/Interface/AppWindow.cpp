@@ -299,6 +299,7 @@ void AppWindow::mousePressEvent(QMouseEvent* event) {
 
     case Qt::MouseButton::RightButton:
       m_rightClickPressed = true;
+      setCursor(Qt::CursorShape::SizeAllCursor);
       break;
 
     default:
@@ -320,6 +321,7 @@ void AppWindow::mouseReleaseEvent(QMouseEvent* event) {
 
     case Qt::MouseButton::RightButton:
       m_rightClickPressed = false;
+      setCursor(Qt::CursorShape::ArrowCursor);
       break;
 
     default:

@@ -17,7 +17,9 @@ public:
   explicit FileWidget(QWidget* parent);
 
 protected:
-  void mouseDoubleClickEvent(QMouseEvent* event) override;
+  void enterEvent(QEvent* event) override;
+  void leaveEvent(QEvent* event) override;
+  void mousePressEvent(QMouseEvent* event) override;
   void dragEnterEvent(QDragEnterEvent* event) override;
   void dropEvent(QDropEvent* event) override;
 };
