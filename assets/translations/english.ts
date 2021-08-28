@@ -491,7 +491,7 @@
 <context>
     <name>QCoreApplication</name>
     <message>
-        <location filename="../../main.cpp" line="21"/>
+        <location filename="../../main.cpp" line="28"/>
         <source>Change the application&apos;s language.</source>
         <translation>Change the application&apos;s language.</translation>
     </message>

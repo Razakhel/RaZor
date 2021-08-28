@@ -26,7 +26,7 @@ ComponentGroup<CompT>::ComponentGroup(Raz::Entity& entity, AppWindow& appWindow)
 
     // If a light has been removed, the RenderSystem has to update the lighting
     if constexpr (std::is_same_v<CompT, Raz::Light>)
-      appWindow.getApplication().getWorlds().back().getSystem<Raz::RenderSystem>().updateLights();
+      appWindow.updateLights();
 
     appWindow.loadComponents();
   });

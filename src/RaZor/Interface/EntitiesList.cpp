@@ -52,6 +52,7 @@ void EntitiesList::setupActions() {
       m_appWindow->clearComponents(); // If the selection has been cleared, removing everything from the components panel
   });
 
+  // Toggling the entity's state on double click
   connect(this, &QListWidget::itemDoubleClicked, [] (QListWidgetItem* item) {
     const bool isChecked = (item->checkState() != Qt::CheckState::Unchecked);
     item->setCheckState((isChecked ? Qt::CheckState::Unchecked : Qt::CheckState::Checked));

@@ -5,11 +5,8 @@
 
 #include <QListWidget>
 
-class AppWindow;
-class MainWindow;
-
 class EntitiesList final : public QListWidget {
-  friend MainWindow;
+  friend class MainWindow;
 
 public:
   explicit EntitiesList(QWidget* parent);
@@ -19,7 +16,7 @@ public:
 private:
   void setupActions();
 
-  AppWindow* m_appWindow {};
+  class AppWindow* m_appWindow {};
 };
 
 #endif // RAZOR_ENTITIESLIST_HPP

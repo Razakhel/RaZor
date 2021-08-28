@@ -10,6 +10,13 @@ int main(int argc, char* argv[]) {
   QCoreApplication::setOrganizationName("RaZor");
   QCoreApplication::setApplicationName("RaZor");
 
+  ///////////////////
+  // Splash screen //
+  ///////////////////
+
+  QSplashScreen splashScreen(QPixmap(":/logo/256"));
+  splashScreen.show();
+
   ///////////////////////
   // Language handling //
   ///////////////////////
@@ -37,24 +44,17 @@ int main(int argc, char* argv[]) {
   QCoreApplication::installTranslator(&translator);
 
   ///////////////////
-  // Splash screen //
-  ///////////////////
-
-  QSplashScreen splashScreen(QPixmap(":/logo/256"));
-  splashScreen.show();
-
-  app.thread()->sleep(1);
-  app.processEvents();
-
-  ///////////////////
   // Running RaZor //
   ///////////////////
 
+  app.processEvents();
+
   MainWindow window;
-  window.show();
-  window.initializeApplication();
 
   splashScreen.finish(&window);
+
+  window.show();
+  window.initializeApplication();
 
   return app.exec();
 }

@@ -103,24 +103,24 @@ void AppWindow::showTransformComponent(Raz::Entity& entity) {
 
   // Position
 
-  transformComp.positionX->setValue(static_cast<double>(transform.getPosition()[0]));
-  transformComp.positionY->setValue(static_cast<double>(transform.getPosition()[1]));
-  transformComp.positionZ->setValue(static_cast<double>(transform.getPosition()[2]));
+  transformComp.positionX->setValue(static_cast<double>(transform.getPosition().x()));
+  transformComp.positionY->setValue(static_cast<double>(transform.getPosition().y()));
+  transformComp.positionZ->setValue(static_cast<double>(transform.getPosition().z()));
 
   connect(transformComp.positionX, QOverload<double>::of(&ValuePicker::valueChanged), [&transform, &entity, &renderSystem] (double val) {
-    transform.setPosition(static_cast<float>(val), transform.getPosition()[1], transform.getPosition()[2]);
+    transform.setPosition(static_cast<float>(val), transform.getPosition().y(), transform.getPosition().z());
 
     if (entity.hasComponent<Raz::Light>())
       renderSystem.updateLights();
   });
   connect(transformComp.positionY, QOverload<double>::of(&ValuePicker::valueChanged), [&transform, &entity, &renderSystem] (double val) {
-    transform.setPosition(transform.getPosition()[0], static_cast<float>(val), transform.getPosition()[2]);
+    transform.setPosition(transform.getPosition().x(), static_cast<float>(val), transform.getPosition().z());
 
     if (entity.hasComponent<Raz::Light>())
       renderSystem.updateLights();
   });
   connect(transformComp.positionZ, QOverload<double>::of(&ValuePicker::valueChanged), [&transform, &entity, &renderSystem] (double val) {
-    transform.setPosition(transform.getPosition()[0], transform.getPosition()[1], static_cast<float>(val));
+    transform.setPosition(transform.getPosition().x(), transform.getPosition().y(), static_cast<float>(val));
 
     if (entity.hasComponent<Raz::Light>())
       renderSystem.updateLights();
@@ -131,18 +131,18 @@ void AppWindow::showTransformComponent(Raz::Entity& entity) {
 
   // Scale
 
-  transformComp.scaleX->setValue(static_cast<double>(transform.getScale()[0]));
-  transformComp.scaleY->setValue(static_cast<double>(transform.getScale()[1]));
-  transformComp.scaleZ->setValue(static_cast<double>(transform.getScale()[2]));
+  transformComp.scaleX->setValue(static_cast<double>(transform.getScale().x()));
+  transformComp.scaleY->setValue(static_cast<double>(transform.getScale().y()));
+  transformComp.scaleZ->setValue(static_cast<double>(transform.getScale().z()));
 
   connect(transformComp.scaleX, QOverload<double>::of(&ValuePicker::valueChanged), [&transform] (double val) {
-    transform.setScale(static_cast<float>(val), transform.getScale()[1], transform.getScale()[2]);
+    transform.setScale(static_cast<float>(val), transform.getScale().y(), transform.getScale().z());
   });
   connect(transformComp.scaleY, QOverload<double>::of(&ValuePicker::valueChanged), [&transform] (double val) {
-    transform.setScale(transform.getScale()[0], static_cast<float>(val), transform.getScale()[2]);
+    transform.setScale(transform.getScale().x(), static_cast<float>(val), transform.getScale().z());
   });
   connect(transformComp.scaleZ, QOverload<double>::of(&ValuePicker::valueChanged), [&transform] (double val) {
-    transform.setScale(transform.getScale()[0], transform.getScale()[1], static_cast<float>(val));
+    transform.setScale(transform.getScale().x(), transform.getScale().y(), static_cast<float>(val));
   });
 
   m_parentWindow->m_window.componentsLayout->addWidget(transformWidget);
@@ -226,20 +226,20 @@ void AppWindow::showLightComponent(Raz::Entity& entity) {
 
   // Direction
 
-  lightComp.directionX->setValue(static_cast<double>(light.getDirection()[0]));
-  lightComp.directionY->setValue(static_cast<double>(light.getDirection()[1]));
-  lightComp.directionZ->setValue(static_cast<double>(light.getDirection()[2]));
+  lightComp.directionX->setValue(static_cast<double>(light.getDirection().x()));
+  lightComp.directionY->setValue(static_cast<double>(light.getDirection().y()));
+  lightComp.directionZ->setValue(static_cast<double>(light.getDirection().z()));
 
   connect(lightComp.directionX, QOverload<double>::of(&ValuePicker::valueChanged), [&light, &renderSystem] (double val) {
-    light.setDirection(Raz::Vec3f(static_cast<float>(val), light.getDirection()[1], light.getDirection()[2]));
+    light.setDirection(Raz::Vec3f(static_cast<float>(val), light.getDirection().y(), light.getDirection().z()));
     renderSystem.updateLights();
   });
   connect(lightComp.directionY, QOverload<double>::of(&ValuePicker::valueChanged), [&light, &renderSystem] (double val) {
-    light.setDirection(Raz::Vec3f(light.getDirection()[0], static_cast<float>(val), light.getDirection()[2]));
+    light.setDirection(Raz::Vec3f(light.getDirection().x(), static_cast<float>(val), light.getDirection().z()));
     renderSystem.updateLights();
   });
   connect(lightComp.directionZ, QOverload<double>::of(&ValuePicker::valueChanged), [&light, &renderSystem] (double val) {
-    light.setDirection(Raz::Vec3f(light.getDirection()[0], light.getDirection()[1], static_cast<float>(val)));
+    light.setDirection(Raz::Vec3f(light.getDirection().x(), light.getDirection().y(), static_cast<float>(val)));
     renderSystem.updateLights();
   });
 
