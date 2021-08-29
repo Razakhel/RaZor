@@ -42,8 +42,6 @@
      <property name="title">
       <string>&amp;Windows</string>
      </property>
-     <addaction name="viewWindowEntities"/>
-     <addaction name="viewWindowComponents"/>
     </widget>
     <addaction name="viewWindows"/>
    </widget>
@@ -76,18 +74,6 @@
   </widget>
   <widget class="QStatusBar" name="statusBar"/>
   <widget class="QDockWidget" name="entitiesPanel">
-   <property name="sizePolicy">
-    <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-     <horstretch>0</horstretch>
-     <verstretch>0</verstretch>
-    </sizepolicy>
-   </property>
-   <property name="minimumSize">
-    <size>
-     <width>158</width>
-     <height>161</height>
-    </size>
-   </property>
    <property name="font">
     <font>
      <pointsize>7</pointsize>
@@ -126,12 +112,6 @@
      </property>
      <item row="0" column="0">
       <widget class="EntitiesList" name="entitiesList">
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
-       </property>
        <property name="font">
         <font>
          <pointsize>10</pointsize>
@@ -223,6 +203,89 @@
     </layout>
    </widget>
   </widget>
+  <widget class="QDockWidget" name="consolePanel">
+   <property name="font">
+    <font>
+     <pointsize>7</pointsize>
+     <weight>75</weight>
+     <bold>true</bold>
+    </font>
+   </property>
+   <property name="allowedAreas">
+    <set>Qt::BottomDockWidgetArea|Qt::TopDockWidgetArea</set>
+   </property>
+   <property name="windowTitle">
+    <string>Console</string>
+   </property>
+   <attribute name="dockWidgetArea">
+    <number>8</number>
+   </attribute>
+   <widget class="QWidget" name="consoleWidget">
+    <layout class="QVBoxLayout" name="consoleLayout">
+     <item>
+      <widget class="QListWidget" name="console">
+       <property name="enabled">
+        <bool>true</bool>
+       </property>
+       <property name="font">
+        <font>
+         <pointsize>8</pointsize>
+         <weight>50</weight>
+         <bold>false</bold>
+        </font>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <layout class="QHBoxLayout" name="consoleActionsLayout">
+       <item>
+        <spacer name="consoleActionsSpacer">
+         <property name="orientation">
+          <enum>Qt::Horizontal</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>40</width>
+           <height>20</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+       <item>
+        <widget class="QLabel" name="loggingLevelLabel">
+         <property name="text">
+          <string>Logging level</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QComboBox" name="loggingLevel">
+         <property name="minimumSize">
+          <size>
+           <width>100</width>
+           <height>0</height>
+          </size>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="clearConsole">
+         <property name="minimumSize">
+          <size>
+           <width>100</width>
+           <height>0</height>
+          </size>
+         </property>
+         <property name="text">
+          <string>Clear</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </item>
+    </layout>
+   </widget>
+  </widget>
   <action name="actionOpen">
    <property name="text">
     <string>&amp;Open...</string>
@@ -243,16 +306,6 @@
    </property>
    <property name="shortcut">
     <string notr="true">Ctrl+Q</string>
-   </property>
-  </action>
-  <action name="viewWindowEntities">
-   <property name="text">
-    <string>&amp;Entities</string>
-   </property>
-  </action>
-  <action name="viewWindowComponents">
-   <property name="text">
-    <string>&amp;Components</string>
    </property>
   </action>
   <action name="renderSystemSettings">

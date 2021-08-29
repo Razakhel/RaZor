@@ -381,6 +381,10 @@ if (RAZOR_COMPILER_MSVC OR RAZOR_COMPILER_CLANG_CL)
     )
 endif ()
 
+if (RAZOR_PLATFORM_WINDOWS)
+    set_target_properties(RaZor PROPERTIES WIN32_EXECUTABLE TRUE) # Removing external console
+endif ()
+
 ########################
 # RaZor - Source files #
 ########################

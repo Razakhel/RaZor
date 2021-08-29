@@ -1,18 +1,36 @@
 <RCC>
   <qresource prefix="logo">
-    <file alias="512">../icons/RaZ_logo_512.png</file>
-    <file alias="256">../icons/RaZ_logo_256.png</file>
-    <file alias="128">../icons/RaZ_logo_128.png</file>
+    <file alias="512">../icons/RaZ/logo_512.png</file>
+    <file alias="256">../icons/RaZ/logo_256.png</file>
+    <file alias="128">../icons/RaZ/logo_128.png</file>
   </qresource>
 
   <qresource prefix="logo_shadow">
-    <file alias="512">../icons/RaZ_logo_shadow_512.png</file>
-    <file alias="256">../icons/RaZ_logo_shadow_256.png</file>
-    <file alias="128">../icons/RaZ_logo_shadow_128.png</file>
+    <file alias="512">../icons/RaZ/logo_shadow_512.png</file>
+    <file alias="256">../icons/RaZ/logo_shadow_256.png</file>
+    <file alias="128">../icons/RaZ/logo_shadow_128.png</file>
   </qresource>
 
-  <qresource prefix="icon">
-    <file alias="cog">../icons/cog.png</file>
+  <qresource prefix="icon/error">
+    <file alias="16">../icons/error/error_16.png</file>
+    <file alias="32">../icons/error/error_32.png</file>
+    <file alias="64">../icons/error/error_64.png</file>
+  </qresource>
+
+  <qresource prefix="icon/warning">
+    <file alias="16">../icons/warning/warning_16.png</file>
+    <file alias="32">../icons/warning/warning_32.png</file>
+    <file alias="64">../icons/warning/warning_64.png</file>
+  </qresource>
+
+  <qresource prefix="icon/info">
+    <file alias="16">../icons/info/info_16.png</file>
+    <file alias="32">../icons/info/info_32.png</file>
+    <file alias="64">../icons/info/info_64.png</file>
+  </qresource>
+
+  <qresource prefix="icon/misc">
+    <file alias="cog">../icons/misc/cog.png</file>
   </qresource>
 
   <qresource prefix="shader">
@@ -34,10 +52,5 @@
     <file alias="default_metallic">../textures/default_metallic.png</file>
     <file alias="default_normal">../textures/default_normal.png</file>
     <file alias="default_roughness">../textures/default_roughness.png</file>
-  </qresource>
-
-  <qresource prefix="/lang">
-    <file alias="en">../translations/english.ts</file>
-    <file alias="fr">../translations/french.ts</file>
   </qresource>
 </RCC>

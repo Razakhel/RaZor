@@ -288,24 +288,59 @@
 <context>
     <name>MainWindow</name>
     <message>
-        <location filename="../../src/RaZor/Interface/MainWindow.cpp" line="31"/>
+        <location filename="../../src/RaZor/Interface/MainWindow.cpp" line="37"/>
         <source>Ready</source>
         <translation>Ready</translation>
     </message>
     <message>
-        <location filename="../../src/RaZor/Interface/MainWindow.cpp" line="51"/>
+        <location filename="../../src/RaZor/Interface/MainWindow.cpp" line="57"/>
         <source>Import a file</source>
         <translation>Import a file</translation>
     </message>
     <message>
-        <location filename="../../src/RaZor/Interface/MainWindow.cpp" line="51"/>
+        <location filename="../../src/RaZor/Interface/MainWindow.cpp" line="57"/>
         <source>Mesh</source>
         <translation>Mesh</translation>
     </message>
     <message>
-        <location filename="../../src/RaZor/Interface/MainWindow.cpp" line="79"/>
+        <location filename="../../src/RaZor/Interface/MainWindow.cpp" line="89"/>
         <source>Unexpected empty field</source>
         <translation>Unexpected empty field</translation>
+    </message>
+    <message>
+        <location filename="../../src/RaZor/Interface/MainWindow.cpp" line="113"/>
+        <source>Failed to load cubemap: </source>
+        <translation>Failed to load cubemap: </translation>
+    </message>
+    <message>
+        <location filename="../../src/RaZor/Interface/MainWindow.cpp" line="166"/>
+        <source>None</source>
+        <translation>None</translation>
+    </message>
+    <message>
+        <location filename="../../src/RaZor/Interface/MainWindow.cpp" line="167"/>
+        <source>Error</source>
+        <translation>Error</translation>
+    </message>
+    <message>
+        <location filename="../../src/RaZor/Interface/MainWindow.cpp" line="168"/>
+        <source>Warning</source>
+        <translation>Warning</translation>
+    </message>
+    <message>
+        <location filename="../../src/RaZor/Interface/MainWindow.cpp" line="169"/>
+        <source>Info</source>
+        <translation>Info</translation>
+    </message>
+    <message>
+        <location filename="../../src/RaZor/Interface/MainWindow.cpp" line="171"/>
+        <source>Debug</source>
+        <translation>Debug</translation>
+    </message>
+    <message>
+        <location filename="../../src/RaZor/Interface/MainWindow.cpp" line="173"/>
+        <source>All</source>
+        <translation>All</translation>
     </message>
     <message>
         <location filename="../../interface/RaZor.ui" line="31"/>
@@ -323,94 +358,114 @@
         <translation>&amp;Windows</translation>
     </message>
     <message>
-        <location filename="../../interface/RaZor.ui" line="149"/>
+        <location filename="../../interface/RaZor.ui" line="129"/>
         <source>Add entity</source>
         <translation>Add entity</translation>
     </message>
     <message>
-        <location filename="../../interface/RaZor.ui" line="198"/>
+        <location filename="../../interface/RaZor.ui" line="178"/>
         <source>Components</source>
         <translation>Components</translation>
     </message>
     <message>
-        <location filename="../../interface/RaZor.ui" line="102"/>
-        <source>Entities</source>
-        <translation>Entities</translation>
-    </message>
-    <message>
-        <location filename="../../interface/RaZor.ui" line="52"/>
+        <location filename="../../interface/RaZor.ui" line="50"/>
         <source>&amp;Tools</source>
         <translation>&amp;Tools</translation>
     </message>
     <message>
-        <location filename="../../interface/RaZor.ui" line="56"/>
+        <location filename="../../interface/RaZor.ui" line="54"/>
         <source>&amp;Systems</source>
         <translation>&amp;Systems</translation>
     </message>
     <message>
-        <location filename="../../interface/RaZor.ui" line="68"/>
+        <location filename="../../interface/RaZor.ui" line="66"/>
         <source>&amp;Help</source>
         <translation>&amp;Help</translation>
     </message>
     <message>
-        <location filename="../../interface/RaZor.ui" line="156"/>
+        <location filename="../../interface/RaZor.ui" line="88"/>
+        <source>Entities</source>
+        <translation>Entities</translation>
+    </message>
+    <message>
+        <location filename="../../interface/RaZor.ui" line="136"/>
         <source>Unselect</source>
         <translation>Unselect</translation>
     </message>
     <message>
-        <location filename="../../interface/RaZor.ui" line="228"/>
+        <location filename="../../interface/RaZor.ui" line="218"/>
+        <source>Console</source>
+        <translation>Console</translation>
+    </message>
+    <message>
+        <location filename="../../interface/RaZor.ui" line="257"/>
+        <source>Logging level</source>
+        <translation>Logging level</translation>
+    </message>
+    <message>
+        <location filename="../../interface/RaZor.ui" line="280"/>
+        <source>Clear</source>
+        <translation>Clear</translation>
+    </message>
+    <message>
+        <location filename="../../interface/RaZor.ui" line="291"/>
         <source>&amp;Open...</source>
         <translation>&amp;Open...</translation>
     </message>
     <message>
-        <location filename="../../interface/RaZor.ui" line="231"/>
+        <location filename="../../interface/RaZor.ui" line="294"/>
         <source>Open a file</source>
         <translation>Open a file</translation>
     </message>
     <message>
-        <location filename="../../interface/RaZor.ui" line="239"/>
+        <location filename="../../interface/RaZor.ui" line="302"/>
         <source>&amp;Quit</source>
         <translation>&amp;Quit</translation>
     </message>
     <message>
-        <location filename="../../interface/RaZor.ui" line="242"/>
+        <location filename="../../interface/RaZor.ui" line="305"/>
         <source>Quit RaZor</source>
         <translation>Quit RaZor</translation>
     </message>
     <message>
-        <location filename="../../interface/RaZor.ui" line="250"/>
+        <location filename="../../src/RaZor/Interface/MainWindow.cpp" line="73"/>
         <source>&amp;Entities</source>
         <translation>&amp;Entities</translation>
     </message>
     <message>
-        <location filename="../../interface/RaZor.ui" line="255"/>
+        <location filename="../../src/RaZor/Interface/MainWindow.cpp" line="75"/>
         <source>&amp;Components</source>
         <translation>&amp;Components</translation>
     </message>
     <message>
-        <location filename="../../interface/RaZor.ui" line="260"/>
+        <location filename="../../interface/RaZor.ui" line="313"/>
         <source>&amp;Render system settings...</source>
         <translation>&amp;Render system settings...</translation>
     </message>
     <message>
-        <location filename="../../interface/RaZor.ui" line="268"/>
+        <location filename="../../interface/RaZor.ui" line="321"/>
         <source>&amp;Options...</source>
         <translation>&amp;Options...</translation>
     </message>
     <message>
-        <location filename="../../interface/RaZor.ui" line="273"/>
+        <location filename="../../interface/RaZor.ui" line="326"/>
         <source>&amp;About</source>
         <translation>&amp;About</translation>
     </message>
     <message>
-        <location filename="../../interface/RaZor.ui" line="278"/>
+        <location filename="../../interface/RaZor.ui" line="331"/>
         <source>&amp;Audio system settings...</source>
         <translation>&amp;Audio system settings...</translation>
     </message>
     <message>
-        <location filename="../../interface/RaZor.ui" line="283"/>
+        <location filename="../../interface/RaZor.ui" line="336"/>
         <source>&amp;Physics system settings...</source>
         <translation>&amp;Physics system settings...</translation>
+    </message>
+    <message>
+        <location filename="../../src/RaZor/Interface/MainWindow.cpp" line="77"/>
+        <source>C&amp;onsole</source>
+        <translation>C&amp;onsole</translation>
     </message>
 </context>
 <context>

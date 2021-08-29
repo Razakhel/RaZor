@@ -7,7 +7,7 @@
 
 template <typename CompT>
 ComponentGroup<CompT>::ComponentGroup(Raz::Entity& entity, AppWindow& appWindow) : m_removeButton{ new QPushButton(this) } {
-  m_removeButton->setIcon(QIcon(":/icon/cog"));
+  m_removeButton->setIcon(QIcon(":/icon/misc/cog"));
   m_removeButton->setFlat(true);
   m_removeButton->setAutoFillBackground(true);
   m_removeButton->setFixedSize(17, 17);
