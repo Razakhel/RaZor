@@ -53,19 +53,9 @@ void MainWindow::keyPressEvent(QKeyEvent* event) {
   }
 }
 
-void MainWindow::openFile() {
-  const QString filePath = QFileDialog::getOpenFileName(this, tr("Import a file"), QString(), tr("Mesh") + " (*.obj *.fbx *.off)");
-
-  if (filePath.isEmpty())
-    return;
-
-  m_appWindow.importMesh(filePath.toStdString());
-}
-
 void MainWindow::setupActions() {
   // File menu
 
-  connect(m_window.actionOpen, &QAction::triggered, this, &MainWindow::openFile);
   connect(m_window.actionQuit, &QAction::triggered, this, &QMainWindow::close);
 
   // View menu

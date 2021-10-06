@@ -24,9 +24,6 @@ public:
 protected:
   void keyPressEvent(QKeyEvent* event) override;
 
-private slots:
-  void openFile();
-
 private:
   void setupActions();
 

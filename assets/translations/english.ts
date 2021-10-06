@@ -40,12 +40,12 @@
 <context>
     <name>AppWindow</name>
     <message>
-        <location filename="../../src/RaZor/Interface/AppWindow.cpp" line="401"/>
+        <location filename="../../src/RaZor/Interface/AppWindow.cpp" line="420"/>
         <source>Importing </source>
         <translation>Importing </translation>
     </message>
     <message>
-        <location filename="../../src/RaZor/Interface/AppWindow.cpp" line="411"/>
+        <location filename="../../src/RaZor/Interface/AppWindow.cpp" line="442"/>
         <source>Finished importing</source>
         <translation>Finished importing</translation>
     </message>
@@ -293,52 +293,42 @@
         <translation>Ready</translation>
     </message>
     <message>
-        <location filename="../../src/RaZor/Interface/MainWindow.cpp" line="57"/>
-        <source>Import a file</source>
-        <translation>Import a file</translation>
-    </message>
-    <message>
-        <location filename="../../src/RaZor/Interface/MainWindow.cpp" line="57"/>
-        <source>Mesh</source>
-        <translation>Mesh</translation>
-    </message>
-    <message>
-        <location filename="../../src/RaZor/Interface/MainWindow.cpp" line="89"/>
+        <location filename="../../src/RaZor/Interface/MainWindow.cpp" line="79"/>
         <source>Unexpected empty field</source>
         <translation>Unexpected empty field</translation>
     </message>
     <message>
-        <location filename="../../src/RaZor/Interface/MainWindow.cpp" line="113"/>
+        <location filename="../../src/RaZor/Interface/MainWindow.cpp" line="103"/>
         <source>Failed to load cubemap: </source>
         <translation>Failed to load cubemap: </translation>
     </message>
     <message>
-        <location filename="../../src/RaZor/Interface/MainWindow.cpp" line="166"/>
+        <location filename="../../src/RaZor/Interface/MainWindow.cpp" line="156"/>
         <source>None</source>
         <translation>None</translation>
     </message>
     <message>
-        <location filename="../../src/RaZor/Interface/MainWindow.cpp" line="167"/>
+        <location filename="../../src/RaZor/Interface/MainWindow.cpp" line="157"/>
         <source>Error</source>
         <translation>Error</translation>
     </message>
     <message>
-        <location filename="../../src/RaZor/Interface/MainWindow.cpp" line="168"/>
+        <location filename="../../src/RaZor/Interface/MainWindow.cpp" line="158"/>
         <source>Warning</source>
         <translation>Warning</translation>
     </message>
     <message>
-        <location filename="../../src/RaZor/Interface/MainWindow.cpp" line="169"/>
+        <location filename="../../src/RaZor/Interface/MainWindow.cpp" line="159"/>
         <source>Info</source>
         <translation>Info</translation>
     </message>
     <message>
-        <location filename="../../src/RaZor/Interface/MainWindow.cpp" line="171"/>
+        <location filename="../../src/RaZor/Interface/MainWindow.cpp" line="161"/>
         <source>Debug</source>
         <translation>Debug</translation>
     </message>
     <message>
-        <location filename="../../src/RaZor/Interface/MainWindow.cpp" line="173"/>
+        <location filename="../../src/RaZor/Interface/MainWindow.cpp" line="163"/>
         <source>All</source>
         <translation>All</translation>
     </message>
@@ -348,122 +338,112 @@
         <translation>&amp;File</translation>
     </message>
     <message>
-        <location filename="../../interface/RaZor.ui" line="39"/>
+        <location filename="../../interface/RaZor.ui" line="37"/>
         <source>&amp;View</source>
         <translation>&amp;View</translation>
     </message>
     <message>
-        <location filename="../../interface/RaZor.ui" line="43"/>
+        <location filename="../../interface/RaZor.ui" line="41"/>
         <source>&amp;Windows</source>
         <translation>&amp;Windows</translation>
     </message>
     <message>
-        <location filename="../../interface/RaZor.ui" line="129"/>
+        <location filename="../../interface/RaZor.ui" line="127"/>
         <source>Add entity</source>
         <translation>Add entity</translation>
     </message>
     <message>
-        <location filename="../../interface/RaZor.ui" line="178"/>
+        <location filename="../../interface/RaZor.ui" line="176"/>
         <source>Components</source>
         <translation>Components</translation>
     </message>
     <message>
-        <location filename="../../interface/RaZor.ui" line="50"/>
+        <location filename="../../interface/RaZor.ui" line="48"/>
         <source>&amp;Tools</source>
         <translation>&amp;Tools</translation>
     </message>
     <message>
-        <location filename="../../interface/RaZor.ui" line="54"/>
+        <location filename="../../interface/RaZor.ui" line="52"/>
         <source>&amp;Systems</source>
         <translation>&amp;Systems</translation>
     </message>
     <message>
-        <location filename="../../interface/RaZor.ui" line="66"/>
+        <location filename="../../interface/RaZor.ui" line="64"/>
         <source>&amp;Help</source>
         <translation>&amp;Help</translation>
     </message>
     <message>
-        <location filename="../../interface/RaZor.ui" line="88"/>
+        <location filename="../../interface/RaZor.ui" line="86"/>
         <source>Entities</source>
         <translation>Entities</translation>
     </message>
     <message>
-        <location filename="../../interface/RaZor.ui" line="136"/>
+        <location filename="../../interface/RaZor.ui" line="134"/>
         <source>Unselect</source>
         <translation>Unselect</translation>
     </message>
     <message>
-        <location filename="../../interface/RaZor.ui" line="218"/>
+        <location filename="../../interface/RaZor.ui" line="216"/>
         <source>Console</source>
         <translation>Console</translation>
     </message>
     <message>
-        <location filename="../../interface/RaZor.ui" line="257"/>
+        <location filename="../../interface/RaZor.ui" line="255"/>
         <source>Logging level</source>
         <translation>Logging level</translation>
     </message>
     <message>
-        <location filename="../../interface/RaZor.ui" line="280"/>
+        <location filename="../../interface/RaZor.ui" line="278"/>
         <source>Clear</source>
         <translation>Clear</translation>
     </message>
     <message>
-        <location filename="../../interface/RaZor.ui" line="291"/>
-        <source>&amp;Open...</source>
-        <translation>&amp;Open...</translation>
-    </message>
-    <message>
-        <location filename="../../interface/RaZor.ui" line="294"/>
-        <source>Open a file</source>
-        <translation>Open a file</translation>
-    </message>
-    <message>
-        <location filename="../../interface/RaZor.ui" line="302"/>
+        <location filename="../../interface/RaZor.ui" line="289"/>
         <source>&amp;Quit</source>
         <translation>&amp;Quit</translation>
     </message>
     <message>
-        <location filename="../../interface/RaZor.ui" line="305"/>
+        <location filename="../../interface/RaZor.ui" line="292"/>
         <source>Quit RaZor</source>
         <translation>Quit RaZor</translation>
     </message>
     <message>
-        <location filename="../../src/RaZor/Interface/MainWindow.cpp" line="73"/>
+        <location filename="../../src/RaZor/Interface/MainWindow.cpp" line="63"/>
         <source>&amp;Entities</source>
         <translation>&amp;Entities</translation>
     </message>
     <message>
-        <location filename="../../src/RaZor/Interface/MainWindow.cpp" line="75"/>
+        <location filename="../../src/RaZor/Interface/MainWindow.cpp" line="65"/>
         <source>&amp;Components</source>
         <translation>&amp;Components</translation>
     </message>
     <message>
-        <location filename="../../interface/RaZor.ui" line="313"/>
+        <location filename="../../interface/RaZor.ui" line="300"/>
         <source>&amp;Render system settings...</source>
         <translation>&amp;Render system settings...</translation>
     </message>
     <message>
-        <location filename="../../interface/RaZor.ui" line="321"/>
+        <location filename="../../interface/RaZor.ui" line="308"/>
         <source>&amp;Options...</source>
         <translation>&amp;Options...</translation>
     </message>
     <message>
-        <location filename="../../interface/RaZor.ui" line="326"/>
+        <location filename="../../interface/RaZor.ui" line="313"/>
         <source>&amp;About</source>
         <translation>&amp;About</translation>
     </message>
     <message>
-        <location filename="../../interface/RaZor.ui" line="331"/>
+        <location filename="../../interface/RaZor.ui" line="318"/>
         <source>&amp;Audio system settings...</source>
         <translation>&amp;Audio system settings...</translation>
     </message>
     <message>
-        <location filename="../../interface/RaZor.ui" line="336"/>
+        <location filename="../../interface/RaZor.ui" line="323"/>
         <source>&amp;Physics system settings...</source>
         <translation>&amp;Physics system settings...</translation>
     </message>
     <message>
-        <location filename="../../src/RaZor/Interface/MainWindow.cpp" line="77"/>
+        <location filename="../../src/RaZor/Interface/MainWindow.cpp" line="67"/>
         <source>C&amp;onsole</source>
         <translation>C&amp;onsole</translation>
     </message>
@@ -488,23 +468,32 @@
     </message>
     <message>
         <location filename="../../interface/MeshComp.ui" line="43"/>
+        <source>Mesh file</source>
+        <translation>Mesh file</translation>
+    </message>
+</context>
+<context>
+    <name>MeshRendererComp</name>
+    <message>
+        <location filename="../../interface/MeshRendererComp.ui" line="6"/>
+        <location filename="../../interface/MeshRendererComp.ui" line="9"/>
+        <source>Mesh renderer</source>
+        <translation>Mesh renderer</translation>
+    </message>
+    <message>
+        <location filename="../../interface/MeshRendererComp.ui" line="15"/>
         <source>Render mode</source>
         <translation>Render mode</translation>
     </message>
     <message>
-        <location filename="../../interface/MeshComp.ui" line="51"/>
+        <location filename="../../interface/MeshRendererComp.ui" line="23"/>
         <source>Triangles</source>
         <translation>Triangles</translation>
     </message>
     <message>
-        <location filename="../../interface/MeshComp.ui" line="56"/>
+        <location filename="../../interface/MeshRendererComp.ui" line="28"/>
         <source>Points</source>
         <translation>Points</translation>
-    </message>
-    <message>
-        <location filename="../../interface/MeshComp.ui" line="64"/>
-        <source>Mesh file</source>
-        <translation>Mesh file</translation>
     </message>
 </context>
 <context>

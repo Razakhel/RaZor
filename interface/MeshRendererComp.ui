@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MeshRendererComp</class>
+ <widget class="ComponentGroup&lt;Raz::MeshRenderer&gt;" name="MeshRendererComp">
+  <property name="windowTitle">
+   <string>Mesh renderer</string>
+  </property>
+  <property name="title">
+   <string>Mesh renderer</string>
+  </property>
+  <layout class="QFormLayout" name="meshRendererLayout">
+   <item row="0" column="0">
+    <widget class="QLabel" name="renderModeLabel">
+     <property name="text">
+      <string>Render mode</string>
+     </property>
+    </widget>
+   </item>
+   <item row="0" column="1">
+    <widget class="QComboBox" name="renderMode">
+     <item>
+      <property name="text">
+       <string>Triangles</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>Points</string>
+      </property>
+     </item>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <customwidgets>
+  <customwidget>
+   <class>ComponentGroup&lt;Raz::MeshRenderer&gt;</class>
+   <extends>QGroupBox</extends>
+   <header>RaZor/Interface/ComponentGroup.hpp</header>
+   <container>1</container>
+  </customwidget>
+ </customwidgets>
+ <resources/>
+ <connections/>
+</ui>

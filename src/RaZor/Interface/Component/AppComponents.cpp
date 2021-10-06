@@ -4,18 +4,23 @@
 #include "ui_LightComp.h"
 #include "ui_ListenerComp.h"
 #include "ui_MeshComp.h"
+#include "ui_MeshRendererComp.h"
 #include "ui_RigidBodyComp.h"
 #include "ui_SoundComp.h"
 #include "ui_TransformComp.h"
 
 #include <RaZ/Audio/Listener.hpp>
 #include <RaZ/Audio/Sound.hpp>
+#include <RaZ/Data/Mesh.hpp>
+#include <RaZ/Data/WavFormat.hpp>
 #include <RaZ/Math/Transform.hpp>
 #include <RaZ/Physics/Collider.hpp>
 #include <RaZ/Physics/RigidBody.hpp>
 #include <RaZ/Render/Light.hpp>
-#include <RaZ/Render/Mesh.hpp>
+#include <RaZ/Render/MeshRenderer.hpp>
 #include <RaZ/Render/RenderSystem.hpp>
+#include <RaZ/Utils/Logger.hpp>
+#include <RaZ/Utils/StrUtils.hpp>
 
 void AppWindow::loadComponents() {
   loadComponents(m_parentWindow->m_window.entitiesList->currentItem()->text());
@@ -47,6 +52,11 @@ void AppWindow::loadComponents(const QString& entityName) {
 
   if (entity.hasComponent<Raz::Mesh>()) {
     showMeshComponent(entity);
+    --remainingComponentCount;
+  }
+
+  if (entity.hasComponent<Raz::MeshRenderer>()) {
+    showMeshRendererComponent(entity);
     --remainingComponentCount;
   }
 
@@ -180,8 +190,6 @@ void AppWindow::showCameraComponent(Raz::Entity& entity) {
 }
 
 void AppWindow::showMeshComponent(Raz::Entity& entity) {
-  const Raz::RenderSystem& renderSystem = m_application.getWorlds().back().getSystem<Raz::RenderSystem>();
-
   Ui::MeshComp meshComp;
 
   auto* meshWidget = new ComponentGroup<Raz::Mesh>(entity, *this);
@@ -197,22 +205,36 @@ void AppWindow::showMeshComponent(Raz::Entity& entity) {
 
   meshComp.triangleCount->setText(QString::number(mesh.recoverTriangleCount()));
 
-  // Render mode
-
-  meshComp.renderMode->setCurrentIndex((mesh.getSubmeshes().front().getRenderMode() == Raz::RenderMode::TRIANGLE ? 0 : 1));
-
-  connect(meshComp.renderMode, QOverload<int>::of(&QComboBox::currentIndexChanged), [&mesh] (int index) {
-    mesh.setRenderMode((index == 0 ? Raz::RenderMode::TRIANGLE : Raz::RenderMode::POINT));
-  });
-
   // Mesh file
 
-  connect(meshComp.meshFile, &QLineEdit::textChanged, [&mesh, &renderSystem] (const QString& filePath) {
-    mesh.import(filePath.toStdString());
-    mesh.load(renderSystem.getGeometryProgram());
+  connect(meshComp.meshFile, &QLineEdit::textChanged, [this, &entity] (const QString& filePath) {
+    importMesh(filePath.toStdString(), entity);
+    loadComponents();
   });
 
   m_parentWindow->m_window.componentsLayout->addWidget(meshWidget);
+}
+
+void AppWindow::showMeshRendererComponent(Raz::Entity& entity) {
+  Ui::MeshRendererComp meshRendererComp;
+
+  auto* meshRendererWidget = new ComponentGroup<Raz::MeshRenderer>(entity, *this);
+  meshRendererComp.setupUi(meshRendererWidget);
+
+  auto& meshRenderer = entity.getComponent<Raz::MeshRenderer>();
+
+  // Render mode
+
+  // If no mesh available or is empty, prevent changing render mode (indices can't be loaded)
+  meshRendererComp.renderMode->setEnabled(entity.hasComponent<Raz::Mesh>() && !entity.getComponent<Raz::Mesh>().getSubmeshes().empty());
+
+  meshRendererComp.renderMode->setCurrentIndex((meshRenderer.getSubmeshRenderers().front().getRenderMode() == Raz::RenderMode::TRIANGLE ? 0 : 1));
+
+  connect(meshRendererComp.renderMode, QOverload<int>::of(&QComboBox::currentIndexChanged), [&meshRenderer, &entity] (int index) {
+    meshRenderer.setRenderMode((index == 0 ? Raz::RenderMode::TRIANGLE : Raz::RenderMode::POINT), entity.getComponent<Raz::Mesh>());
+  });
+
+  m_parentWindow->m_window.componentsLayout->addWidget(meshRendererWidget);
 }
 
 void AppWindow::showLightComponent(Raz::Entity& entity) {
@@ -386,15 +408,33 @@ void AppWindow::showSoundComponent(Raz::Entity& entity) {
   connect(soundComp.pause, &QPushButton::clicked, [&sound] () { sound.pause(); });
   connect(soundComp.stop, &QPushButton::clicked, [&sound] () { sound.stop(); });
 
-  // Volume
+  // Pitch
+
+  const auto maxPitch = static_cast<float>(soundComp.pitch->maximum());
+
+  soundComp.pitch->setValue(static_cast<int>(sound.recoverPitch() * maxPitch));
+  connect(soundComp.pitch, &QSlider::valueChanged, [&sound, maxPitch] (int value) { sound.setPitch(static_cast<float>(value) / maxPitch); });
+
+  // Volume (gain)
 
   const auto maxVolume = static_cast<float>(soundComp.volume->maximum());
+
+  soundComp.volume->setValue(static_cast<int>(sound.recoverGain() * maxVolume));
   connect(soundComp.volume, &QSlider::valueChanged, [&sound, maxVolume] (int value) { sound.setGain(static_cast<float>(value) / maxVolume); });
 
   // Sound file
 
-  connect(soundComp.soundFile, &QLineEdit::textChanged, [&sound, updateFormat, frequency = soundComp.frequency] (const QString& filePath) {
-    sound.load(filePath.toStdString());
+  connect(soundComp.soundFile, &QLineEdit::textChanged, [&sound, updateFormat, frequency = soundComp.frequency] (const QString& filePathStr) {
+    const Raz::FilePath filePath = filePathStr.toStdString();
+    const std::string fileExt    = Raz::StrUtils::toLowercaseCopy(filePath.recoverExtension().toUtf8());
+
+    if (fileExt == "wav") {
+      sound = Raz::WavFormat::load(filePath);
+    } else {
+      Raz::Logger::error("[AppWindow] Unrecognized audio format '" + fileExt + "'.");
+      return;
+    }
+
     updateFormat();
     frequency->setText(QString::number(sound.getFrequency()));
   });
@@ -470,6 +510,19 @@ void AppWindow::showAddComponent(Raz::Entity& entity, const QString& entityName,
   } else {
     connect(addMesh, &QAction::triggered, [this, &entity, entityName] () {
       entity.addComponent<Raz::Mesh>();
+      loadComponents(entityName);
+    });
+  }
+
+  // Mesh renderer
+
+  QAction* addMeshRenderer = contextMenu->addAction(tr("Mesh renderer"));
+
+  if (entity.hasComponent<Raz::MeshRenderer>() || !entity.hasComponent<Raz::Transform>() || !entity.hasComponent<Raz::Mesh>()) {
+    addMeshRenderer->setEnabled(false);
+  } else {
+    connect(addMeshRenderer, &QAction::triggered, [this, &entity, entityName] () {
+      entity.addComponent<Raz::MeshRenderer>().load(entity.getComponent<Raz::Mesh>());
       loadComponents(entityName);
     });
   }

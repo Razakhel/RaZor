@@ -28,6 +28,7 @@ class Collider;
 class Light;
 class Listener;
 class Mesh;
+class MeshRenderer;
 class RenderSystem;
 class RigidBody;
 class Sound;
@@ -70,7 +71,9 @@ protected:
   void resizeEvent(QResizeEvent* event) override;
 
 private:
-  void importMesh(const Raz::FilePath& filePath);
+  void addEntityWithMesh(const Raz::FilePath& filePath);
+  void importMesh(const Raz::FilePath& filePath, Raz::Entity& entity);
+  [[nodiscard]] std::pair<Raz::Mesh, Raz::MeshRenderer> importMesh(const Raz::FilePath& filePath);
   void loadCubemap(const Raz::FilePath& rightTexturePath, const Raz::FilePath& leftTexturePath,
                    const Raz::FilePath& topTexturePath, const Raz::FilePath& bottomTexturePath,
                    const Raz::FilePath& frontTexturePath, const Raz::FilePath& backTexturePath);
@@ -78,6 +81,7 @@ private:
   void showTransformComponent(Raz::Entity& entity);
   void showCameraComponent(Raz::Entity& entity);
   void showMeshComponent(Raz::Entity& entity);
+  void showMeshRendererComponent(Raz::Entity& entity);
   void showLightComponent(Raz::Entity& entity);
   void showRigidBodyComponent(Raz::Entity& entity);
   void showColliderComponent(Raz::Entity& entity);
