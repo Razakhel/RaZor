@@ -234,6 +234,76 @@ void AppWindow::showMeshRendererComponent(Raz::Entity& entity) {
     meshRenderer.setRenderMode((index == 0 ? Raz::RenderMode::TRIANGLE : Raz::RenderMode::POINT), entity.getComponent<Raz::Mesh>());
   });
 
+  // Materials
+
+  for (std::size_t materialIndex = 0; materialIndex < meshRenderer.getMaterials().size(); ++materialIndex) {
+    QPixmap pixmap(meshRendererComp.materials->iconSize());
+
+    const Raz::Image& img = meshRenderer.getMaterials()[materialIndex]->getBaseColorMap()->getImage();
+
+    if (!img.isEmpty()) {
+      uint8_t channelCount {};
+      QImage::Format format {};
+
+      switch (img.getColorspace()) {
+        case Raz::ImageColorspace::DEPTH:
+        case Raz::ImageColorspace::GRAY:
+          channelCount = 1;
+          format = QImage::Format::Format_Grayscale8;
+          break;
+
+        case Raz::ImageColorspace::GRAY_ALPHA:
+          channelCount = 2;
+#if QT_VERSION >= QT_VERSION_CHECK(5, 13, 0)
+          format = QImage::Format::Format_Grayscale16; // Most likely invalid, but no specific format exists for this
+#endif
+          break;
+
+        case Raz::ImageColorspace::RGB:
+        default:
+          channelCount = 3;
+          format = QImage::Format::Format_RGB888;
+          break;
+
+        case Raz::ImageColorspace::RGBA:
+          channelCount = 4;
+          format = QImage::Format::Format_RGBA8888;
+          break;
+      }
+
+      pixmap.convertFromImage(QImage(static_cast<const uint8_t*>(img.getDataPtr()),
+                                     static_cast<int>(img.getWidth()), static_cast<int>(img.getHeight()),
+                                     static_cast<int>(channelCount * img.getWidth()), format));
+    } else {
+      pixmap.fill(Qt::white);
+    }
+
+    meshRendererComp.materials->addItem(new QListWidgetItem(QIcon(pixmap), "Material #" + QString::number(materialIndex)));
+  }
+
+  connect(meshRendererComp.addMaterial, &QPushButton::clicked, [this, &meshRenderer] () {
+    meshRenderer.addMaterial(Raz::MaterialCookTorrance::create());
+    loadComponents();
+  });
+
+  meshRendererComp.removeMaterial->setEnabled(meshRendererComp.materials->count() > 0);
+
+  connect(meshRendererComp.removeMaterial, &QPushButton::clicked, [this, meshRendererComp, &meshRenderer] () {
+    // Removing all selected materials
+    for (const QListWidgetItem* item : meshRendererComp.materials->selectedItems()) {
+      const int itemRowIndex = meshRendererComp.materials->row(item);
+
+      meshRenderer.removeMaterial(static_cast<std::size_t>(itemRowIndex));
+      delete meshRendererComp.materials->takeItem(itemRowIndex);
+    }
+
+    // If we've just deleted the last material, set a default one
+    if (meshRenderer.getMaterials().empty())
+      meshRenderer.setMaterial(Raz::MaterialCookTorrance::create());
+
+    loadComponents();
+  });
+
   m_parentWindow->m_window.componentsLayout->addWidget(meshRendererWidget);
 }
 

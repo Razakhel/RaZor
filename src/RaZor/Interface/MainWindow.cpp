@@ -2,7 +2,6 @@
 
 #include <RaZ/Utils/Logger.hpp>
 
-#include <QFileDialog>
 #include <QKeyEvent>
 
 MainWindow::MainWindow() {

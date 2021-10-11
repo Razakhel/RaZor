@@ -288,47 +288,47 @@
 <context>
     <name>MainWindow</name>
     <message>
-        <location filename="../../src/RaZor/Interface/MainWindow.cpp" line="37"/>
+        <location filename="../../src/RaZor/Interface/MainWindow.cpp" line="36"/>
         <source>Ready</source>
         <translation>Ready</translation>
     </message>
     <message>
-        <location filename="../../src/RaZor/Interface/MainWindow.cpp" line="79"/>
+        <location filename="../../src/RaZor/Interface/MainWindow.cpp" line="78"/>
         <source>Unexpected empty field</source>
         <translation>Unexpected empty field</translation>
     </message>
     <message>
-        <location filename="../../src/RaZor/Interface/MainWindow.cpp" line="103"/>
+        <location filename="../../src/RaZor/Interface/MainWindow.cpp" line="102"/>
         <source>Failed to load cubemap: </source>
         <translation>Failed to load cubemap: </translation>
     </message>
     <message>
-        <location filename="../../src/RaZor/Interface/MainWindow.cpp" line="156"/>
+        <location filename="../../src/RaZor/Interface/MainWindow.cpp" line="155"/>
         <source>None</source>
         <translation>None</translation>
     </message>
     <message>
-        <location filename="../../src/RaZor/Interface/MainWindow.cpp" line="157"/>
+        <location filename="../../src/RaZor/Interface/MainWindow.cpp" line="156"/>
         <source>Error</source>
         <translation>Error</translation>
     </message>
     <message>
-        <location filename="../../src/RaZor/Interface/MainWindow.cpp" line="158"/>
+        <location filename="../../src/RaZor/Interface/MainWindow.cpp" line="157"/>
         <source>Warning</source>
         <translation>Warning</translation>
     </message>
     <message>
-        <location filename="../../src/RaZor/Interface/MainWindow.cpp" line="159"/>
+        <location filename="../../src/RaZor/Interface/MainWindow.cpp" line="158"/>
         <source>Info</source>
         <translation>Info</translation>
     </message>
     <message>
-        <location filename="../../src/RaZor/Interface/MainWindow.cpp" line="161"/>
+        <location filename="../../src/RaZor/Interface/MainWindow.cpp" line="160"/>
         <source>Debug</source>
         <translation>Debug</translation>
     </message>
     <message>
-        <location filename="../../src/RaZor/Interface/MainWindow.cpp" line="163"/>
+        <location filename="../../src/RaZor/Interface/MainWindow.cpp" line="162"/>
         <source>All</source>
         <translation>All</translation>
     </message>
@@ -408,12 +408,12 @@
         <translation>Quit RaZor</translation>
     </message>
     <message>
-        <location filename="../../src/RaZor/Interface/MainWindow.cpp" line="63"/>
+        <location filename="../../src/RaZor/Interface/MainWindow.cpp" line="62"/>
         <source>&amp;Entities</source>
         <translation>&amp;Entities</translation>
     </message>
     <message>
-        <location filename="../../src/RaZor/Interface/MainWindow.cpp" line="65"/>
+        <location filename="../../src/RaZor/Interface/MainWindow.cpp" line="64"/>
         <source>&amp;Components</source>
         <translation>&amp;Components</translation>
     </message>
@@ -443,7 +443,7 @@
         <translation>&amp;Physics system settings...</translation>
     </message>
     <message>
-        <location filename="../../src/RaZor/Interface/MainWindow.cpp" line="67"/>
+        <location filename="../../src/RaZor/Interface/MainWindow.cpp" line="66"/>
         <source>C&amp;onsole</source>
         <translation>C&amp;onsole</translation>
     </message>
@@ -494,6 +494,11 @@
         <location filename="../../interface/MeshRendererComp.ui" line="28"/>
         <source>Points</source>
         <translation>Points</translation>
+    </message>
+    <message>
+        <location filename="../../interface/MeshRendererComp.ui" line="36"/>
+        <source>Materials</source>
+        <translation>Materials</translation>
     </message>
 </context>
 <context>
