@@ -353,7 +353,7 @@
         <translation>Ajouter entité</translation>
     </message>
     <message>
-        <location filename="../../interface/RaZor.ui" line="176"/>
+        <location filename="../../interface/RaZor.ui" line="164"/>
         <source>Components</source>
         <translation>Composants</translation>
     </message>
@@ -383,27 +383,27 @@
         <translation>Désélectionner</translation>
     </message>
     <message>
-        <location filename="../../interface/RaZor.ui" line="216"/>
+        <location filename="../../interface/RaZor.ui" line="209"/>
         <source>Console</source>
         <translation>Console</translation>
     </message>
     <message>
-        <location filename="../../interface/RaZor.ui" line="255"/>
+        <location filename="../../interface/RaZor.ui" line="248"/>
         <source>Logging level</source>
         <translation>Niveau de journalisation</translation>
     </message>
     <message>
-        <location filename="../../interface/RaZor.ui" line="278"/>
+        <location filename="../../interface/RaZor.ui" line="271"/>
         <source>Clear</source>
         <translation>Effacer</translation>
     </message>
     <message>
-        <location filename="../../interface/RaZor.ui" line="289"/>
+        <location filename="../../interface/RaZor.ui" line="282"/>
         <source>&amp;Quit</source>
         <translation>&amp;Quitter</translation>
     </message>
     <message>
-        <location filename="../../interface/RaZor.ui" line="292"/>
+        <location filename="../../interface/RaZor.ui" line="285"/>
         <source>Quit RaZor</source>
         <translation>Quitter RaZor</translation>
     </message>
@@ -418,27 +418,27 @@
         <translation>&amp;Composants</translation>
     </message>
     <message>
-        <location filename="../../interface/RaZor.ui" line="300"/>
+        <location filename="../../interface/RaZor.ui" line="293"/>
         <source>&amp;Render system settings...</source>
         <translation>Paramètres du système de &amp;rendu...</translation>
     </message>
     <message>
-        <location filename="../../interface/RaZor.ui" line="308"/>
+        <location filename="../../interface/RaZor.ui" line="301"/>
         <source>&amp;Options...</source>
         <translation>&amp;Options...</translation>
     </message>
     <message>
-        <location filename="../../interface/RaZor.ui" line="313"/>
+        <location filename="../../interface/RaZor.ui" line="306"/>
         <source>&amp;About</source>
         <translation>&amp;A propos</translation>
     </message>
     <message>
-        <location filename="../../interface/RaZor.ui" line="318"/>
+        <location filename="../../interface/RaZor.ui" line="311"/>
         <source>&amp;Audio system settings...</source>
         <translation>Paramètres du système &amp;audio...</translation>
     </message>
     <message>
-        <location filename="../../interface/RaZor.ui" line="323"/>
+        <location filename="../../interface/RaZor.ui" line="316"/>
         <source>&amp;Physics system settings...</source>
         <translation>Paramètres du système &amp;physique...</translation>
     </message>
