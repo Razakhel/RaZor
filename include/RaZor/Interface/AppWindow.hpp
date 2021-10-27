@@ -57,6 +57,7 @@ public:
   /// Loads the components of the entity corresponding to the given name.
   /// \param entityName Name of the entity to load the components of.
   void loadComponents(const QString& entityName);
+  void importMesh(const Raz::FilePath& filePath, Raz::Entity& entity);
   void clearComponents();
 
 protected:
@@ -72,21 +73,11 @@ protected:
 
 private:
   void addEntityWithMesh(const Raz::FilePath& filePath);
-  void importMesh(const Raz::FilePath& filePath, Raz::Entity& entity);
   [[nodiscard]] std::pair<Raz::Mesh, Raz::MeshRenderer> importMesh(const Raz::FilePath& filePath);
   void loadCubemap(const Raz::FilePath& rightTexturePath, const Raz::FilePath& leftTexturePath,
                    const Raz::FilePath& topTexturePath, const Raz::FilePath& bottomTexturePath,
                    const Raz::FilePath& frontTexturePath, const Raz::FilePath& backTexturePath);
 
-  void showTransformComponent(Raz::Entity& entity);
-  void showCameraComponent(Raz::Entity& entity);
-  void showMeshComponent(Raz::Entity& entity);
-  void showMeshRendererComponent(Raz::Entity& entity);
-  void showLightComponent(Raz::Entity& entity);
-  void showRigidBodyComponent(Raz::Entity& entity);
-  void showColliderComponent(Raz::Entity& entity);
-  void showSoundComponent(Raz::Entity& entity);
-  void showListenerComponent(Raz::Entity& entity);
   void showAddComponent(Raz::Entity& entity, const QString& entityName, const Raz::RenderSystem& renderSystem);
   void showAddCollider(Raz::Entity& entity, const QString& entityName, QMenu& contextMenu);
   void processActions();

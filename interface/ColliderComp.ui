@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
  <class>ColliderComp</class>
- <widget class="ComponentGroup&lt;Raz::Collider&gt;" name="ColliderComp">
+ <widget class="ColliderGroup" name="ColliderComp">
   <property name="windowTitle">
    <string>Collider</string>
   </property>
@@ -33,9 +33,9 @@
  </widget>
  <customwidgets>
   <customwidget>
-   <class>ComponentGroup&lt;Raz::Collider&gt;</class>
+   <class>ColliderGroup</class>
    <extends>QGroupBox</extends>
-   <header>RaZor/Interface/ComponentGroup.hpp</header>
+   <header>RaZor/Interface/Component/ColliderGroup.hpp</header>
   </customwidget>
  </customwidgets>
  <resources/>

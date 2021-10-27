@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
  <class>ListenerComp</class>
- <widget class="ComponentGroup&lt;Raz::Listener&gt;" name="ListenerComp">
+ <widget class="ListenerGroup" name="ListenerComp">
   <property name="windowTitle">
    <string>Listener</string>
   </property>
@@ -229,14 +229,14 @@
  </widget>
  <customwidgets>
   <customwidget>
-   <class>ComponentGroup&lt;Raz::Listener&gt;</class>
-   <extends>QGroupBox</extends>
-   <header>RaZor/Interface/ComponentGroup.hpp</header>
-  </customwidget>
-  <customwidget>
    <class>ValuePicker</class>
    <extends>QDoubleSpinBox</extends>
    <header>RaZor/Interface/ValuePicker.hpp</header>
+  </customwidget>
+  <customwidget>
+   <class>ListenerGroup</class>
+   <extends>QGroupBox</extends>
+   <header>RaZor/Interface/Component/ListenerGroup.hpp</header>
   </customwidget>
  </customwidgets>
  <resources/>

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
  <class>TransformComp</class>
- <widget class="ComponentGroup&lt;Raz::Transform&gt;" name="TransformComp">
+ <widget class="TransformGroup" name="TransformComp">
   <property name="windowTitle">
    <string>Transform</string>
   </property>
@@ -95,14 +95,14 @@
  </widget>
  <customwidgets>
   <customwidget>
-   <class>ComponentGroup&lt;Raz::Transform&gt;</class>
-   <extends>QGroupBox</extends>
-   <header>RaZor/Interface/ComponentGroup.hpp</header>
-  </customwidget>
-  <customwidget>
    <class>ValuePicker</class>
    <extends>QDoubleSpinBox</extends>
    <header>RaZor/Interface/ValuePicker.hpp</header>
+  </customwidget>
+  <customwidget>
+   <class>TransformGroup</class>
+   <extends>QGroupBox</extends>
+   <header>RaZor/Interface/Component/TransformGroup.hpp</header>
   </customwidget>
  </customwidgets>
  <resources/>

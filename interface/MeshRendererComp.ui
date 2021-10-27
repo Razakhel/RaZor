@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
  <class>MeshRendererComp</class>
- <widget class="ComponentGroup&lt;Raz::MeshRenderer&gt;" name="MeshRendererComp">
+ <widget class="MeshRendererGroup" name="MeshRendererComp">
   <property name="windowTitle">
    <string>Mesh renderer</string>
   </property>
@@ -85,10 +85,9 @@
  </widget>
  <customwidgets>
   <customwidget>
-   <class>ComponentGroup&lt;Raz::MeshRenderer&gt;</class>
+   <class>MeshRendererGroup</class>
    <extends>QGroupBox</extends>
-   <header>RaZor/Interface/ComponentGroup.hpp</header>
-   <container>1</container>
+   <header>RaZor/Interface/Component/MeshRendererGroup.hpp</header>
   </customwidget>
  </customwidgets>
  <resources/>

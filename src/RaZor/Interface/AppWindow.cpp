@@ -14,7 +14,6 @@
 #include <RaZ/Physics/PhysicsSystem.hpp>
 #include <RaZ/Render/Light.hpp>
 #include <RaZ/Render/MeshRenderer.hpp>
-#include <RaZ/Render/Renderer.hpp>
 #include <RaZ/Render/RenderSystem.hpp>
 #include <RaZ/Utils/Logger.hpp>
 #include <RaZ/Utils/StrUtils.hpp>
@@ -401,19 +400,6 @@ void AppWindow::resizeEvent(QResizeEvent* event) {
 void AppWindow::addEntityWithMesh(const Raz::FilePath& filePath) {
   Raz::Entity& entity = addEntity(filePath.recoverFileName(false).toUtf8().c_str());
   importMesh(filePath, entity);
-}
-
-void AppWindow::importMesh(const Raz::FilePath& filePath, Raz::Entity& entity) {
-  try {
-    auto [meshData, meshRendererData] = importMesh(filePath);
-    entity.addComponent<Raz::Mesh>(std::move(meshData));
-    entity.addComponent<Raz::MeshRenderer>(std::move(meshRendererData));
-
-    if (!entity.hasComponent<Raz::Transform>())
-      entity.addComponent<Raz::Transform>();
-  } catch (const std::exception& exception) {
-    Raz::Logger::error("[AppWindow] Failed to import mesh '" + filePath + "'; reason: " + exception.what() + '.');
-  }
 }
 
 std::pair<Raz::Mesh, Raz::MeshRenderer> AppWindow::importMesh(const Raz::FilePath& filePath) {

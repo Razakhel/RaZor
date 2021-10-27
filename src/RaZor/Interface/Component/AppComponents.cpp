@@ -1,26 +1,24 @@
 #include "RaZor/Interface/AppWindow.hpp"
 #include "RaZor/Interface/MainWindow.hpp"
-#include "ui_CameraComp.h"
-#include "ui_LightComp.h"
-#include "ui_ListenerComp.h"
-#include "ui_MeshComp.h"
-#include "ui_MeshRendererComp.h"
-#include "ui_RigidBodyComp.h"
-#include "ui_SoundComp.h"
-#include "ui_TransformComp.h"
+#include "RaZor/Interface/Component/CameraGroup.hpp"
+#include "RaZor/Interface/Component/ColliderGroup.hpp"
+#include "RaZor/Interface/Component/LightGroup.hpp"
+#include "RaZor/Interface/Component/ListenerGroup.hpp"
+#include "RaZor/Interface/Component/MeshGroup.hpp"
+#include "RaZor/Interface/Component/MeshRendererGroup.hpp"
+#include "RaZor/Interface/Component/RigidBodyGroup.hpp"
+#include "RaZor/Interface/Component/SoundGroup.hpp"
+#include "RaZor/Interface/Component/TransformGroup.hpp"
 
 #include <RaZ/Audio/Listener.hpp>
 #include <RaZ/Audio/Sound.hpp>
 #include <RaZ/Data/Mesh.hpp>
-#include <RaZ/Data/WavFormat.hpp>
-#include <RaZ/Math/Transform.hpp>
 #include <RaZ/Physics/Collider.hpp>
 #include <RaZ/Physics/RigidBody.hpp>
 #include <RaZ/Render/Light.hpp>
 #include <RaZ/Render/MeshRenderer.hpp>
 #include <RaZ/Render/RenderSystem.hpp>
 #include <RaZ/Utils/Logger.hpp>
-#include <RaZ/Utils/StrUtils.hpp>
 
 void AppWindow::loadComponents() {
   loadComponents(m_parentWindow->m_window.entitiesList->currentItem()->text());
@@ -41,47 +39,47 @@ void AppWindow::loadComponents(const QString& entityName) {
   std::size_t remainingComponentCount = entity.getEnabledComponents().getEnabledBitCount();
 
   if (entity.hasComponent<Raz::Transform>()) {
-    showTransformComponent(entity);
+    m_parentWindow->m_window.componentsLayout->addWidget(new TransformGroup(entity, *this));
     --remainingComponentCount;
   }
 
   if (entity.hasComponent<Raz::Camera>()) {
-    showCameraComponent(entity);
+    m_parentWindow->m_window.componentsLayout->addWidget(new CameraGroup(entity, *this));
     --remainingComponentCount;
   }
 
   if (entity.hasComponent<Raz::Mesh>()) {
-    showMeshComponent(entity);
+    m_parentWindow->m_window.componentsLayout->addWidget(new MeshGroup(entity, *this));
     --remainingComponentCount;
   }
 
   if (entity.hasComponent<Raz::MeshRenderer>()) {
-    showMeshRendererComponent(entity);
+    m_parentWindow->m_window.componentsLayout->addWidget(new MeshRendererGroup(entity, *this));
     --remainingComponentCount;
   }
 
   if (entity.hasComponent<Raz::Light>()) {
-    showLightComponent(entity);
+    m_parentWindow->m_window.componentsLayout->addWidget(new LightGroup(entity, *this));
     --remainingComponentCount;
   }
 
   if (entity.hasComponent<Raz::RigidBody>()) {
-    showRigidBodyComponent(entity);
+    m_parentWindow->m_window.componentsLayout->addWidget(new RigidBodyGroup(entity, *this));
     --remainingComponentCount;
   }
 
   if (entity.hasComponent<Raz::Collider>()) {
-    showColliderComponent(entity);
+    m_parentWindow->m_window.componentsLayout->addWidget(new ColliderGroup(entity, *this));
     --remainingComponentCount;
   }
 
   if (entity.hasComponent<Raz::Sound>()) {
-    showSoundComponent(entity);
+    m_parentWindow->m_window.componentsLayout->addWidget(new SoundGroup(entity, *this));
     --remainingComponentCount;
   }
 
   if (entity.hasComponent<Raz::Listener>()) {
-    showListenerComponent(entity);
+    m_parentWindow->m_window.componentsLayout->addWidget(new ListenerGroup(entity, *this));
     --remainingComponentCount;
   }
 
@@ -91,6 +89,19 @@ void AppWindow::loadComponents(const QString& entityName) {
   showAddComponent(entity, entityName, m_application.getWorlds().back().getSystem<Raz::RenderSystem>());
 }
 
+void AppWindow::importMesh(const Raz::FilePath& filePath, Raz::Entity& entity) {
+  try {
+    auto [meshData, meshRendererData] = importMesh(filePath);
+    entity.addComponent<Raz::Mesh>(std::move(meshData));
+    entity.addComponent<Raz::MeshRenderer>(std::move(meshRendererData));
+
+    if (!entity.hasComponent<Raz::Transform>())
+      entity.addComponent<Raz::Transform>();
+  } catch (const std::exception& exception) {
+    Raz::Logger::error("[AppWindow] Failed to import mesh '" + filePath + "'; reason: " + exception.what() + '.');
+  }
+}
+
 void AppWindow::clearComponents() {
   while (QLayoutItem* item = m_parentWindow->m_window.componentsLayout->takeAt(0)) {
     QWidget* widget = item->widget();
@@ -98,459 +109,6 @@ void AppWindow::clearComponents() {
     if (widget)
       widget->deleteLater();
   }
-}
-
-void AppWindow::showTransformComponent(Raz::Entity& entity) {
-  assert("Error: The entity must have a Transform component to be shown." && entity.hasComponent<Raz::Transform>());
-
-  auto& transform = entity.getComponent<Raz::Transform>();
-  const Raz::RenderSystem& renderSystem = m_application.getWorlds().back().getSystem<Raz::RenderSystem>();
-
-  Ui::TransformComp transformComp;
-
-  auto* transformWidget = new ComponentGroup<Raz::Transform>(entity, *this);
-  transformComp.setupUi(transformWidget);
-
-  // Position
-
-  transformComp.positionX->setValue(static_cast<double>(transform.getPosition().x()));
-  transformComp.positionY->setValue(static_cast<double>(transform.getPosition().y()));
-  transformComp.positionZ->setValue(static_cast<double>(transform.getPosition().z()));
-
-  connect(transformComp.positionX, QOverload<double>::of(&ValuePicker::valueChanged), [&transform, &entity, &renderSystem] (double val) {
-    transform.setPosition(static_cast<float>(val), transform.getPosition().y(), transform.getPosition().z());
-
-    if (entity.hasComponent<Raz::Light>())
-      renderSystem.updateLights();
-  });
-  connect(transformComp.positionY, QOverload<double>::of(&ValuePicker::valueChanged), [&transform, &entity, &renderSystem] (double val) {
-    transform.setPosition(transform.getPosition().x(), static_cast<float>(val), transform.getPosition().z());
-
-    if (entity.hasComponent<Raz::Light>())
-      renderSystem.updateLights();
-  });
-  connect(transformComp.positionZ, QOverload<double>::of(&ValuePicker::valueChanged), [&transform, &entity, &renderSystem] (double val) {
-    transform.setPosition(transform.getPosition().x(), transform.getPosition().y(), static_cast<float>(val));
-
-    if (entity.hasComponent<Raz::Light>())
-      renderSystem.updateLights();
-  });
-
-  // Rotation
-  // TODO
-
-  // Scale
-
-  transformComp.scaleX->setValue(static_cast<double>(transform.getScale().x()));
-  transformComp.scaleY->setValue(static_cast<double>(transform.getScale().y()));
-  transformComp.scaleZ->setValue(static_cast<double>(transform.getScale().z()));
-
-  connect(transformComp.scaleX, QOverload<double>::of(&ValuePicker::valueChanged), [&transform] (double val) {
-    transform.setScale(static_cast<float>(val), transform.getScale().y(), transform.getScale().z());
-  });
-  connect(transformComp.scaleY, QOverload<double>::of(&ValuePicker::valueChanged), [&transform] (double val) {
-    transform.setScale(transform.getScale().x(), static_cast<float>(val), transform.getScale().z());
-  });
-  connect(transformComp.scaleZ, QOverload<double>::of(&ValuePicker::valueChanged), [&transform] (double val) {
-    transform.setScale(transform.getScale().x(), transform.getScale().y(), static_cast<float>(val));
-  });
-
-  m_parentWindow->m_window.componentsLayout->addWidget(transformWidget);
-}
-
-void AppWindow::showCameraComponent(Raz::Entity& entity) {
-  Ui::CameraComp cameraComp;
-
-  auto* cameraWidget = new ComponentGroup<Raz::Camera>(entity, *this);
-  cameraComp.setupUi(cameraWidget);
-
-  auto& camera = entity.getComponent<Raz::Camera>();
-
-  // Field of view
-
-  cameraComp.fieldOfView->setValue(static_cast<double>(Raz::Degreesf(camera.getFieldOfView()).value));
-
-  connect(cameraComp.fieldOfView, QOverload<double>::of(&ValuePicker::valueChanged), [&camera] (double val) {
-    camera.setFieldOfView(Raz::Degreesd(val));
-  });
-
-  // Camera type
-
-  connect(cameraComp.camType, QOverload<int>::of(&QComboBox::currentIndexChanged), [&camera] (int index) {
-    camera.setCameraType((index == 0 ? Raz::CameraType::FREE_FLY : Raz::CameraType::LOOK_AT));
-  });
-
-  // Projection type
-
-  connect(cameraComp.projType, QOverload<int>::of(&QComboBox::currentIndexChanged), [&camera] (int index) {
-    camera.setProjectionType((index == 0 ? Raz::ProjectionType::PERSPECTIVE : Raz::ProjectionType::ORTHOGRAPHIC));
-  });
-
-  m_parentWindow->m_window.componentsLayout->addWidget(cameraWidget);
-}
-
-void AppWindow::showMeshComponent(Raz::Entity& entity) {
-  Ui::MeshComp meshComp;
-
-  auto* meshWidget = new ComponentGroup<Raz::Mesh>(entity, *this);
-  meshComp.setupUi(meshWidget);
-
-  auto& mesh = entity.getComponent<Raz::Mesh>();
-
-  // Vertex count
-
-  meshComp.vertexCount->setText(QString::number(mesh.recoverVertexCount()));
-
-  // Triangle count
-
-  meshComp.triangleCount->setText(QString::number(mesh.recoverTriangleCount()));
-
-  // Mesh file
-
-  connect(meshComp.meshFile, &QLineEdit::textChanged, [this, &entity] (const QString& filePath) {
-    importMesh(filePath.toStdString(), entity);
-    loadComponents();
-  });
-
-  m_parentWindow->m_window.componentsLayout->addWidget(meshWidget);
-}
-
-void AppWindow::showMeshRendererComponent(Raz::Entity& entity) {
-  Ui::MeshRendererComp meshRendererComp;
-
-  auto* meshRendererWidget = new ComponentGroup<Raz::MeshRenderer>(entity, *this);
-  meshRendererComp.setupUi(meshRendererWidget);
-
-  auto& meshRenderer = entity.getComponent<Raz::MeshRenderer>();
-
-  // Render mode
-
-  // If no mesh available or is empty, prevent changing render mode (indices can't be loaded)
-  meshRendererComp.renderMode->setEnabled(entity.hasComponent<Raz::Mesh>() && !entity.getComponent<Raz::Mesh>().getSubmeshes().empty());
-
-  meshRendererComp.renderMode->setCurrentIndex((meshRenderer.getSubmeshRenderers().front().getRenderMode() == Raz::RenderMode::TRIANGLE ? 0 : 1));
-
-  connect(meshRendererComp.renderMode, QOverload<int>::of(&QComboBox::currentIndexChanged), [&meshRenderer, &entity] (int index) {
-    meshRenderer.setRenderMode((index == 0 ? Raz::RenderMode::TRIANGLE : Raz::RenderMode::POINT), entity.getComponent<Raz::Mesh>());
-  });
-
-  // Materials
-
-  for (std::size_t materialIndex = 0; materialIndex < meshRenderer.getMaterials().size(); ++materialIndex) {
-    QPixmap pixmap(meshRendererComp.materials->iconSize());
-
-    const Raz::Image& img = meshRenderer.getMaterials()[materialIndex]->getBaseColorMap()->getImage();
-
-    if (!img.isEmpty()) {
-      uint8_t channelCount {};
-      QImage::Format format {};
-
-      switch (img.getColorspace()) {
-        case Raz::ImageColorspace::DEPTH:
-        case Raz::ImageColorspace::GRAY:
-          channelCount = 1;
-          format = QImage::Format::Format_Grayscale8;
-          break;
-
-        case Raz::ImageColorspace::GRAY_ALPHA:
-          channelCount = 2;
-#if QT_VERSION >= QT_VERSION_CHECK(5, 13, 0)
-          format = QImage::Format::Format_Grayscale16; // Most likely invalid, but no specific format exists for this
-#endif
-          break;
-
-        case Raz::ImageColorspace::RGB:
-        default:
-          channelCount = 3;
-          format = QImage::Format::Format_RGB888;
-          break;
-
-        case Raz::ImageColorspace::RGBA:
-          channelCount = 4;
-          format = QImage::Format::Format_RGBA8888;
-          break;
-      }
-
-      pixmap.convertFromImage(QImage(static_cast<const uint8_t*>(img.getDataPtr()),
-                                     static_cast<int>(img.getWidth()), static_cast<int>(img.getHeight()),
-                                     static_cast<int>(channelCount * img.getWidth()), format));
-    } else {
-      pixmap.fill(Qt::white);
-    }
-
-    meshRendererComp.materials->addItem(new QListWidgetItem(QIcon(pixmap), "Material #" + QString::number(materialIndex)));
-  }
-
-  connect(meshRendererComp.addMaterial, &QPushButton::clicked, [this, &meshRenderer] () {
-    meshRenderer.addMaterial(Raz::MaterialCookTorrance::create());
-    loadComponents();
-  });
-
-  meshRendererComp.removeMaterial->setEnabled(meshRendererComp.materials->count() > 0);
-
-  connect(meshRendererComp.removeMaterial, &QPushButton::clicked, [this, meshRendererComp, &meshRenderer] () {
-    // Removing all selected materials
-    for (const QListWidgetItem* item : meshRendererComp.materials->selectedItems()) {
-      const int itemRowIndex = meshRendererComp.materials->row(item);
-
-      meshRenderer.removeMaterial(static_cast<std::size_t>(itemRowIndex));
-      delete meshRendererComp.materials->takeItem(itemRowIndex);
-    }
-
-    // If we've just deleted the last material, set a default one
-    if (meshRenderer.getMaterials().empty())
-      meshRenderer.setMaterial(Raz::MaterialCookTorrance::create());
-
-    loadComponents();
-  });
-
-  m_parentWindow->m_window.componentsLayout->addWidget(meshRendererWidget);
-}
-
-void AppWindow::showLightComponent(Raz::Entity& entity) {
-  Ui::LightComp lightComp;
-
-  auto* lightWidget = new ComponentGroup<Raz::Light>(entity, *this);
-  lightComp.setupUi(lightWidget);
-
-  auto& light = entity.getComponent<Raz::Light>();
-  const Raz::RenderSystem& renderSystem = m_application.getWorlds().back().getSystem<Raz::RenderSystem>();
-
-  // Direction
-
-  lightComp.directionX->setValue(static_cast<double>(light.getDirection().x()));
-  lightComp.directionY->setValue(static_cast<double>(light.getDirection().y()));
-  lightComp.directionZ->setValue(static_cast<double>(light.getDirection().z()));
-
-  connect(lightComp.directionX, QOverload<double>::of(&ValuePicker::valueChanged), [&light, &renderSystem] (double val) {
-    light.setDirection(Raz::Vec3f(static_cast<float>(val), light.getDirection().y(), light.getDirection().z()));
-    renderSystem.updateLights();
-  });
-  connect(lightComp.directionY, QOverload<double>::of(&ValuePicker::valueChanged), [&light, &renderSystem] (double val) {
-    light.setDirection(Raz::Vec3f(light.getDirection().x(), static_cast<float>(val), light.getDirection().z()));
-    renderSystem.updateLights();
-  });
-  connect(lightComp.directionZ, QOverload<double>::of(&ValuePicker::valueChanged), [&light, &renderSystem] (double val) {
-    light.setDirection(Raz::Vec3f(light.getDirection().x(), light.getDirection().y(), static_cast<float>(val)));
-    renderSystem.updateLights();
-  });
-
-  // Energy
-
-  lightComp.energy->setValue(static_cast<double>(light.getEnergy()));
-
-  connect(lightComp.energy, QOverload<double>::of(&ValuePicker::valueChanged), [&light, &renderSystem] (double val) {
-    light.setEnergy(static_cast<float>(val));
-    renderSystem.updateLights();
-  });
-
-  // Color
-
-  lightComp.colorR->setValue(static_cast<int>(light.getColor()[0] * static_cast<float>(lightComp.colorR->maximum())));
-  lightComp.colorG->setValue(static_cast<int>(light.getColor()[1] * static_cast<float>(lightComp.colorG->maximum())));
-  lightComp.colorB->setValue(static_cast<int>(light.getColor()[2] * static_cast<float>(lightComp.colorB->maximum())));
-
-  const auto updateLightColor = [&light, lightComp, &renderSystem] (int) {
-    const float colorR = static_cast<float>(lightComp.colorR->value()) / static_cast<float>(lightComp.colorR->maximum());
-    const float colorG = static_cast<float>(lightComp.colorG->value()) / static_cast<float>(lightComp.colorG->maximum());
-    const float colorB = static_cast<float>(lightComp.colorB->value()) / static_cast<float>(lightComp.colorB->maximum());
-
-    light.setColor(Raz::Vec3f(colorR, colorG, colorB));
-    renderSystem.updateLights();
-  };
-
-  connect(lightComp.colorR, &QSlider::valueChanged, updateLightColor);
-  connect(lightComp.colorG, &QSlider::valueChanged, updateLightColor);
-  connect(lightComp.colorB, &QSlider::valueChanged, updateLightColor);
-
-  m_parentWindow->m_window.componentsLayout->addWidget(lightWidget);
-}
-
-void AppWindow::showRigidBodyComponent(Raz::Entity& entity) {
-  Ui::RigidBodyComp rigidBodyComp;
-
-  auto* rigidBodyWidget = new ComponentGroup<Raz::RigidBody>(entity, *this);
-  rigidBodyComp.setupUi(rigidBodyWidget);
-
-  auto& rigidBody = entity.getComponent<Raz::RigidBody>();
-
-  // Mass
-
-  rigidBodyComp.mass->setValue(static_cast<double>(rigidBody.getMass()));
-
-  connect(rigidBodyComp.mass, QOverload<double>::of(&ValuePicker::valueChanged), [&rigidBody] (double val) {
-    rigidBody.setMass(static_cast<float>(val));
-  });
-
-  // Bounciness
-
-  rigidBodyComp.bounciness->setValue(static_cast<double>(rigidBody.getBounciness()));
-
-  connect(rigidBodyComp.bounciness, QOverload<double>::of(&ValuePicker::valueChanged), [&rigidBody] (double val) {
-    rigidBody.setBounciness(static_cast<float>(val));
-  });
-
-  // Velocity
-
-  rigidBodyComp.velocityX->setValue(static_cast<double>(rigidBody.getVelocity().x()));
-  rigidBodyComp.velocityY->setValue(static_cast<double>(rigidBody.getVelocity().y()));
-  rigidBodyComp.velocityZ->setValue(static_cast<double>(rigidBody.getVelocity().z()));
-
-  const auto updateVelocity = [&rigidBody, rigidBodyComp] (double) {
-    const auto velocityX = static_cast<float>(rigidBodyComp.velocityX->value());
-    const auto velocityY = static_cast<float>(rigidBodyComp.velocityY->value());
-    const auto velocityZ = static_cast<float>(rigidBodyComp.velocityZ->value());
-
-    rigidBody.setVelocity(Raz::Vec3f(velocityX, velocityY, velocityZ));
-  };
-
-  connect(rigidBodyComp.velocityX, QOverload<double>::of(&ValuePicker::valueChanged), updateVelocity);
-  connect(rigidBodyComp.velocityY, QOverload<double>::of(&ValuePicker::valueChanged), updateVelocity);
-  connect(rigidBodyComp.velocityZ, QOverload<double>::of(&ValuePicker::valueChanged), updateVelocity);
-
-  m_parentWindow->m_window.componentsLayout->addWidget(rigidBodyWidget);
-}
-
-void AppWindow::showSoundComponent(Raz::Entity& entity) {
-  Ui::SoundComp soundComp;
-
-  auto* soundWidget = new ComponentGroup<Raz::Sound>(entity, *this);
-  soundComp.setupUi(soundWidget);
-
-  auto& sound = entity.getComponent<Raz::Sound>();
-
-  // Format & frequency
-
-  const auto updateFormat = [&sound, format = soundComp.format] () {
-    QString formatStr;
-
-    switch (sound.getFormat()) {
-      case Raz::SoundFormat::MONO_U8:
-        formatStr = "Mono (8)";
-        break;
-
-      case Raz::SoundFormat::MONO_I16:
-        formatStr = "Mono (16)";
-        break;
-
-      case Raz::SoundFormat::MONO_F32:
-        formatStr = "Mono (32)";
-        break;
-
-      case Raz::SoundFormat::MONO_F64:
-        formatStr = "Mono (64)";
-        break;
-
-      case Raz::SoundFormat::STEREO_U8:
-        formatStr = "Stereo (8)";
-        break;
-
-      case Raz::SoundFormat::STEREO_I16:
-        formatStr = "Stereo (16)";
-        break;
-
-      case Raz::SoundFormat::STEREO_F32:
-        formatStr = "Stereo (32)";
-        break;
-
-      case Raz::SoundFormat::STEREO_F64:
-        formatStr = "Stereo (64)";
-        break;
-
-      default:
-        formatStr = "None";
-        break;
-    }
-
-    format->setText(formatStr);
-  };
-
-  updateFormat();
-  soundComp.frequency->setText(QString::number(sound.getFrequency()));
-
-  // Repeat
-
-  connect(soundComp.repeat, &QCheckBox::toggled, [&sound] (bool checked) { sound.repeat(checked); });
-
-  // Actions
-
-  connect(soundComp.play, &QPushButton::clicked, [&sound] () { sound.play(); });
-  connect(soundComp.pause, &QPushButton::clicked, [&sound] () { sound.pause(); });
-  connect(soundComp.stop, &QPushButton::clicked, [&sound] () { sound.stop(); });
-
-  // Pitch
-
-  const auto maxPitch = static_cast<float>(soundComp.pitch->maximum());
-
-  soundComp.pitch->setValue(static_cast<int>(sound.recoverPitch() * maxPitch));
-  connect(soundComp.pitch, &QSlider::valueChanged, [&sound, maxPitch] (int value) { sound.setPitch(static_cast<float>(value) / maxPitch); });
-
-  // Volume (gain)
-
-  const auto maxVolume = static_cast<float>(soundComp.volume->maximum());
-
-  soundComp.volume->setValue(static_cast<int>(sound.recoverGain() * maxVolume));
-  connect(soundComp.volume, &QSlider::valueChanged, [&sound, maxVolume] (int value) { sound.setGain(static_cast<float>(value) / maxVolume); });
-
-  // Sound file
-
-  connect(soundComp.soundFile, &QLineEdit::textChanged, [&sound, updateFormat, frequency = soundComp.frequency] (const QString& filePathStr) {
-    const Raz::FilePath filePath = filePathStr.toStdString();
-    const std::string fileExt    = Raz::StrUtils::toLowercaseCopy(filePath.recoverExtension().toUtf8());
-
-    if (fileExt == "wav") {
-      sound = Raz::WavFormat::load(filePath);
-    } else {
-      Raz::Logger::error("[AppWindow] Unrecognized audio format '" + fileExt + "'.");
-      return;
-    }
-
-    updateFormat();
-    frequency->setText(QString::number(sound.getFrequency()));
-  });
-
-  m_parentWindow->m_window.componentsLayout->addWidget(soundWidget);
-}
-
-void AppWindow::showListenerComponent(Raz::Entity& entity) {
-  Ui::ListenerComp listenerComp;
-
-  auto* listenerWidget = new ComponentGroup<Raz::Listener>(entity, *this);
-  listenerComp.setupUi(listenerWidget);
-
-  auto& listener = entity.getComponent<Raz::Listener>();
-
-  // Position
-
-  const Raz::Vec3f position = listener.recoverPosition();
-
-  listenerComp.positionX->setValue(static_cast<double>(position.x()));
-  listenerComp.positionY->setValue(static_cast<double>(position.y()));
-  listenerComp.positionZ->setValue(static_cast<double>(position.z()));
-
-  // Velocity
-
-  const Raz::Vec3f velocity = listener.recoverVelocity();
-
-  listenerComp.velocityX->setValue(static_cast<double>(velocity.x()));
-  listenerComp.velocityY->setValue(static_cast<double>(velocity.y()));
-  listenerComp.velocityZ->setValue(static_cast<double>(velocity.z()));
-
-  // Orientation
-
-  const Raz::Vec3f forward = listener.recoverForwardOrientation();
-
-  listenerComp.forwardX->setValue(static_cast<double>(forward.x()));
-  listenerComp.forwardY->setValue(static_cast<double>(forward.y()));
-  listenerComp.forwardZ->setValue(static_cast<double>(forward.z()));
-
-  const Raz::Vec3f up = listener.recoverUpOrientation();
-
-  listenerComp.upX->setValue(static_cast<double>(up.x()));
-  listenerComp.upY->setValue(static_cast<double>(up.y()));
-  listenerComp.upZ->setValue(static_cast<double>(up.z()));
-
-  m_parentWindow->m_window.componentsLayout->addWidget(listenerWidget);
 }
 
 void AppWindow::showAddComponent(Raz::Entity& entity, const QString& entityName, const Raz::RenderSystem& renderSystem) {
@@ -652,4 +210,61 @@ void AppWindow::showAddComponent(Raz::Entity& entity, const QString& entityName,
   connect(addComponent, &QPushButton::clicked, contextMenu, [contextMenu] () { contextMenu->popup(QCursor::pos()); });
 
   m_parentWindow->m_window.componentsLayout->addWidget(addComponent);
+}
+
+void AppWindow::showAddCollider(Raz::Entity& entity, const QString& entityName, QMenu& contextMenu) {
+  QMenu* addCollider = contextMenu.addMenu(tr("Collider"));
+
+  if (entity.hasComponent<Raz::Collider>() || !entity.hasComponent<Raz::Transform>()) {
+    addCollider->setEnabled(false);
+    return;
+  }
+
+  QAction* addLineCollider = addCollider->addAction(tr("Line"));
+  connect(addLineCollider, &QAction::triggered, [this, &entity, entityName] () {
+    entity.addComponent<Raz::Collider>(Raz::Line(Raz::Vec3f(-1.f, 0.f, 0.f), Raz::Vec3f(1.f, 0.f, 0.f)));
+    loadComponents(entityName);
+  });
+  addLineCollider->setEnabled(false);
+
+  QAction* addPlaneCollider = addCollider->addAction(tr("Plane"));
+  connect(addPlaneCollider, &QAction::triggered, [this, &entity, entityName] () {
+    entity.addComponent<Raz::Collider>(Raz::Plane(0.f, Raz::Axis::Y));
+    loadComponents(entityName);
+  });
+
+  QAction* addSphereCollider = addCollider->addAction(tr("Sphere"));
+  connect(addSphereCollider, &QAction::triggered, [this, &entity, entityName] () {
+    entity.addComponent<Raz::Collider>(Raz::Sphere(Raz::Vec3f(0.f), 1.f));
+    loadComponents(entityName);
+  });
+  addSphereCollider->setEnabled(false);
+
+  QAction* addTriangleCollider = addCollider->addAction(tr("Triangle"));
+  connect(addTriangleCollider, &QAction::triggered, [this, &entity, entityName] () {
+    entity.addComponent<Raz::Collider>(Raz::Triangle(Raz::Vec3f(-1.f, -1.f, 0.f), Raz::Vec3f(0.f, 1.f, 0.f), Raz::Vec3f(1.f, -1.f, 0.f)));
+    loadComponents(entityName);
+  });
+  addTriangleCollider->setEnabled(false);
+
+  QAction* addQuadCollider = addCollider->addAction(tr("Quad"));
+  connect(addQuadCollider, &QAction::triggered, [this, &entity, entityName] () {
+    entity.addComponent<Raz::Collider>(Raz::Quad(Raz::Vec3f(-1.f, 1.f, 0.f), Raz::Vec3f(1.f, 1.f, 0.f),
+                                                 Raz::Vec3f(1.f, -1.f, 0.f), Raz::Vec3f(-1.f, -1.f, 0.f)));
+    loadComponents(entityName);
+  });
+  addQuadCollider->setEnabled(false);
+
+  QAction* addAABBCollider = addCollider->addAction(tr("AABB"));
+  connect(addAABBCollider, &QAction::triggered, [this, &entity, entityName] () {
+    entity.addComponent<Raz::Collider>(Raz::AABB(Raz::Vec3f(-1.f), Raz::Vec3f(1.f)));
+    loadComponents(entityName);
+  });
+
+  QAction* addOBBCollider = addCollider->addAction(tr("OBB"));
+  connect(addOBBCollider, &QAction::triggered, [this, &entity, entityName] () {
+    entity.addComponent<Raz::Collider>(Raz::OBB(Raz::Vec3f(-1.f), Raz::Vec3f(1.f)));
+    loadComponents(entityName);
+  });
+  addOBBCollider->setEnabled(false);
 }
