@@ -4,19 +4,14 @@
 #include <RaZ/Audio/AudioSystem.hpp>
 #include <RaZ/Audio/Listener.hpp>
 #include <RaZ/Audio/Sound.hpp>
-#if defined(RAZOR_USE_FBX)
-#include <RaZ/Data/FbxFormat.hpp>
-#endif
 #include <RaZ/Data/Mesh.hpp>
-#include <RaZ/Data/ObjFormat.hpp>
-#include <RaZ/Data/OffFormat.hpp>
+#include <RaZ/Data/MeshFormat.hpp>
 #include <RaZ/Math/Transform.hpp>
 #include <RaZ/Physics/PhysicsSystem.hpp>
 #include <RaZ/Render/Light.hpp>
 #include <RaZ/Render/MeshRenderer.hpp>
 #include <RaZ/Render/RenderSystem.hpp>
 #include <RaZ/Utils/Logger.hpp>
-#include <RaZ/Utils/StrUtils.hpp>
 
 #if defined(RAZOR_COMPILER_MSVC)
 struct IUnknown; // Workaround for "combaseapi.h(229): error C2187: syntax error: 'identifier' was unexpected here" when using /permissive-
@@ -398,36 +393,16 @@ void AppWindow::resizeEvent(QResizeEvent* event) {
 }
 
 void AppWindow::addEntityWithMesh(const Raz::FilePath& filePath) {
-  Raz::Entity& entity = addEntity(filePath.recoverFileName(false).toUtf8().c_str());
-  importMesh(filePath, entity);
-}
+  try {
+    auto [mesh, meshRenderer] = Raz::MeshFormat::load(filePath);
 
-std::pair<Raz::Mesh, Raz::MeshRenderer> AppWindow::importMesh(const Raz::FilePath& filePath) {
-  m_parentWindow->m_window.statusBar->showMessage(tr("Importing ") + filePath.toUtf8().c_str() + "...");
-
-  const std::string fileExt = Raz::StrUtils::toLowercaseCopy(filePath.recoverExtension().toUtf8());
-
-  Raz::Mesh meshData;
-  Raz::MeshRenderer meshRendererData;
-
-  if (fileExt == "obj") {
-    std::tie(meshData, meshRendererData) = Raz::ObjFormat::load(filePath);
-  } else if (fileExt == "off") {
-    meshData = Raz::OffFormat::load(filePath);
-    meshRendererData.load(meshData);
-  } else if (fileExt == "fbx") {
-#if defined(RAZOR_USE_FBX)
-    std::tie(meshData, meshRendererData) = Raz::FbxFormat::load(filePath);
-#else
-    Raz::Logger::error("[AppWindow] FBX format unsupported; check that you enabled its usage when building RaZor (if on a supported platform).");
-#endif
-  } else {
-    Raz::Logger::error("[AppWindow] Error: Unrecognized mesh file extension '" + fileExt + "'.");
+    Raz::Entity& entity = addEntity(filePath.recoverFileName(false).toUtf8().c_str());
+    entity.addComponent<Raz::Transform>();
+    entity.addComponent<Raz::Mesh>(std::move(mesh));
+    entity.addComponent<Raz::MeshRenderer>(std::move(meshRenderer));
+  } catch (const std::exception& exception) {
+    Raz::Logger::error(tr("Failed to import mesh").toStdString() + " '" + filePath + "':\n" + exception.what());
   }
-
-  m_parentWindow->m_window.statusBar->showMessage(tr("Finished importing"), 3000);
-
-  return { std::move(meshData), std::move(meshRendererData) };
 }
 
 void AppWindow::loadCubemap(const Raz::FilePath& rightTexturePath, const Raz::FilePath& leftTexturePath,

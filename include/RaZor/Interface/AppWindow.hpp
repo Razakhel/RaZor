@@ -73,7 +73,6 @@ protected:
 
 private:
   void addEntityWithMesh(const Raz::FilePath& filePath);
-  [[nodiscard]] std::pair<Raz::Mesh, Raz::MeshRenderer> importMesh(const Raz::FilePath& filePath);
   void loadCubemap(const Raz::FilePath& rightTexturePath, const Raz::FilePath& leftTexturePath,
                    const Raz::FilePath& topTexturePath, const Raz::FilePath& bottomTexturePath,
                    const Raz::FilePath& frontTexturePath, const Raz::FilePath& backTexturePath);

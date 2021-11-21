@@ -13,6 +13,7 @@
 #include <RaZ/Audio/Listener.hpp>
 #include <RaZ/Audio/Sound.hpp>
 #include <RaZ/Data/Mesh.hpp>
+#include <RaZ/Data/MeshFormat.hpp>
 #include <RaZ/Physics/Collider.hpp>
 #include <RaZ/Physics/RigidBody.hpp>
 #include <RaZ/Render/Light.hpp>
@@ -91,14 +92,14 @@ void AppWindow::loadComponents(const QString& entityName) {
 
 void AppWindow::importMesh(const Raz::FilePath& filePath, Raz::Entity& entity) {
   try {
-    auto [meshData, meshRendererData] = importMesh(filePath);
+    auto [meshData, meshRendererData] = Raz::MeshFormat::load(filePath);
     entity.addComponent<Raz::Mesh>(std::move(meshData));
     entity.addComponent<Raz::MeshRenderer>(std::move(meshRendererData));
 
     if (!entity.hasComponent<Raz::Transform>())
       entity.addComponent<Raz::Transform>();
   } catch (const std::exception& exception) {
-    Raz::Logger::error("[AppWindow] Failed to import mesh '" + filePath + "'; reason: " + exception.what() + '.');
+    Raz::Logger::error(tr("Failed to import mesh").toStdString() + " '" + filePath + "':\n" + exception.what());
   }
 }
 
