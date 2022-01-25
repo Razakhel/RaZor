@@ -33,13 +33,13 @@ QFrame* createAABBWidget(const Raz::AABB& aabb) {
   auto* aabbWidget = new QFrame();
   aabbComp.setupUi(aabbWidget);
 
-  aabbComp.lowerPointX->setValue(static_cast<double>(aabb.getLeftBottomBackPos().x()));
-  aabbComp.lowerPointY->setValue(static_cast<double>(aabb.getLeftBottomBackPos().y()));
-  aabbComp.lowerPointZ->setValue(static_cast<double>(aabb.getLeftBottomBackPos().z()));
+  aabbComp.lowerPointX->setValue(static_cast<double>(aabb.getMinPosition().x()));
+  aabbComp.lowerPointY->setValue(static_cast<double>(aabb.getMinPosition().y()));
+  aabbComp.lowerPointZ->setValue(static_cast<double>(aabb.getMinPosition().z()));
 
-  aabbComp.upperPointX->setValue(static_cast<double>(aabb.getRightTopFrontPos().x()));
-  aabbComp.upperPointY->setValue(static_cast<double>(aabb.getRightTopFrontPos().y()));
-  aabbComp.upperPointZ->setValue(static_cast<double>(aabb.getRightTopFrontPos().z()));
+  aabbComp.upperPointX->setValue(static_cast<double>(aabb.getMaxPosition().x()));
+  aabbComp.upperPointY->setValue(static_cast<double>(aabb.getMaxPosition().y()));
+  aabbComp.upperPointZ->setValue(static_cast<double>(aabb.getMaxPosition().z()));
 
   return aabbWidget;
 }

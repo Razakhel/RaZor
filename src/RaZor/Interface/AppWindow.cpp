@@ -70,12 +70,12 @@ void AppWindow::initialize() {
 
   m_cameraEntity = &addEntity("Camera");
   m_cameraComp   = &m_cameraEntity->addComponent<Raz::Camera>(windowSize.width(), windowSize.height());
-  m_cameraTrans  = &m_cameraEntity->addComponent<Raz::Transform>(Raz::Vec3f(0.f, 0.f, -5.f));
+  m_cameraTrans  = &m_cameraEntity->addComponent<Raz::Transform>(Raz::Vec3f(0.f, 0.f, 5.f));
   m_cameraEntity->addComponent<Raz::Listener>(m_cameraTrans->getPosition(), Raz::Mat3f(m_cameraTrans->computeTransformMatrix()));
 
   Raz::Entity& light = addEntity("Light");
   light.addComponent<Raz::Light>(Raz::LightType::DIRECTIONAL, // Type
-                                 Raz::Vec3f(0.f, 0.f, 1.f),   // Direction
+                                 Raz::Vec3f(0.f, 0.f, -1.f),  // Direction
                                  1.f,                         // Energy
                                  Raz::Vec3f(1.f));            // Color (RGB)
   light.addComponent<Raz::Transform>(Raz::Vec3f(0.f, 1.f, 0.f));
@@ -367,12 +367,12 @@ void AppWindow::wheelEvent(QWheelEvent* event) {
   // The offset is divided by 120, which is the most common angle; yOffset is then supposed to be either -1 or 1
   // See: https://doc.qt.io/qt-5/qwheelevent.html#angleDelta
   const auto yOffset  = static_cast<float>(event->angleDelta().y()) / 120.f * m_application.getDeltaTime();
-  const float moveVal = 200.f * yOffset;
+  const float moveVal = -200.f * yOffset;
 
   m_cameraTrans->move(Raz::Vec3f(0.f, 0.f, moveVal));
 
-  m_cameraComp->setOrthoBoundX(m_cameraComp->getOrthoBoundX() - moveVal / 2);
-  m_cameraComp->setOrthoBoundY(m_cameraComp->getOrthoBoundY() - moveVal / 2);
+  m_cameraComp->setOrthoBoundX(m_cameraComp->getOrthoBoundX() + moveVal / 2);
+  m_cameraComp->setOrthoBoundY(m_cameraComp->getOrthoBoundY() + moveVal / 2);
 
   // If the camera has a non-directional light, update all of them
   if (m_cameraEntity->hasComponent<Raz::Light>() && (m_cameraEntity->getComponent<Raz::Light>().getType() != Raz::LightType::DIRECTIONAL))
@@ -429,17 +429,17 @@ void AppWindow::processActions() {
     m_cameraTrans->move(Raz::Vec3f(0.f, -moveVal, 0.f));
 
   if (m_movingForward) {
-    m_cameraTrans->move(Raz::Vec3f(0.f, 0.f, moveVal));
+    m_cameraTrans->move(Raz::Vec3f(0.f, 0.f, -moveVal));
 
-    m_cameraComp->setOrthoBoundX(m_cameraComp->getOrthoBoundX() - moveVal / 2);
-    m_cameraComp->setOrthoBoundY(m_cameraComp->getOrthoBoundY() - moveVal / 2);
+    m_cameraComp->setOrthoBoundX(m_cameraComp->getOrthoBoundX() - moveVal / 10.f);
+    m_cameraComp->setOrthoBoundY(m_cameraComp->getOrthoBoundY() - moveVal / 10.f);
   }
 
   if (m_movingBackward) {
-    m_cameraTrans->move(Raz::Vec3f(0.f, 0.f, -moveVal));
+    m_cameraTrans->move(Raz::Vec3f(0.f, 0.f, moveVal));
 
-    m_cameraComp->setOrthoBoundX(m_cameraComp->getOrthoBoundX() + moveVal / 2);
-    m_cameraComp->setOrthoBoundY(m_cameraComp->getOrthoBoundY() + moveVal / 2);
+    m_cameraComp->setOrthoBoundX(m_cameraComp->getOrthoBoundX() + moveVal / 10.f);
+    m_cameraComp->setOrthoBoundY(m_cameraComp->getOrthoBoundY() + moveVal / 10.f);
   }
 
   // If the camera entity has moved & possesses a Light component, update all lights
