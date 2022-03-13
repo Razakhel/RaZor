@@ -51,7 +51,7 @@
     </message>
     <message>
         <location filename="../../src/RaZor/Interface/Component/AppComponents.cpp" line="102"/>
-        <location filename="../../src/RaZor/Interface/AppWindow.cpp" line="404"/>
+        <location filename="../../src/RaZor/Interface/AppWindow.cpp" line="417"/>
         <source>Failed to import mesh</source>
         <translation>Échec de l&apos;import du maillage</translation>
     </message>
@@ -593,32 +593,67 @@
         <translation>Paramètres du système de rendu</translation>
     </message>
     <message>
-        <location filename="../../interface/RenderSystemSettings.ui" line="33"/>
+        <location filename="../../interface/RenderSystemSettings.ui" line="21"/>
+        <source>Vendor</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../interface/RenderSystemSettings.ui" line="28"/>
+        <source>Model</source>
+        <translation>Modèle</translation>
+    </message>
+    <message>
+        <location filename="../../interface/RenderSystemSettings.ui" line="35"/>
+        <source>OpenGL version</source>
+        <translation>Version OpenGL</translation>
+    </message>
+    <message>
+        <location filename="../../interface/RenderSystemSettings.ui" line="42"/>
+        <source>GLSL version</source>
+        <translation>Version GLSL</translation>
+    </message>
+    <message>
+        <location filename="../../interface/RenderSystemSettings.ui" line="49"/>
+        <source>Extensions</source>
+        <translation>Extensions</translation>
+    </message>
+    <message>
+        <location filename="../../interface/RenderSystemSettings.ui" line="97"/>
         <source>Cubemap</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../interface/RenderSystemSettings.ui" line="58"/>
+        <location filename="../../interface/RenderSystemSettings.ui" line="233"/>
         <source>Back</source>
         <translation>Derrière</translation>
     </message>
     <message>
-        <location filename="../../interface/RenderSystemSettings.ui" line="100"/>
+        <location filename="../../interface/RenderSystemSettings.ui" line="129"/>
         <source>Left</source>
         <translation>Gauche</translation>
     </message>
     <message>
-        <location filename="../../interface/RenderSystemSettings.ui" line="110"/>
+        <location filename="../../interface/RenderSystemSettings.ui" line="181"/>
         <source>Bottom</source>
         <translation>Dessous</translation>
     </message>
     <message>
-        <location filename="../../interface/RenderSystemSettings.ui" line="136"/>
+        <location filename="../../interface/RenderSystemSettings.ui" line="103"/>
         <source>Right</source>
         <translation>Droite</translation>
     </message>
     <message>
-        <location filename="../../interface/RenderSystemSettings.ui" line="188"/>
+        <location filename="../../interface/RenderSystemSettings.ui" line="15"/>
+        <source>GPU info</source>
+        <translation>Info GPU</translation>
+    </message>
+    <message>
+        <location filename="../../interface/RenderSystemSettings.ui" line="155"/>
+        <source>Top</source>
+        <translation>Haut</translation>
+    </message>
+    <message>
+        <location filename="../../interface/RenderSystemSettings.ui" line="207"/>
         <source>Front</source>
         <translation>Devant</translation>
     </message>

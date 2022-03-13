@@ -31,7 +31,7 @@ AppWindow::AppWindow() : m_context{ new QOpenGLContext(this) } {
 void AppWindow::initialize() {
   QSurfaceFormat format;
   format.setRenderableType(QSurfaceFormat::RenderableType::OpenGL);
-  format.setVersion(3, 3);
+  format.setVersion(4, 6); // Qt automatically fallbacks to a supported version if a higher one is unavailable
   format.setProfile(QSurfaceFormat::OpenGLContextProfile::CoreProfile);
 #if QT_VERSION >= QT_VERSION_CHECK(5, 10, 0) // QSurfaceFormat::ColorSpace & setColorSpace() are only available with Qt 5.10+
   format.setColorSpace(QSurfaceFormat::ColorSpace::DefaultColorSpace);
@@ -41,7 +41,10 @@ void AppWindow::initialize() {
   format.setSamples(2);
 
   m_context->setFormat(format);
-  m_context->create();
+
+  if (!m_context->create())
+    throw std::runtime_error("Error: Failed to create Qt's OpenGL context");
+
   m_context->makeCurrent(this);
 
   // Initializing RaZ's application
@@ -96,6 +99,16 @@ void AppWindow::initialize() {
   QFile::copy(":/texture/default_roughness", "assets/default_roughness.png");
 
   importMesh("assets/default.obj", addEntity("Ball"));
+
+  m_parentWindow->m_renderSystemSettings.vendor->setText(Raz::Renderer::getContextInfo(Raz::ContextInfo::VENDOR).c_str());
+  m_parentWindow->m_renderSystemSettings.model->setText(Raz::Renderer::getContextInfo(Raz::ContextInfo::RENDERER).c_str());
+  m_parentWindow->m_renderSystemSettings.glVersion->setText(Raz::Renderer::getContextInfo(Raz::ContextInfo::VERSION).c_str());
+  m_parentWindow->m_renderSystemSettings.glslVersion->setText(Raz::Renderer::getContextInfo(Raz::ContextInfo::SHADING_LANGUAGE_VERSION).c_str());
+
+  int extCount {};
+  Raz::Renderer::getParameter(Raz::StateParameter::EXTENSION_COUNT, &extCount);
+  for (int extIndex = 0; extIndex < extCount; ++extIndex)
+    m_parentWindow->m_renderSystemSettings.extensions->addItem(Raz::Renderer::getExtension(static_cast<unsigned int>(extIndex)).c_str());
 
   // Physics
 
