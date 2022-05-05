@@ -5,7 +5,7 @@ on: [push, pull_request]
 jobs:
   windows:
     name: Windows (${{ matrix.compiler.c }}, ${{ matrix.build_type }})
-    runs-on: windows-2016
+    runs-on: windows-2022
 
     strategy:
       fail-fast: false
@@ -44,7 +44,7 @@ jobs:
       shell: bash
       working-directory: ${{ runner.workspace }}/build-${{ matrix.compiler.c }}
       run: |
-        cmake -G "Visual Studio 15 2017" -A x64 -DCMAKE_BUILD_TYPE=${{ matrix.build_type }} -DRAZOR_BUILD_RAZ=ON -DENABLE_DEBUG_INFO=ON \
+        cmake -G "Visual Studio 17 2022" -A x64 -DCMAKE_BUILD_TYPE=${{ matrix.build_type }} -DRAZOR_BUILD_RAZ=ON -DENABLE_DEBUG_INFO=ON \
                                                 $GITHUB_WORKSPACE &&
         cmake --build . --target RaZor_PrintDebugInfo --config ${{ matrix.build_type }}
 

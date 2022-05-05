@@ -369,14 +369,27 @@ if (RAZOR_COMPILER_MSVC OR RAZOR_COMPILER_CLANG_CL)
         /permissive- # Improving standard compliance
         /EHsc # Enabling exceptions
         /utf-8 # Forcing MSVC to actually handle files as UTF-8
+        /Zc:__cplusplus # Forcing the __cplusplus definition to be of the proper value
     )
 
+    if (CMAKE_CXX_COMPILER_VERSION VERSION_GREATER_EQUAL 16.5)
+        set(
+            RAZOR_COMPILER_FLAGS
+
+            ${RAZOR_COMPILER_FLAGS}
+            /Zc:preprocessor # Forcing the preprocessor to be compliant with C++11 and above
+        )
+    endif ()
+endif ()
+
+if (WIN32 OR CYGWIN)
     target_compile_definitions(
         RaZor
 
         PRIVATE
 
         NOMINMAX # Preventing definitions of min & max macros
+        NOGDI # Preventing definition of the 'ERROR' macro
         _SILENCE_CXX17_CODECVT_HEADER_DEPRECATION_WARNING # Ignoring std::codecvt deprecation warnings
     )
 endif ()
