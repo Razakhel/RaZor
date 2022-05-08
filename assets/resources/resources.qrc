@@ -33,12 +33,6 @@
     <file alias="cog">../icons/misc/cog.png</file>
   </qresource>
 
-  <qresource prefix="shader">
-    <file alias="vertex">../../shaders/common.vert</file>
-    <file alias="blinn-phong">../../shaders/blinn-phong.frag</file>
-    <file alias="cook-torrance">../../shaders/cook-torrance.frag</file>
-  </qresource>
-
   <qresource prefix="mesh">
     <file alias="default">../meshes/default.obj</file>
   </qresource>

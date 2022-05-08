@@ -25,9 +25,14 @@ MeshRendererGroup::MeshRendererGroup(Raz::Entity& entity, AppWindow& appWindow) 
   // Materials
 
   for (std::size_t materialIndex = 0; materialIndex < meshRenderer.getMaterials().size(); ++materialIndex) {
+    const Raz::Material& material = meshRenderer.getMaterials()[materialIndex];
+
+    if (material.getTextureCount() == 0)
+      continue;
+
     QPixmap pixmap(meshRendererComp.materials->iconSize());
 
-    const Raz::Image& img = meshRenderer.getMaterials()[materialIndex]->getBaseColorMap()->getImage();
+    const Raz::Image& img = material.getTexture(0).getImage();
 
     if (!img.isEmpty()) {
       uint8_t channelCount {};
@@ -70,7 +75,7 @@ MeshRendererGroup::MeshRendererGroup(Raz::Entity& entity, AppWindow& appWindow) 
   }
 
   connect(meshRendererComp.addMaterial, &QPushButton::clicked, [&meshRenderer, &appWindow] () {
-    meshRenderer.addMaterial(Raz::MaterialCookTorrance::create());
+    meshRenderer.addMaterial(Raz::Material(Raz::MaterialType::COOK_TORRANCE));
     appWindow.loadComponents();
   });
 
@@ -87,7 +92,7 @@ MeshRendererGroup::MeshRendererGroup(Raz::Entity& entity, AppWindow& appWindow) 
 
     // If we've just deleted the last material, set a default one
     if (meshRenderer.getMaterials().empty())
-      meshRenderer.setMaterial(Raz::MaterialCookTorrance::create());
+      meshRenderer.setMaterial(Raz::Material(Raz::MaterialType::COOK_TORRANCE));
 
     appWindow.loadComponents();
   });

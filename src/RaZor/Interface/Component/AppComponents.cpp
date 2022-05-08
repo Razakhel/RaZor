@@ -14,6 +14,7 @@
 #include <RaZ/Audio/Sound.hpp>
 #include <RaZ/Data/Mesh.hpp>
 #include <RaZ/Data/MeshFormat.hpp>
+#include <RaZ/Math/Transform.hpp>
 #include <RaZ/Physics/Collider.hpp>
 #include <RaZ/Physics/RigidBody.hpp>
 #include <RaZ/Render/Light.hpp>

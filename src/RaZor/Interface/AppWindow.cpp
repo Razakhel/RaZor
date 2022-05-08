@@ -51,6 +51,7 @@ void AppWindow::initialize() {
 
   Raz::Renderer::initialize();
   Raz::Renderer::enable(Raz::Capability::DEPTH_TEST);
+  Raz::Renderer::enable(Raz::Capability::STENCIL_TEST);
   Raz::Renderer::enable(Raz::Capability::CULL);
 
   const QSize windowSize = size();
@@ -59,17 +60,7 @@ void AppWindow::initialize() {
 
   // Rendering
 
-  QFile vertexShader(":/shader/vertex");
-  if (!vertexShader.open(QIODevice::ReadOnly | QIODevice::Text))
-    throw std::invalid_argument("[RaZor] Error: Vertex shader '" + vertexShader.fileName().toStdString() + "' unrecognized.");
-
-  QFile fragmentShader(":/shader/cook-torrance");
-  if (!fragmentShader.open(QIODevice::ReadOnly | QIODevice::Text))
-    throw std::invalid_argument("[RaZor] Error: Fragment shader '" + fragmentShader.fileName().toStdString() + "' unrecognized.");
-
-  auto& renderSystem = world.addSystem<Raz::RenderSystem>(windowSize.width(), windowSize.height());
-  renderSystem.getGeometryProgram().setShaders(Raz::VertexShader::loadFromSource(vertexShader.readAll().toStdString()),
-                                               Raz::FragmentShader::loadFromSource(fragmentShader.readAll().toStdString()));
+  world.addSystem<Raz::RenderSystem>(windowSize.width(), windowSize.height());
 
   m_cameraEntity = &addEntity("Camera");
   m_cameraComp   = &m_cameraEntity->addComponent<Raz::Camera>(windowSize.width(), windowSize.height());
