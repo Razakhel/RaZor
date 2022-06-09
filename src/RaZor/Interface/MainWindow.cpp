@@ -1,5 +1,6 @@
 #include "RaZor/Interface/MainWindow.hpp"
 
+#include <RaZ/Utils/FilePath.hpp>
 #include <RaZ/Utils/Logger.hpp>
 
 #include <QKeyEvent>
@@ -168,5 +169,5 @@ void MainWindow::setupActions() {
     Raz::Logger::setLoggingLevel(static_cast<Raz::LoggingLevel>(index));
   });
 
-  connect(m_window.clearConsole, &QPushButton::clicked, [this] () { m_window.console->clear(); });
+  connect(m_window.clearConsole, &QPushButton::clicked, m_window.console, &QListWidget::clear);
 }

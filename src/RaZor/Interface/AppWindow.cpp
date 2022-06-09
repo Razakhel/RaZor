@@ -4,10 +4,12 @@
 #include <RaZ/Audio/AudioSystem.hpp>
 #include <RaZ/Audio/Listener.hpp>
 #include <RaZ/Audio/Sound.hpp>
+#include <RaZ/Data/ImageFormat.hpp>
 #include <RaZ/Data/Mesh.hpp>
 #include <RaZ/Data/MeshFormat.hpp>
 #include <RaZ/Math/Transform.hpp>
 #include <RaZ/Physics/PhysicsSystem.hpp>
+#include <RaZ/Render/Camera.hpp>
 #include <RaZ/Render/Light.hpp>
 #include <RaZ/Render/MeshRenderer.hpp>
 #include <RaZ/Render/RenderSystem.hpp>
@@ -47,19 +49,13 @@ void AppWindow::initialize() {
 
   m_context->makeCurrent(this);
 
-  // Initializing RaZ's application
-
-  Raz::Renderer::initialize();
-  Raz::Renderer::enable(Raz::Capability::DEPTH_TEST);
-  Raz::Renderer::enable(Raz::Capability::STENCIL_TEST);
-  Raz::Renderer::enable(Raz::Capability::CULL);
-
-  const QSize windowSize = size();
-
   Raz::World& world = m_application.addWorld(3);
 
   // Rendering
 
+  const QSize windowSize = size();
+
+  Raz::Renderer::initialize();
   world.addSystem<Raz::RenderSystem>(windowSize.width(), windowSize.height());
 
   m_cameraEntity = &addEntity("Camera");
@@ -182,7 +178,7 @@ Raz::Entity& AppWindow::addEntity(QString name) {
 }
 
 Raz::Entity& AppWindow::recoverEntity(const QString& name) {
-  auto entityIter = m_entities.find(name);
+  const auto entityIter = m_entities.find(name);
 
   if (entityIter == m_entities.cend() || entityIter->second == nullptr)
     throw std::invalid_argument("[RaZor] Error: Unrecognized entity name '" + name.toStdString() + "'.");
@@ -375,8 +371,7 @@ void AppWindow::wheelEvent(QWheelEvent* event) {
 
   m_cameraTrans->move(Raz::Vec3f(0.f, 0.f, moveVal));
 
-  m_cameraComp->setOrthoBoundX(m_cameraComp->getOrthoBoundX() + moveVal / 2);
-  m_cameraComp->setOrthoBoundY(m_cameraComp->getOrthoBoundY() + moveVal / 2);
+  m_cameraComp->setOrthographicBound(m_cameraComp->getOrthographicBound() + moveVal / 2);
 
   // If the camera has a non-directional light, update all of them
   if (m_cameraEntity->hasComponent<Raz::Light>() && (m_cameraEntity->getComponent<Raz::Light>().getType() != Raz::LightType::DIRECTIONAL))
@@ -412,9 +407,12 @@ void AppWindow::addEntityWithMesh(const Raz::FilePath& filePath) {
 void AppWindow::loadCubemap(const Raz::FilePath& rightTexturePath, const Raz::FilePath& leftTexturePath,
                             const Raz::FilePath& topTexturePath, const Raz::FilePath& bottomTexturePath,
                             const Raz::FilePath& frontTexturePath, const Raz::FilePath& backTexturePath) {
-  m_application.getWorlds().back().getSystem<Raz::RenderSystem>().setCubemap(Raz::Cubemap(rightTexturePath, leftTexturePath,
-                                                                                          topTexturePath, bottomTexturePath,
-                                                                                          frontTexturePath, backTexturePath));
+  m_application.getWorlds().back().getSystem<Raz::RenderSystem>().setCubemap(Raz::Cubemap(Raz::ImageFormat::load(rightTexturePath),
+                                                                                          Raz::ImageFormat::load(leftTexturePath),
+                                                                                          Raz::ImageFormat::load(topTexturePath),
+                                                                                          Raz::ImageFormat::load(bottomTexturePath),
+                                                                                          Raz::ImageFormat::load(frontTexturePath),
+                                                                                          Raz::ImageFormat::load(backTexturePath)));
 }
 
 void AppWindow::processActions() {
@@ -435,15 +433,13 @@ void AppWindow::processActions() {
   if (m_movingForward) {
     m_cameraTrans->move(Raz::Vec3f(0.f, 0.f, -moveVal));
 
-    m_cameraComp->setOrthoBoundX(m_cameraComp->getOrthoBoundX() - moveVal / 10.f);
-    m_cameraComp->setOrthoBoundY(m_cameraComp->getOrthoBoundY() - moveVal / 10.f);
+    m_cameraComp->setOrthographicBound(m_cameraComp->getOrthographicBound() - moveVal / 10.f);
   }
 
   if (m_movingBackward) {
     m_cameraTrans->move(Raz::Vec3f(0.f, 0.f, moveVal));
 
-    m_cameraComp->setOrthoBoundX(m_cameraComp->getOrthoBoundX() + moveVal / 10.f);
-    m_cameraComp->setOrthoBoundY(m_cameraComp->getOrthoBoundY() + moveVal / 10.f);
+    m_cameraComp->setOrthographicBound(m_cameraComp->getOrthographicBound() + moveVal / 10.f);
   }
 
   // If the camera entity has moved & possesses a Light component, update all lights

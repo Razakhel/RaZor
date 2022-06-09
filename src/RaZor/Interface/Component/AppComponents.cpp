@@ -17,6 +17,7 @@
 #include <RaZ/Math/Transform.hpp>
 #include <RaZ/Physics/Collider.hpp>
 #include <RaZ/Physics/RigidBody.hpp>
+#include <RaZ/Render/Camera.hpp>
 #include <RaZ/Render/Light.hpp>
 #include <RaZ/Render/MeshRenderer.hpp>
 #include <RaZ/Render/RenderSystem.hpp>

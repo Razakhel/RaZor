@@ -3,6 +3,7 @@
 #include "ui_MeshComp.h"
 
 #include <RaZ/Data/Mesh.hpp>
+#include <RaZ/Utils/FilePath.hpp>
 
 #include <QLineEdit>
 

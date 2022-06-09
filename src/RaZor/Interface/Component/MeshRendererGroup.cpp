@@ -27,10 +27,10 @@ MeshRendererGroup::MeshRendererGroup(Raz::Entity& entity, AppWindow& appWindow) 
   for (std::size_t materialIndex = 0; materialIndex < meshRenderer.getMaterials().size(); ++materialIndex) {
     const Raz::Material& material = meshRenderer.getMaterials()[materialIndex];
 
-    if (material.getTextureCount() == 0)
+    if (material.getProgram().getTextureCount() == 0)
       continue;
 
-    meshRendererComp.materials->addTexture(material.getTexture(0), "Material #" + QString::number(materialIndex));
+    meshRendererComp.materials->addTexture(material.getProgram().getTexture(0), "Material #" + QString::number(materialIndex));
   }
 
   connect(meshRendererComp.addMaterial, &QPushButton::clicked, [&meshRenderer, &appWindow] () {

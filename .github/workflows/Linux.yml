@@ -35,7 +35,7 @@ jobs:
         sudo apt install -y --no-install-recommends \
           libglew-dev libxi-dev libxcursor-dev libxrandr-dev libxinerama-dev libxxf86vm-dev \
           libopenal-dev \
-          qt5-default qttools5-dev
+          qtbase5-dev qttools5-dev
 
     # Installing the FBX SDK (in /usr)
     # The installation asks for software user agreement (send 'yes'), then afterwards if the README file should be opened (send 'n')

@@ -40,104 +40,104 @@
 <context>
     <name>AppWindow</name>
     <message>
-        <location filename="../../src/RaZor/Interface/Component/AppComponents.cpp" line="36"/>
+        <location filename="../../src/RaZor/Interface/Component/AppComponents.cpp" line="37"/>
         <source>Failed to find an entity named</source>
         <translation>N&apos;a pas pu trouver une entité appelée</translation>
     </message>
     <message>
-        <location filename="../../src/RaZor/Interface/Component/AppComponents.cpp" line="89"/>
+        <location filename="../../src/RaZor/Interface/Component/AppComponents.cpp" line="90"/>
         <source> component(s) not displayed.</source>
         <translation> composant(s) non affiché(s).</translation>
     </message>
     <message>
-        <location filename="../../src/RaZor/Interface/Component/AppComponents.cpp" line="103"/>
-        <location filename="../../src/RaZor/Interface/AppWindow.cpp" line="408"/>
+        <location filename="../../src/RaZor/Interface/Component/AppComponents.cpp" line="104"/>
+        <location filename="../../src/RaZor/Interface/AppWindow.cpp" line="403"/>
         <source>Failed to import mesh</source>
         <translation>Échec de l&apos;import du maillage</translation>
     </message>
     <message>
-        <location filename="../../src/RaZor/Interface/Component/AppComponents.cpp" line="225"/>
+        <location filename="../../src/RaZor/Interface/Component/AppComponents.cpp" line="226"/>
         <source>Line</source>
         <translation>Ligne</translation>
     </message>
     <message>
-        <location filename="../../src/RaZor/Interface/Component/AppComponents.cpp" line="232"/>
+        <location filename="../../src/RaZor/Interface/Component/AppComponents.cpp" line="233"/>
         <source>Plane</source>
         <translation>Plan</translation>
     </message>
     <message>
-        <location filename="../../src/RaZor/Interface/Component/AppComponents.cpp" line="238"/>
+        <location filename="../../src/RaZor/Interface/Component/AppComponents.cpp" line="239"/>
         <source>Sphere</source>
         <translation>Sphère</translation>
     </message>
     <message>
-        <location filename="../../src/RaZor/Interface/Component/AppComponents.cpp" line="245"/>
+        <location filename="../../src/RaZor/Interface/Component/AppComponents.cpp" line="246"/>
         <source>Triangle</source>
         <translation>Triangle</translation>
     </message>
     <message>
-        <location filename="../../src/RaZor/Interface/Component/AppComponents.cpp" line="252"/>
+        <location filename="../../src/RaZor/Interface/Component/AppComponents.cpp" line="253"/>
         <source>Quad</source>
         <translation>Carré</translation>
     </message>
     <message>
-        <location filename="../../src/RaZor/Interface/Component/AppComponents.cpp" line="260"/>
+        <location filename="../../src/RaZor/Interface/Component/AppComponents.cpp" line="261"/>
         <source>AABB</source>
         <translation>AABB</translation>
     </message>
     <message>
-        <location filename="../../src/RaZor/Interface/Component/AppComponents.cpp" line="266"/>
+        <location filename="../../src/RaZor/Interface/Component/AppComponents.cpp" line="267"/>
         <source>OBB</source>
         <translation>OBB</translation>
     </message>
     <message>
-        <location filename="../../src/RaZor/Interface/Component/AppComponents.cpp" line="117"/>
-        <location filename="../../src/RaZor/Interface/Component/AppComponents.cpp" line="119"/>
+        <location filename="../../src/RaZor/Interface/Component/AppComponents.cpp" line="118"/>
+        <location filename="../../src/RaZor/Interface/Component/AppComponents.cpp" line="120"/>
         <source>Add component</source>
         <translation>Ajouter composant</translation>
     </message>
     <message>
-        <location filename="../../src/RaZor/Interface/Component/AppComponents.cpp" line="123"/>
+        <location filename="../../src/RaZor/Interface/Component/AppComponents.cpp" line="124"/>
         <source>Transform</source>
         <translation>Transformation</translation>
     </message>
     <message>
-        <location filename="../../src/RaZor/Interface/Component/AppComponents.cpp" line="136"/>
+        <location filename="../../src/RaZor/Interface/Component/AppComponents.cpp" line="137"/>
         <source>Mesh</source>
         <translation>Maillage</translation>
     </message>
     <message>
-        <location filename="../../src/RaZor/Interface/Component/AppComponents.cpp" line="149"/>
+        <location filename="../../src/RaZor/Interface/Component/AppComponents.cpp" line="150"/>
         <source>Mesh renderer</source>
         <translation>Rendu du maillage</translation>
     </message>
     <message>
-        <location filename="../../src/RaZor/Interface/Component/AppComponents.cpp" line="162"/>
+        <location filename="../../src/RaZor/Interface/Component/AppComponents.cpp" line="163"/>
         <source>Light</source>
         <translation>Lumière</translation>
     </message>
     <message>
-        <location filename="../../src/RaZor/Interface/Component/AppComponents.cpp" line="167"/>
+        <location filename="../../src/RaZor/Interface/Component/AppComponents.cpp" line="168"/>
         <source>Point light</source>
         <translation>Lumière positionnelle</translation>
     </message>
     <message>
-        <location filename="../../src/RaZor/Interface/Component/AppComponents.cpp" line="174"/>
+        <location filename="../../src/RaZor/Interface/Component/AppComponents.cpp" line="175"/>
         <source>Directional light</source>
         <translation>Lumière directionnelle</translation>
     </message>
     <message>
-        <location filename="../../src/RaZor/Interface/Component/AppComponents.cpp" line="184"/>
+        <location filename="../../src/RaZor/Interface/Component/AppComponents.cpp" line="185"/>
         <source>Rigid body</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/RaZor/Interface/Component/AppComponents.cpp" line="218"/>
+        <location filename="../../src/RaZor/Interface/Component/AppComponents.cpp" line="219"/>
         <source>Collider</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/RaZor/Interface/Component/AppComponents.cpp" line="201"/>
+        <location filename="../../src/RaZor/Interface/Component/AppComponents.cpp" line="202"/>
         <source>Sound</source>
         <translation>Son</translation>
     </message>
@@ -328,47 +328,47 @@
 <context>
     <name>MainWindow</name>
     <message>
-        <location filename="../../src/RaZor/Interface/MainWindow.cpp" line="36"/>
+        <location filename="../../src/RaZor/Interface/MainWindow.cpp" line="37"/>
         <source>Ready</source>
         <translation>Prêt</translation>
     </message>
     <message>
-        <location filename="../../src/RaZor/Interface/MainWindow.cpp" line="78"/>
+        <location filename="../../src/RaZor/Interface/MainWindow.cpp" line="79"/>
         <source>Unexpected empty field</source>
         <translation>Champ vide inattendu</translation>
     </message>
     <message>
-        <location filename="../../src/RaZor/Interface/MainWindow.cpp" line="102"/>
+        <location filename="../../src/RaZor/Interface/MainWindow.cpp" line="103"/>
         <source>Failed to load cubemap: </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/RaZor/Interface/MainWindow.cpp" line="155"/>
+        <location filename="../../src/RaZor/Interface/MainWindow.cpp" line="156"/>
         <source>None</source>
         <translation>Aucun</translation>
     </message>
     <message>
-        <location filename="../../src/RaZor/Interface/MainWindow.cpp" line="156"/>
+        <location filename="../../src/RaZor/Interface/MainWindow.cpp" line="157"/>
         <source>Error</source>
         <translation>Erreur</translation>
     </message>
     <message>
-        <location filename="../../src/RaZor/Interface/MainWindow.cpp" line="157"/>
+        <location filename="../../src/RaZor/Interface/MainWindow.cpp" line="158"/>
         <source>Warning</source>
         <translation>Avertissement</translation>
     </message>
     <message>
-        <location filename="../../src/RaZor/Interface/MainWindow.cpp" line="158"/>
+        <location filename="../../src/RaZor/Interface/MainWindow.cpp" line="159"/>
         <source>Info</source>
         <translation>Info</translation>
     </message>
     <message>
-        <location filename="../../src/RaZor/Interface/MainWindow.cpp" line="160"/>
+        <location filename="../../src/RaZor/Interface/MainWindow.cpp" line="161"/>
         <source>Debug</source>
         <translation>Débogage</translation>
     </message>
     <message>
-        <location filename="../../src/RaZor/Interface/MainWindow.cpp" line="162"/>
+        <location filename="../../src/RaZor/Interface/MainWindow.cpp" line="163"/>
         <source>All</source>
         <translation>Tout</translation>
     </message>
@@ -448,12 +448,12 @@
         <translation>Quitter RaZor</translation>
     </message>
     <message>
-        <location filename="../../src/RaZor/Interface/MainWindow.cpp" line="62"/>
+        <location filename="../../src/RaZor/Interface/MainWindow.cpp" line="63"/>
         <source>&amp;Entities</source>
         <translation>&amp;Entités</translation>
     </message>
     <message>
-        <location filename="../../src/RaZor/Interface/MainWindow.cpp" line="64"/>
+        <location filename="../../src/RaZor/Interface/MainWindow.cpp" line="65"/>
         <source>&amp;Components</source>
         <translation>&amp;Composants</translation>
     </message>
@@ -483,7 +483,7 @@
         <translation>Paramètres du système &amp;physique...</translation>
     </message>
     <message>
-        <location filename="../../src/RaZor/Interface/MainWindow.cpp" line="66"/>
+        <location filename="../../src/RaZor/Interface/MainWindow.cpp" line="67"/>
         <source>C&amp;onsole</source>
         <translation>C&amp;onsole</translation>
     </message>

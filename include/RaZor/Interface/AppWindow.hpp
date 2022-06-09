@@ -21,7 +21,14 @@ struct std::hash<QString> {
 class MainWindow;
 class QMenu;
 
-namespace Raz { class RenderSystem; }
+namespace Raz {
+
+class Camera;
+class FilePath;
+class RenderSystem;
+class Transform;
+
+} // namespace Raz
 
 class AppWindow final : public QWindow {
   friend MainWindow;

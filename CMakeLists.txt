@@ -325,6 +325,7 @@ elseif (RAZOR_COMPILER_MSVC)
         /wd4061 # Enum value in a switch not explicitly handled by a case label
         /wd4571 # SEH exceptions aren't caught since Visual C++ 7.1
         /wd5045 # Spectre mitigation
+        /wd5246 # Initialization of subobject should be wrapped in braces
 
         # Warnings triggered by Qt
         /wd4365 # Signed/unsigned mismatch (implicit conversion)
@@ -394,6 +395,10 @@ if (WIN32 OR CYGWIN)
     )
 endif ()
 
+if (RAZOR_PLATFORM_LINUX)
+    set(RAZOR_LINKER_FLAGS ${RAZOR_LINKER_FLAGS} pthread)
+endif ()
+
 if (RAZOR_PLATFORM_WINDOWS)
     set_target_properties(RaZor PROPERTIES WIN32_EXECUTABLE TRUE) # Removing external console
 endif ()
@@ -443,6 +448,7 @@ if (NOT RAZOR_BUILD_RAZ)
         set(RAZ_LIB_DIR "${RAZ_LIB_DIR}/${CMAKE_BUILD_TYPE}")
     endif ()
 
+    target_include_directories(RaZor SYSTEM PRIVATE "${RAZ_ROOT}/include")
     target_link_directories(RaZor PRIVATE "${RAZ_LIB_DIR}")
 else ()
     set(RAZ_ROOT "${CMAKE_CURRENT_SOURCE_DIR}/extern/RaZ")
@@ -515,13 +521,13 @@ set(
 
 # Deploying Qt
 if (RAZOR_PLATFORM_WINDOWS)
-    get_target_property(QT5_QMAKE_EXECUTABLE Qt5::qmake IMPORTED_LOCATION)
-    get_filename_component(QT5_WINDEPLOYQT_EXECUTABLE "${QT5_QMAKE_EXECUTABLE}" PATH)
-    set(QT5_WINDEPLOYQT_EXECUTABLE "${QT5_WINDEPLOYQT_EXECUTABLE}/windeployqt.exe")
+    get_target_property(QMAKE_EXE Qt5::qmake IMPORTED_LOCATION)
+    get_filename_component(WINDEPLOYQT_PATH "${QMAKE_EXE}" PATH)
+    set(WINDEPLOYQT_EXE "${WINDEPLOYQT_PATH}/windeployqt.exe")
 
     # Run windeployqt to copy DLLs in the executable folder
     add_custom_command(TARGET RaZor POST_BUILD
-                       COMMAND "${QT5_WINDEPLOYQT_EXECUTABLE}" --$<LOWER_CASE:${RAZOR_CONFIG_SHORT}> "$<TARGET_FILE:${PROJECT_NAME}>")
+                       COMMAND "${WINDEPLOYQT_EXE}" --$<LOWER_CASE:${RAZOR_CONFIG_SHORT}> "$<TARGET_FILE:${PROJECT_NAME}>")
 endif ()
 
 ###########################
@@ -544,29 +550,18 @@ endif ()
 #endif ()
 #
 ## If FBX SDK used, copy the DLL into the binary folder to link it properly
-#if (RAZOR_USE_FBX AND FBX_FOUND AND RAZOR_COMPILER_MSVC)
-#    add_custom_command(TARGET RaZor PRE_LINK
-#                       COMMAND ${CMAKE_COMMAND} -E copy "${FBX_CONFIG_DLL}" "${CMAKE_BINARY_DIR}/${FBX_LIB_NAME}.dll")
-#endif ()
+if (RAZOR_COMPILER_MSVC AND RAZOR_USE_FBX AND FBX_FOUND)
+    file(COPY "${FBX_DLL}" DESTINATION "${CMAKE_BINARY_DIR}")
+endif ()
 
 #################
 # RaZor - Build #
 #################
 
 target_sources(RaZor PRIVATE ${RAZOR_FILES} ${RAZOR_TRANSLATION_FILES})
-
-target_include_directories(
-    RaZor
-
-    SYSTEM
-    PRIVATE
-
-    "${CMAKE_CURRENT_SOURCE_DIR}/include"
-    "${QT_LOCATION}/include"
-    "${RAZ_ROOT}/include"
-)
-
+target_include_directories(RaZor SYSTEM PRIVATE "${CMAKE_CURRENT_SOURCE_DIR}/include")
 target_compile_options(RaZor PRIVATE ${RAZOR_COMPILER_FLAGS})
+
 target_link_libraries(RaZor PUBLIC RaZ ${RAZOR_LINKER_FLAGS})
 
 # Under Linux, linking to GL is necessary
@@ -594,11 +589,6 @@ file(
 )
 
 install(FILES ${RAZOR_QM_FILES} DESTINATION "${CMAKE_INSTALL_PREFIX}")
-
-# If the FBX SDK is used, install the DLL file into the install root folder
-if (RAZOR_COMPILER_MSVC AND RAZOR_USE_FBX AND FBX_FOUND)
-    install(FILES "${FBX_CONFIG_DLL}" DESTINATION "${CMAKE_INSTALL_PREFIX}")
-endif ()
 
 if (RAZOR_PLATFORM_WINDOWS)
     # Copying all necessary DLLs to launch RaZor
@@ -641,4 +631,9 @@ if (RAZOR_PLATFORM_WINDOWS)
 
         DESTINATION "${CMAKE_INSTALL_PREFIX}"
     )
+
+    # If the FBX SDK is used, install the DLL file into the install root folder
+    if (RAZOR_COMPILER_MSVC AND RAZOR_USE_FBX AND FBX_FOUND)
+        install(FILES "${FBX_DLL}" DESTINATION "${CMAKE_INSTALL_PREFIX}")
+    endif ()
 endif ()

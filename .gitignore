@@ -13,13 +13,7 @@
 *.dylib
 *.dll
 
-# Fortran module files
-*.mod
-*.smod
-
 # Compiled Static libraries
-*.lai
-*.la
 *.a
 *.lib
 
@@ -31,5 +25,9 @@
 # Build folders
 *build*/
 
-# CLion folder
+# CLion/Visual Studio folders
 .idea/
+.vs/
+
+# MacOS specific files
+.DS_Store
