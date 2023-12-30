@@ -20,35 +20,35 @@ SoundGroup::SoundGroup(Raz::Entity& entity, AppWindow& appWindow) : ComponentGro
     QString formatStr;
 
     switch (sound.getFormat()) {
-      case Raz::SoundFormat::MONO_U8:
+      case Raz::AudioFormat::MONO_U8:
         formatStr = "Mono (8)";
         break;
 
-      case Raz::SoundFormat::MONO_I16:
+      case Raz::AudioFormat::MONO_I16:
         formatStr = "Mono (16)";
         break;
 
-      case Raz::SoundFormat::MONO_F32:
+      case Raz::AudioFormat::MONO_F32:
         formatStr = "Mono (32)";
         break;
 
-      case Raz::SoundFormat::MONO_F64:
+      case Raz::AudioFormat::MONO_F64:
         formatStr = "Mono (64)";
         break;
 
-      case Raz::SoundFormat::STEREO_U8:
+      case Raz::AudioFormat::STEREO_U8:
         formatStr = "Stereo (8)";
         break;
 
-      case Raz::SoundFormat::STEREO_I16:
+      case Raz::AudioFormat::STEREO_I16:
         formatStr = "Stereo (16)";
         break;
 
-      case Raz::SoundFormat::STEREO_F32:
+      case Raz::AudioFormat::STEREO_F32:
         formatStr = "Stereo (32)";
         break;
 
-      case Raz::SoundFormat::STEREO_F64:
+      case Raz::AudioFormat::STEREO_F64:
         formatStr = "Stereo (64)";
         break;
 
@@ -65,7 +65,7 @@ SoundGroup::SoundGroup(Raz::Entity& entity, AppWindow& appWindow) : ComponentGro
 
   // Repeat
 
-  connect(soundComp.repeat, &QCheckBox::toggled, [&sound] (bool checked) { sound.repeat(checked); });
+  connect(soundComp.repeat, &QCheckBox::toggled, [&sound] (bool checked) { sound.setRepeat(checked); });
 
   // Actions
 

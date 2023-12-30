@@ -51,7 +51,7 @@
     </message>
     <message>
         <location filename="../../src/RaZor/Interface/Component/AppComponents.cpp" line="104"/>
-        <location filename="../../src/RaZor/Interface/AppWindow.cpp" line="403"/>
+        <location filename="../../src/RaZor/Interface/AppWindow.cpp" line="401"/>
         <source>Failed to import mesh</source>
         <translation>Échec de l&apos;import du maillage</translation>
     </message>
@@ -216,37 +216,37 @@
 <context>
     <name>ColliderGroup</name>
     <message>
-        <location filename="../../src/RaZor/Interface/Component/ColliderGroup.cpp" line="91"/>
+        <location filename="../../src/RaZor/Interface/Component/ColliderGroup.cpp" line="92"/>
         <source>Line</source>
         <translation>Ligne</translation>
     </message>
     <message>
-        <location filename="../../src/RaZor/Interface/Component/ColliderGroup.cpp" line="93"/>
+        <location filename="../../src/RaZor/Interface/Component/ColliderGroup.cpp" line="94"/>
         <source>Plane</source>
         <translation>Plan</translation>
     </message>
     <message>
-        <location filename="../../src/RaZor/Interface/Component/ColliderGroup.cpp" line="94"/>
+        <location filename="../../src/RaZor/Interface/Component/ColliderGroup.cpp" line="95"/>
         <source>Sphere</source>
         <translation>Sphère</translation>
     </message>
     <message>
-        <location filename="../../src/RaZor/Interface/Component/ColliderGroup.cpp" line="96"/>
+        <location filename="../../src/RaZor/Interface/Component/ColliderGroup.cpp" line="97"/>
         <source>Triangle</source>
         <translation>Triangle</translation>
     </message>
     <message>
-        <location filename="../../src/RaZor/Interface/Component/ColliderGroup.cpp" line="98"/>
+        <location filename="../../src/RaZor/Interface/Component/ColliderGroup.cpp" line="99"/>
         <source>Quad</source>
         <translation>Carré</translation>
     </message>
     <message>
-        <location filename="../../src/RaZor/Interface/Component/ColliderGroup.cpp" line="100"/>
+        <location filename="../../src/RaZor/Interface/Component/ColliderGroup.cpp" line="101"/>
         <source>AABB</source>
         <translation>AABB</translation>
     </message>
     <message>
-        <location filename="../../src/RaZor/Interface/Component/ColliderGroup.cpp" line="101"/>
+        <location filename="../../src/RaZor/Interface/Component/ColliderGroup.cpp" line="102"/>
         <source>OBB</source>
         <translation>OBB</translation>
     </message>

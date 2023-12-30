@@ -17,7 +17,7 @@ TransformGroup::TransformGroup(Raz::Entity& entity, AppWindow& appWindow) : Comp
   m_optionsButton->setDisabled(true); // Preventing component removal, which would break the app
 
   auto& transform = m_entity.getComponent<Raz::Transform>();
-  const Raz::RenderSystem& renderSystem = appWindow.getApplication().getWorlds().back().getSystem<Raz::RenderSystem>();
+  const Raz::RenderSystem& renderSystem = appWindow.getApplication().getWorlds().back()->getSystem<Raz::RenderSystem>();
 
   // Position
 

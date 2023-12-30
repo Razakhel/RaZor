@@ -7,6 +7,7 @@
 
 #include <RaZ/Math/Transform.hpp>
 #include <RaZ/Physics/Collider.hpp>
+#include <RaZ/Utils/Shape.hpp>
 
 #include <QStandardItemModel>
 

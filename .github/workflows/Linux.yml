@@ -18,27 +18,28 @@ jobs:
           - Release
 
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v3
 
     - name: Pulling RaZ
       run: git submodule update --init --recursive
 
     # Defining the timezone to Europe/Paris, which is required by apt (Ubuntu 20.04):
     #   sudo ln -snf /usr/share/zoneinfo/Europe/Paris /etc/localtime && echo Europe/Paris > /etc/timezone
-    # Updating the packages list (needed at the moment for libinput to be found), & installing the needed packages for RaZ:
+    # Installing the needed packages:
+    #   - Ninja to build the project
     #   - GLEW & X11 as graphical dependencies
     #   - OpenAL-soft to handle the audio part
     # Installing Qt5 for RaZor
     - name: Packages installation
       run: |
-        sudo apt update &&
-        sudo apt install -y --no-install-recommends \
+        sudo apt update && sudo apt install -y --no-install-recommends \
+          ninja-build \
           libglew-dev libxi-dev libxcursor-dev libxrandr-dev libxinerama-dev libxxf86vm-dev \
           libopenal-dev \
           qtbase5-dev qttools5-dev
 
     # Installing the FBX SDK (in /usr)
-    # The installation asks for software user agreement (send 'yes'), then afterwards if the README file should be opened (send 'n')
+    # The installation asks for software user agreement (send 'yes'), then afterward if the README file should be opened (send 'n')
     #- name: FBX SDK setup
     #  run: |
     #    wget http://download.autodesk.com/us/fbx/2019/2019.0/fbx20190_fbxsdk_linux.tar.gz -O ./fbx_sdk.tar.gz &&
@@ -53,9 +54,13 @@ jobs:
       shell: bash
       working-directory: ${{ runner.workspace }}/build-${{ matrix.compiler.c }}
       run: |
-        cmake -G "Unix Makefiles" -DCMAKE_C_COMPILER=${{ matrix.compiler.c }} -DCMAKE_CXX_COMPILER=${{ matrix.compiler.cpp }} \
-                                  -DCMAKE_BUILD_TYPE=${{ matrix.build_type }} -DRAZOR_BUILD_RAZ=ON -DENABLE_DEBUG_INFO=ON \
-                                  $GITHUB_WORKSPACE &&
+        cmake -GNinja \
+              -DCMAKE_C_COMPILER=${{ matrix.compiler.c }} -DCMAKE_CXX_COMPILER=${{ matrix.compiler.cpp }} \
+              -DCMAKE_BUILD_TYPE=${{ matrix.build_type }} \
+              -DRAZOR_BUILD_RAZ=ON \
+              -DRAZ_USE_AUDIO=ON \
+              -DENABLE_DEBUG_INFO=ON \
+              $GITHUB_WORKSPACE &&
         cmake --build . --target RaZor_PrintDebugInfo --config ${{ matrix.build_type }}
 
     - name: Build
@@ -88,7 +93,7 @@ jobs:
           RaZor-linux-${{ matrix.compiler.c }}-${{ matrix.build_type }}-${{ github.run_id }}/
 
     - name: Upload build
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v3
       with:
         name: RaZor-linux-${{ matrix.compiler.c }}-${{ matrix.build_type }}-${{ github.run_id }}
         path: RaZor-linux-${{ matrix.compiler.c }}-${{ matrix.build_type }}-${{ github.run_id }}.tar

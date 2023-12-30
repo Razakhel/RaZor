@@ -10,7 +10,7 @@ LightGroup::LightGroup(Raz::Entity& entity, AppWindow& appWindow) : ComponentGro
   lightComp.setupUi(this);
 
   auto& light = m_entity.getComponent<Raz::Light>();
-  const Raz::RenderSystem& renderSystem = appWindow.getApplication().getWorlds().back().getSystem<Raz::RenderSystem>();
+  const Raz::RenderSystem& renderSystem = appWindow.getApplication().getWorlds().back()->getSystem<Raz::RenderSystem>();
 
   // Direction
 
@@ -42,16 +42,16 @@ LightGroup::LightGroup(Raz::Entity& entity, AppWindow& appWindow) : ComponentGro
 
   // Color
 
-  lightComp.colorR->setValue(static_cast<int>(light.getColor()[0] * static_cast<float>(lightComp.colorR->maximum())));
-  lightComp.colorG->setValue(static_cast<int>(light.getColor()[1] * static_cast<float>(lightComp.colorG->maximum())));
-  lightComp.colorB->setValue(static_cast<int>(light.getColor()[2] * static_cast<float>(lightComp.colorB->maximum())));
+  lightComp.colorR->setValue(static_cast<int>(light.getColor().red() * static_cast<float>(lightComp.colorR->maximum())));
+  lightComp.colorG->setValue(static_cast<int>(light.getColor().green() * static_cast<float>(lightComp.colorG->maximum())));
+  lightComp.colorB->setValue(static_cast<int>(light.getColor().blue() * static_cast<float>(lightComp.colorB->maximum())));
 
   const auto updateLightColor = [lightComp, &light, &renderSystem] (int) {
     const float colorR = static_cast<float>(lightComp.colorR->value()) / static_cast<float>(lightComp.colorR->maximum());
     const float colorG = static_cast<float>(lightComp.colorG->value()) / static_cast<float>(lightComp.colorG->maximum());
     const float colorB = static_cast<float>(lightComp.colorB->value()) / static_cast<float>(lightComp.colorB->maximum());
 
-    light.setColor(Raz::Vec3f(colorR, colorG, colorB));
+    light.setColor(Raz::Color(colorR, colorG, colorB));
     renderSystem.updateLights();
   };
 

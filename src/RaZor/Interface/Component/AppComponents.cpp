@@ -89,7 +89,7 @@ void AppWindow::loadComponents(const QString& entityName) {
   if (remainingComponentCount > 0)
     m_parentWindow->m_window.componentsLayout->addWidget(new QLabel(QString::number(remainingComponentCount) + tr(" component(s) not displayed.")));
 
-  showAddComponent(entity, entityName, m_application.getWorlds().back().getSystem<Raz::RenderSystem>());
+  showAddComponent(entity, entityName, m_application.getWorlds().back()->getSystem<Raz::RenderSystem>());
 }
 
 void AppWindow::importMesh(const Raz::FilePath& filePath, Raz::Entity& entity) {

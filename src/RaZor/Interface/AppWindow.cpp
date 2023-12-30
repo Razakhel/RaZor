@@ -4,6 +4,7 @@
 #include <RaZ/Audio/AudioSystem.hpp>
 #include <RaZ/Audio/Listener.hpp>
 #include <RaZ/Audio/Sound.hpp>
+#include <RaZ/Data/Image.hpp>
 #include <RaZ/Data/ImageFormat.hpp>
 #include <RaZ/Data/Mesh.hpp>
 #include <RaZ/Data/MeshFormat.hpp>
@@ -64,10 +65,7 @@ void AppWindow::initialize() {
   m_cameraEntity->addComponent<Raz::Listener>(m_cameraTrans->getPosition(), Raz::Mat3f(m_cameraTrans->computeTransformMatrix()));
 
   Raz::Entity& light = addEntity("Light");
-  light.addComponent<Raz::Light>(Raz::LightType::DIRECTIONAL, // Type
-                                 Raz::Vec3f(0.f, 0.f, -1.f),  // Direction
-                                 1.f,                         // Energy
-                                 Raz::Vec3f(1.f));            // Color (RGB)
+  light.addComponent<Raz::Light>(Raz::LightType::DIRECTIONAL, -Raz::Axis::Z, 1.f, Raz::ColorPreset::White);
   light.addComponent<Raz::Transform>(Raz::Vec3f(0.f, 1.f, 0.f));
 
   // Copying the resources to files on disk, to be imported into RaZ objects. This is dirty, but is the best way for now
@@ -158,7 +156,7 @@ void AppWindow::render() {
 }
 
 void AppWindow::updateLights() const {
-  m_application.getWorlds().back().getSystem<Raz::RenderSystem>().updateLights();
+  m_application.getWorlds().back()->getSystem<Raz::RenderSystem>().updateLights();
 }
 
 Raz::Entity& AppWindow::addEntity(QString name) {
@@ -171,7 +169,7 @@ Raz::Entity& AppWindow::addEntity(QString name) {
 
   m_parentWindow->m_window.entitiesList->addEntity(name);
 
-  Raz::Entity& entity = m_application.getWorlds().back().addEntity();
+  Raz::Entity& entity = m_application.getWorlds().back()->addEntity();
   m_entities.emplace(std::move(name), &entity);
 
   return entity;
@@ -198,7 +196,7 @@ void AppWindow::removeEntity(const QString& name) {
   Raz::Entity& entity = recoverEntity(name);
   const bool hasLight = entity.hasComponent<Raz::Light>();
 
-  m_application.getWorlds().front().removeEntity(entity);
+  m_application.getWorlds().front()->removeEntity(entity);
   m_entities.erase(name);
 
   if (hasLight)
@@ -387,8 +385,8 @@ void AppWindow::exposeEvent(QExposeEvent*) {
 }
 
 void AppWindow::resizeEvent(QResizeEvent* event) {
-  m_application.getWorlds().back().getSystem<Raz::RenderSystem>().resizeViewport(static_cast<unsigned int>(event->size().width()),
-                                                                                 static_cast<unsigned int>(event->size().height()));
+  m_application.getWorlds().back()->getSystem<Raz::RenderSystem>().resizeViewport(static_cast<unsigned int>(event->size().width()),
+                                                                                  static_cast<unsigned int>(event->size().height()));
 }
 
 void AppWindow::addEntityWithMesh(const Raz::FilePath& filePath) {
@@ -407,12 +405,12 @@ void AppWindow::addEntityWithMesh(const Raz::FilePath& filePath) {
 void AppWindow::loadCubemap(const Raz::FilePath& rightTexturePath, const Raz::FilePath& leftTexturePath,
                             const Raz::FilePath& topTexturePath, const Raz::FilePath& bottomTexturePath,
                             const Raz::FilePath& frontTexturePath, const Raz::FilePath& backTexturePath) {
-  m_application.getWorlds().back().getSystem<Raz::RenderSystem>().setCubemap(Raz::Cubemap(Raz::ImageFormat::load(rightTexturePath),
-                                                                                          Raz::ImageFormat::load(leftTexturePath),
-                                                                                          Raz::ImageFormat::load(topTexturePath),
-                                                                                          Raz::ImageFormat::load(bottomTexturePath),
-                                                                                          Raz::ImageFormat::load(frontTexturePath),
-                                                                                          Raz::ImageFormat::load(backTexturePath)));
+  m_application.getWorlds().back()->getSystem<Raz::RenderSystem>().setCubemap(Raz::Cubemap(Raz::ImageFormat::load(rightTexturePath),
+                                                                                           Raz::ImageFormat::load(leftTexturePath),
+                                                                                           Raz::ImageFormat::load(topTexturePath),
+                                                                                           Raz::ImageFormat::load(bottomTexturePath),
+                                                                                           Raz::ImageFormat::load(frontTexturePath),
+                                                                                           Raz::ImageFormat::load(backTexturePath)));
 }
 
 void AppWindow::processActions() {

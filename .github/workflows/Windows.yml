@@ -6,6 +6,8 @@ jobs:
   windows:
     name: Windows (${{ matrix.compiler.c }}, ${{ matrix.build_type }})
     runs-on: windows-2022
+    env:
+      OPENAL_VERSION: 1.23.1
 
     strategy:
       fail-fast: false
@@ -17,13 +19,13 @@ jobs:
           - Release
 
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v3
 
     - name: Pulling RaZ
       run: git submodule update --init --recursive
 
     - name: Installing Qt
-      uses: jurplel/install-qt-action@v2
+      uses: jurplel/install-qt-action@v3
       with:
         host: windows
         target: desktop
@@ -32,20 +34,37 @@ jobs:
         install-deps: true
         dir: ${{ runner.workspace }}
 
-      # Installing OpenAL-soft to handle the audio part
-    - name: Build setup
+      # Caching OpenAL-Soft's installation; this avoids reinstalling it on every build
+    - name: OpenAL-Soft caching
+      uses: actions/cache@v3
+      id: openal-soft
+      with:
+        path: C:/OpenAL
+        key: openal-soft-${{ env.OPENAL_VERSION }}
+        restore-keys: |
+          openal-soft-${{ env.OPENAL_VERSION }}
+
+      # Downloading & installing OpenAL-Soft to handle the audio part; only done when failed to find its cached installation
+    - name: OpenAL-Soft setup
+      if: steps.openal-soft.outputs.cache-hit != 'true'
       run: |
-        curl --silent --insecure https://www.openal-soft.org/openal-binaries/openal-soft-1.21.0-bin.zip -O &&
-        7z x openal-soft-1.21.0-bin.zip &&
-        mv openal-soft-1.21.0-bin C:/OpenAL;
-        cmake -E make_directory ${{ runner.workspace }}/build-${{ matrix.compiler.c }}
+        curl -sSkLO https://github.com/kcat/openal-soft/releases/download/${{ env.OPENAL_VERSION }}/openal-soft-${{ env.OPENAL_VERSION }}-bin.zip &&
+        7z x openal-soft-${{ env.OPENAL_VERSION }}-bin.zip &&
+        mv openal-soft-${{ env.OPENAL_VERSION }}-bin C:/OpenAL
+
+    - name: Build setup
+      run: cmake -E make_directory ${{ runner.workspace }}/build-${{ matrix.compiler.c }}
 
     - name: Configuration
       shell: bash
       working-directory: ${{ runner.workspace }}/build-${{ matrix.compiler.c }}
       run: |
-        cmake -G "Visual Studio 17 2022" -A x64 -DCMAKE_BUILD_TYPE=${{ matrix.build_type }} -DRAZOR_BUILD_RAZ=ON -DENABLE_DEBUG_INFO=ON \
-                                                $GITHUB_WORKSPACE &&
+        cmake -G"Visual Studio 17 2022" -A x64 \
+              -DCMAKE_BUILD_TYPE=${{ matrix.build_type }} \
+              -DRAZOR_BUILD_RAZ=ON \
+              -DRAZ_USE_AUDIO=ON \
+              -DENABLE_DEBUG_INFO=ON \
+              $GITHUB_WORKSPACE &&
         cmake --build . --target RaZor_PrintDebugInfo --config ${{ matrix.build_type }}
 
     - name: Build
@@ -65,7 +84,7 @@ jobs:
         rm C:/RaZor/lib -r
 
     - name: Upload build
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v3
       with:
         name: RaZor-windows-${{ matrix.compiler.c }}-${{ matrix.build_type }}-${{ github.run_id }}
         path: |

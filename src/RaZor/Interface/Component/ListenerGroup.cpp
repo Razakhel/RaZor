@@ -3,6 +3,7 @@
 
 #include <RaZ/Entity.hpp>
 #include <RaZ/Audio/Listener.hpp>
+#include <RaZ/Math/Vector.hpp>
 
 #include <QPushButton>
 

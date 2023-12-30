@@ -459,8 +459,8 @@ else ()
         set(RAZ_BUILD_TESTS OFF CACHE BOOL "" FORCE)
         set(RAZ_GEN_DOC OFF CACHE BOOL "" FORCE)
 
-        # Qt will handle all the windowing part; GLFW & ImGui must not be used
-        set(RAZ_USE_GLFW OFF CACHE BOOL "" FORCE)
+        # Qt will handle all the UI part; disabling windowing & overlay capabilities
+        set(RAZ_USE_WINDOW OFF CACHE BOOL "" FORCE)
         set(RAZ_USE_IMGUI OFF CACHE BOOL "" FORCE)
 
         add_subdirectory("${RAZ_ROOT}")
