@@ -45,14 +45,6 @@ void MainWindow::initializeApplication() {
   m_appWindow.initialize();
 }
 
-void MainWindow::keyPressEvent(QKeyEvent* event) {
-  switch (event->key()) {
-    case Qt::Key_Escape:
-      QMainWindow::close();
-      break;
-  }
-}
-
 void MainWindow::setupActions() {
   // File menu
 

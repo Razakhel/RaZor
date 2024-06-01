@@ -14,6 +14,7 @@
 #include <RaZ/Render/Light.hpp>
 #include <RaZ/Render/MeshRenderer.hpp>
 #include <RaZ/Render/RenderSystem.hpp>
+#include <RaZ/Script/ScriptSystem.hpp>
 #include <RaZ/Utils/Logger.hpp>
 
 #if defined(RAZOR_COMPILER_MSVC)
@@ -58,6 +59,7 @@ void AppWindow::initialize() {
 
   Raz::Renderer::initialize();
   world.addSystem<Raz::RenderSystem>(windowSize.width(), windowSize.height());
+  Raz::Renderer::clearColor(0.15f, 0.15f, 0.15f, 1.f);
 
   m_cameraEntity = &addEntity("Camera");
   m_cameraComp   = &m_cameraEntity->addComponent<Raz::Camera>(windowSize.width(), windowSize.height());
@@ -125,7 +127,7 @@ void AppWindow::initialize() {
   m_parentWindow->m_audioSystemSettings.audioDevices->setCurrentText(audioSystem.recoverCurrentDevice().c_str());
 
   connect(m_parentWindow->m_audioSystemSettings.audioDevices, &QComboBox::currentTextChanged, [this, &audioSystem] (const QString& deviceName) {
-    audioSystem.openDevice(deviceName.toStdString().c_str());
+    audioSystem.openDevice(deviceName.toStdString());
 
     // Since the audio device has changed, every Sound object must be recreated
     for (std::pair<const QString, Raz::Entity*>& entityPair : m_entities) {
@@ -135,6 +137,10 @@ void AppWindow::initialize() {
         entity.getComponent<Raz::Sound>().init();
     }
   });
+
+  // Scripting
+
+  world.addSystem<Raz::ScriptSystem>();
 }
 
 void AppWindow::render() {
@@ -142,9 +148,6 @@ void AppWindow::render() {
     return;
 
   processActions();
-
-  Raz::Renderer::clearColor(0.15f, 0.15f, 0.15f, 1.f);
-  Raz::Renderer::clear(Raz::MaskType::COLOR | Raz::MaskType::DEPTH | Raz::MaskType::STENCIL);
 
   m_application.runOnce();
 
@@ -430,13 +433,11 @@ void AppWindow::processActions() {
 
   if (m_movingForward) {
     m_cameraTrans->move(Raz::Vec3f(0.f, 0.f, -moveVal));
-
     m_cameraComp->setOrthographicBound(m_cameraComp->getOrthographicBound() - moveVal / 10.f);
   }
 
   if (m_movingBackward) {
     m_cameraTrans->move(Raz::Vec3f(0.f, 0.f, moveVal));
-
     m_cameraComp->setOrthographicBound(m_cameraComp->getOrthographicBound() + moveVal / 10.f);
   }
 

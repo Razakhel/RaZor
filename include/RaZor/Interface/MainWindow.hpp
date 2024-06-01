@@ -21,9 +21,6 @@ public:
 
   ~MainWindow() override = default;
 
-protected:
-  void keyPressEvent(QKeyEvent* event) override;
-
 private:
   void setupActions();
 
