@@ -417,7 +417,11 @@ set(
     src/RaZor/Interface/Component/*.cpp
 
     include/RaZor/*.hpp
+    include/RaZor/*.inl
     include/RaZor/Interface/*.hpp
+    include/RaZor/Interface/*.inl
+    include/RaZor/Interface/Component/*.hpp
+    include/RaZor/Interface/Component/*.inl
 
     assets/resources/resources.qrc
 )

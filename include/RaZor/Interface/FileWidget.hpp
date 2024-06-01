@@ -6,8 +6,10 @@
 #include <QLineEdit>
 
 enum class FileType {
-  MESH,
   IMAGE,
+  LUA_SCRIPT,
+  MESH,
+  SHADER,
   SOUND
 };
 

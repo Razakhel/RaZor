@@ -14,10 +14,14 @@ namespace {
 
 template <FileType FileT>
 std::vector<std::string_view> recoverFileFormats() {
-  if constexpr (FileT == FileType::MESH)
-    return { "obj", "fbx", "off" };
-  else if constexpr (FileT == FileType::IMAGE)
-    return { "png", "tga" };
+  if constexpr (FileT == FileType::IMAGE)
+    return { "bmp", "gif", "hdr", "jpeg", "jpg", "pgm", "pic", "png", "ppm", "psd", "tga" };
+  else if constexpr (FileT == FileType::LUA_SCRIPT)
+    return { "lua" };
+  else if constexpr (FileT == FileType::MESH)
+    return { "fbx", "glb", "gltf", "obj", "off" };
+  else if constexpr (FileT == FileType::SHADER)
+    return { "comp", "frag", "geom", "glsl", "tesc", "tese", "vert" };
   else if constexpr (FileT == FileType::SOUND)
     return { "wav" };
 }
@@ -44,6 +48,7 @@ template <FileType FileT>
 FileWidget<FileT>::FileWidget(QWidget* parent) : QLineEdit(parent) {
   setAcceptDrops(true);
   setReadOnly(true);
+  setPlaceholderText("No file");
 }
 
 template <FileType FileT>
@@ -67,10 +72,14 @@ void FileWidget<FileT>::mousePressEvent(QMouseEvent* event) {
 
   QString formatsStr;
 
-  if constexpr (FileT == FileType::MESH)
-    formatsStr += tr("Mesh");
-  else if constexpr (FileT == FileType::IMAGE)
+  if constexpr (FileT == FileType::IMAGE)
     formatsStr += tr("Image");
+  else if constexpr (FileT == FileType::LUA_SCRIPT)
+    formatsStr += tr("Lua script");
+  else if constexpr (FileT == FileType::MESH)
+    formatsStr += tr("Mesh");
+  else if constexpr (FileT == FileType::SHADER)
+    formatsStr += "Shader";
   else if constexpr (FileT == FileType::SOUND)
     formatsStr += tr("Sound");
 
