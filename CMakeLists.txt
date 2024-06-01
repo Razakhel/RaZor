@@ -463,6 +463,9 @@ else ()
         set(RAZ_USE_WINDOW OFF CACHE BOOL "" FORCE)
         set(RAZ_USE_IMGUI OFF CACHE BOOL "" FORCE)
 
+        # Tracy's GPU profiling doesn't seem to report anything and produces a crash (in GpuCtx::NextQueryId() from ~GpuCtxScope()) for yet unknown reasons
+        set(RAZ_USE_PROFILING OFF CACHE BOOL "" FORCE)
+
         add_subdirectory("${RAZ_ROOT}")
     else ()
         message(FATAL_ERROR "Failed to find RaZ; the submodule must be downloaded")

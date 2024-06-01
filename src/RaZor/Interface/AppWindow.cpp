@@ -364,7 +364,7 @@ void AppWindow::mouseMoveEvent(QMouseEvent* event) {
 void AppWindow::wheelEvent(QWheelEvent* event) {
   // The offset is divided by 120, which is the most common angle; yOffset is then supposed to be either -1 or 1
   // See: https://doc.qt.io/qt-5/qwheelevent.html#angleDelta
-  const auto yOffset  = static_cast<float>(event->angleDelta().y()) / 120.f * m_application.getDeltaTime();
+  const auto yOffset  = static_cast<float>(event->angleDelta().y()) / 120.f * m_application.getTimeInfo().deltaTime;
   const float moveVal = -200.f * yOffset;
 
   m_cameraTrans->move(Raz::Vec3f(0.f, 0.f, moveVal));
@@ -414,7 +414,7 @@ void AppWindow::loadCubemap(const Raz::FilePath& rightTexturePath, const Raz::Fi
 }
 
 void AppWindow::processActions() {
-  const float moveVal = 10.f * m_application.getDeltaTime();
+  const float moveVal = 10.f * m_application.getTimeInfo().deltaTime;
 
   if (m_movingRight)
     m_cameraTrans->move(Raz::Vec3f(moveVal, 0.f, 0.f));

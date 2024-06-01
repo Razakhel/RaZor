@@ -18,7 +18,7 @@ jobs:
           - Release
 
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
 
     - name: Pulling RaZ
       run: git submodule update --init --recursive
@@ -93,7 +93,7 @@ jobs:
           RaZor-linux-${{ matrix.compiler.c }}-${{ matrix.build_type }}-${{ github.run_id }}/
 
     - name: Upload build
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: RaZor-linux-${{ matrix.compiler.c }}-${{ matrix.build_type }}-${{ github.run_id }}
         path: RaZor-linux-${{ matrix.compiler.c }}-${{ matrix.build_type }}-${{ github.run_id }}.tar
