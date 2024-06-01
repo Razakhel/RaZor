@@ -40,104 +40,109 @@
 <context>
     <name>AppWindow</name>
     <message>
-        <location filename="../../src/RaZor/Interface/Component/AppComponents.cpp" line="37"/>
+        <location filename="../../src/RaZor/Interface/Component/AppComponents.cpp" line="58"/>
         <source>Failed to find an entity named</source>
         <translation>Failed to find an entity named</translation>
     </message>
     <message>
-        <location filename="../../src/RaZor/Interface/Component/AppComponents.cpp" line="90"/>
+        <location filename="../../src/RaZor/Interface/Component/AppComponents.cpp" line="116"/>
         <source> component(s) not displayed.</source>
         <translation> component(s) not displayed.</translation>
     </message>
     <message>
-        <location filename="../../src/RaZor/Interface/Component/AppComponents.cpp" line="104"/>
+        <location filename="../../src/RaZor/Interface/Component/AppComponents.cpp" line="130"/>
         <location filename="../../src/RaZor/Interface/AppWindow.cpp" line="404"/>
         <source>Failed to import mesh</source>
         <translation>Failed to import mesh</translation>
     </message>
     <message>
-        <location filename="../../src/RaZor/Interface/Component/AppComponents.cpp" line="226"/>
+        <location filename="../../src/RaZor/Interface/Component/AppComponents.cpp" line="241"/>
+        <source>Lua script</source>
+        <translation>Lua script</translation>
+    </message>
+    <message>
+        <location filename="../../src/RaZor/Interface/Component/AppComponents.cpp" line="265"/>
         <source>Line</source>
         <translation>Line</translation>
     </message>
     <message>
-        <location filename="../../src/RaZor/Interface/Component/AppComponents.cpp" line="233"/>
+        <location filename="../../src/RaZor/Interface/Component/AppComponents.cpp" line="272"/>
         <source>Plane</source>
         <translation>Plane</translation>
     </message>
     <message>
-        <location filename="../../src/RaZor/Interface/Component/AppComponents.cpp" line="239"/>
+        <location filename="../../src/RaZor/Interface/Component/AppComponents.cpp" line="278"/>
         <source>Sphere</source>
         <translation>Sphere</translation>
     </message>
     <message>
-        <location filename="../../src/RaZor/Interface/Component/AppComponents.cpp" line="246"/>
+        <location filename="../../src/RaZor/Interface/Component/AppComponents.cpp" line="285"/>
         <source>Triangle</source>
         <translation>Triangle</translation>
     </message>
     <message>
-        <location filename="../../src/RaZor/Interface/Component/AppComponents.cpp" line="253"/>
+        <location filename="../../src/RaZor/Interface/Component/AppComponents.cpp" line="292"/>
         <source>Quad</source>
         <translation>Quad</translation>
     </message>
     <message>
-        <location filename="../../src/RaZor/Interface/Component/AppComponents.cpp" line="261"/>
+        <location filename="../../src/RaZor/Interface/Component/AppComponents.cpp" line="300"/>
         <source>AABB</source>
         <translation>AABB</translation>
     </message>
     <message>
-        <location filename="../../src/RaZor/Interface/Component/AppComponents.cpp" line="267"/>
+        <location filename="../../src/RaZor/Interface/Component/AppComponents.cpp" line="306"/>
         <source>OBB</source>
         <translation>OBB</translation>
     </message>
     <message>
-        <location filename="../../src/RaZor/Interface/Component/AppComponents.cpp" line="118"/>
-        <location filename="../../src/RaZor/Interface/Component/AppComponents.cpp" line="120"/>
+        <location filename="../../src/RaZor/Interface/Component/AppComponents.cpp" line="144"/>
+        <location filename="../../src/RaZor/Interface/Component/AppComponents.cpp" line="146"/>
         <source>Add component</source>
         <translation>Add component</translation>
     </message>
     <message>
-        <location filename="../../src/RaZor/Interface/Component/AppComponents.cpp" line="124"/>
+        <location filename="../../src/RaZor/Interface/Component/AppComponents.cpp" line="150"/>
         <source>Transform</source>
         <translation>Transform</translation>
     </message>
     <message>
-        <location filename="../../src/RaZor/Interface/Component/AppComponents.cpp" line="137"/>
+        <location filename="../../src/RaZor/Interface/Component/AppComponents.cpp" line="163"/>
         <source>Mesh</source>
         <translation>Mesh</translation>
     </message>
     <message>
-        <location filename="../../src/RaZor/Interface/Component/AppComponents.cpp" line="150"/>
+        <location filename="../../src/RaZor/Interface/Component/AppComponents.cpp" line="176"/>
         <source>Mesh renderer</source>
         <translation>Mesh renderer</translation>
     </message>
     <message>
-        <location filename="../../src/RaZor/Interface/Component/AppComponents.cpp" line="163"/>
+        <location filename="../../src/RaZor/Interface/Component/AppComponents.cpp" line="189"/>
         <source>Light</source>
         <translation>Light</translation>
     </message>
     <message>
-        <location filename="../../src/RaZor/Interface/Component/AppComponents.cpp" line="168"/>
+        <location filename="../../src/RaZor/Interface/Component/AppComponents.cpp" line="194"/>
         <source>Point light</source>
         <translation>Point light</translation>
     </message>
     <message>
-        <location filename="../../src/RaZor/Interface/Component/AppComponents.cpp" line="175"/>
+        <location filename="../../src/RaZor/Interface/Component/AppComponents.cpp" line="201"/>
         <source>Directional light</source>
         <translation>Directional light</translation>
     </message>
     <message>
-        <location filename="../../src/RaZor/Interface/Component/AppComponents.cpp" line="185"/>
+        <location filename="../../src/RaZor/Interface/Component/AppComponents.cpp" line="211"/>
         <source>Rigid body</source>
         <translation>Rigid body</translation>
     </message>
     <message>
-        <location filename="../../src/RaZor/Interface/Component/AppComponents.cpp" line="219"/>
+        <location filename="../../src/RaZor/Interface/Component/AppComponents.cpp" line="258"/>
         <source>Collider</source>
         <translation>Collider</translation>
     </message>
     <message>
-        <location filename="../../src/RaZor/Interface/Component/AppComponents.cpp" line="202"/>
+        <location filename="../../src/RaZor/Interface/Component/AppComponents.cpp" line="228"/>
         <source>Sound</source>
         <translation>Sound</translation>
     </message>
@@ -323,6 +328,33 @@
         <location filename="../../interface/ListenerComp.ui" line="135"/>
         <source>Up</source>
         <translation>Up</translation>
+    </message>
+</context>
+<context>
+    <name>LuaScriptComp</name>
+    <message>
+        <location filename="../../interface/LuaScriptComp.ui" line="6"/>
+        <location filename="../../interface/LuaScriptComp.ui" line="9"/>
+        <source>Lua script</source>
+        <translation>Lua script</translation>
+    </message>
+    <message>
+        <location filename="../../interface/LuaScriptComp.ui" line="15"/>
+        <source>Script file</source>
+        <translation>Script file</translation>
+    </message>
+</context>
+<context>
+    <name>LuaScriptGroup</name>
+    <message>
+        <location filename="../../src/RaZor/Interface/Component/LuaScriptGroup.cpp" line="23"/>
+        <source>Could not open the file</source>
+        <translation>Could not open the file</translation>
+    </message>
+    <message>
+        <location filename="../../src/RaZor/Interface/Component/LuaScriptGroup.cpp" line="37"/>
+        <source>Failed to load the script:</source>
+        <translation>Failed to load the script:</translation>
     </message>
 </context>
 <context>

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>LuaScriptComp</class>
+ <widget class="LuaScriptGroup" name="LuaScriptComp">
+  <property name="windowTitle">
+   <string>Lua script</string>
+  </property>
+  <property name="title">
+   <string>Lua script</string>
+  </property>
+  <layout class="QFormLayout" name="luaScriptLayout">
+   <item row="0" column="0">
+    <widget class="QLabel" name="luaScriptFileLabel">
+     <property name="text">
+      <string>Script file</string>
+     </property>
+    </widget>
+   </item>
+   <item row="0" column="1">
+    <widget class="FileWidget&lt;FileType::LUA_SCRIPT&gt;" name="luaScriptFile">
+     <property name="readOnly">
+      <bool>true</bool>
+     </property>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <customwidgets>
+  <customwidget>
+   <class>LuaScriptGroup</class>
+   <extends>QGroupBox</extends>
+   <header>RaZor/Interface/Component/LuaScriptGroup.hpp</header>
+  </customwidget>
+  <customwidget>
+   <class>FileWidget&lt;FileType::LUA_SCRIPT&gt;</class>
+   <extends>QLineEdit</extends>
+   <header>RaZor/Interface/FileWidget.hpp</header>
+  </customwidget>
+ </customwidgets>
+ <resources/>
+ <connections/>
+</ui>

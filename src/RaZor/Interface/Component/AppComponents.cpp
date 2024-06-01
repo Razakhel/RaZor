@@ -4,6 +4,7 @@
 #include "RaZor/Interface/Component/ColliderGroup.hpp"
 #include "RaZor/Interface/Component/LightGroup.hpp"
 #include "RaZor/Interface/Component/ListenerGroup.hpp"
+#include "RaZor/Interface/Component/LuaScriptGroup.hpp"
 #include "RaZor/Interface/Component/MeshGroup.hpp"
 #include "RaZor/Interface/Component/MeshRendererGroup.hpp"
 #include "RaZor/Interface/Component/RigidBodyGroup.hpp"
@@ -21,7 +22,27 @@
 #include <RaZ/Render/Light.hpp>
 #include <RaZ/Render/MeshRenderer.hpp>
 #include <RaZ/Render/RenderSystem.hpp>
+#include <RaZ/Script/LuaScript.hpp>
 #include <RaZ/Utils/Logger.hpp>
+
+namespace {
+
+constexpr std::string_view defaultLuaScript = R"(
+-- Constants and/or global variables can be defined here
+
+function setup()
+    -- Code here will be executed once whenever the script is (re)loaded; this function is entirely optional
+    -- You can use the special 'this' variable, which represents the entity containing the script
+    -- For example: this:getTransform().position = Vec3f.new(0, 0, 0)
+end
+
+function update(timeInfo)
+    -- Code here will be executed every frame; this function is required to exist
+    -- The 'timeInfo' parameter contains the same fields that are given to each system & world (deltaTime, globalTime, ...)
+    -- For example: this:getTransform():translate(0, math.sin(timeInfo.globalTime) * timeInfo.deltaTime, 0)
+end)";
+
+} // namespace
 
 void AppWindow::loadComponents() {
   loadComponents(m_parentWindow->m_window.entitiesList->currentItem()->text());
@@ -83,6 +104,11 @@ void AppWindow::loadComponents(const QString& entityName) {
 
   if (entity.hasComponent<Raz::Listener>()) {
     m_parentWindow->m_window.componentsLayout->addWidget(new ListenerGroup(entity, *this));
+    --remainingComponentCount;
+  }
+
+  if (entity.hasComponent<Raz::LuaScript>()) {
+    m_parentWindow->m_window.componentsLayout->addWidget(new LuaScriptGroup(entity, *this));
     --remainingComponentCount;
   }
 
@@ -206,6 +232,19 @@ void AppWindow::showAddComponent(Raz::Entity& entity, const QString& entityName,
   } else {
     connect(addSound, &QAction::triggered, [this, &entity, entityName] () {
       entity.addComponent<Raz::Sound>();
+      loadComponents(entityName);
+    });
+  }
+
+  // Lua script
+
+  QAction* addLuaScript = contextMenu->addAction(tr("Lua script"));
+
+  if (entity.hasComponent<Raz::LuaScript>()) {
+    addLuaScript->setEnabled(false);
+  } else {
+    connect(addLuaScript, &QAction::triggered, [this, &entity, entityName] () {
+      entity.addComponent<Raz::LuaScript>(std::string(defaultLuaScript));
       loadComponents(entityName);
     });
   }
