@@ -27,12 +27,15 @@ jobs:
     - name: Installing Qt
       uses: jurplel/install-qt-action@v4
       with:
+        version: 5.15.*
         host: windows
         target: desktop
         arch: win64_msvc2019_64
-        setup-python: false
-        install-deps: true
         dir: ${{ runner.workspace }}
+        install-deps: true
+        archives: qtbase qttools
+        cache: true
+        setup-python: false
 
       # Caching OpenAL-Soft's installation; this avoids reinstalling it on every build
     - name: OpenAL-Soft caching
@@ -79,13 +82,12 @@ jobs:
     - name: Install
       working-directory: ${{ runner.workspace }}/build-${{ matrix.compiler.c }}
       run: |
-        cmake --install . --prefix C:/RaZor --config ${{ matrix.build_type }} &&
-        rm C:/RaZor/include -r &&
-        rm C:/RaZor/lib -r
+        cmake --install . --prefix ./install/RaZor --config ${{ matrix.build_type }} &&
+        rm ./install/RaZor/include -r &&
+        rm ./install/RaZor/lib -r
 
     - name: Upload build
       uses: actions/upload-artifact@v4
       with:
-        name: RaZor-windows-${{ matrix.compiler.c }}-${{ matrix.build_type }}-${{ github.run_id }}
-        path: |
-          C:/RaZor
+        name: RaZor-windows-${{ matrix.compiler.c }}-${{ matrix.build_type }}-${{ github.sha }}
+        path: ${{ runner.workspace }}/build-${{ matrix.compiler.c }}/install

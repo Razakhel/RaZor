@@ -1,5 +1,12 @@
-cmake_minimum_required(VERSION 3.10)
-project(RaZor)
+cmake_minimum_required(VERSION 3.14...3.30.5)
+
+project(
+    RaZor
+    VERSION 0.0.1
+    DESCRIPTION "GUI editor for the RaZ game engine - https://github.com/Razakhel/RaZ"
+    HOMEPAGE_URL https://github.com/Razakhel/RaZor
+    LANGUAGES CXX
+)
 
 list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake")
 
@@ -12,22 +19,26 @@ endif ()
 # RaZor - Application #
 #######################
 
+# Disabling globally the C++20 modules scan. Maybe not the best idea, but is unneeded for now and is much easier than doing it per target
+# Files mentioned in the `CXX_MODULES` file set of a target will always be scanned and should be the proper way of using modules
+# If needed, can be replaced with `set_target_properties(TargetName PROPERTIES CXX_SCAN_FOR_MODULES OFF)` for each target
+# See: https://cmake.org/cmake/help/latest/prop_tgt/CXX_SCAN_FOR_MODULES.html
+set(CMAKE_CXX_SCAN_FOR_MODULES OFF)
+
 add_executable(RaZor)
 
 # Using C++17
-target_compile_features(RaZor PRIVATE cxx_std_17)
+target_compile_features(RaZor PRIVATE cxx_std_20)
 
 # Defining CMake's automatic MOC/UIC/RCC generations for Qt
 set_target_properties(
     RaZor
 
     PROPERTIES
-
-    AUTOMOC ON
-    AUTORCC ON
-    AUTOUIC ON
-
-    AUTOUIC_SEARCH_PATHS "interface/"
+        AUTOMOC ON
+        AUTORCC ON
+        AUTOUIC ON
+        AUTOUIC_SEARCH_PATHS "interface/"
 )
 
 ############################
@@ -155,7 +166,8 @@ endif ()
 ##########################
 
 if (RAZOR_COMPILER_GCC)
-    set(
+    list(
+        APPEND
         RAZOR_COMPILER_FLAGS
 
         -pedantic
@@ -202,10 +214,10 @@ if (RAZOR_COMPILER_GCC)
 
     # Enabling some other warnings available since GCC 5
     if (CMAKE_CXX_COMPILER_VERSION VERSION_GREATER_EQUAL 5)
-        set(
+        list(
+            APPEND
             RAZOR_COMPILER_FLAGS
 
-            ${RAZOR_COMPILER_FLAGS}
             -fsized-deallocation
             -Warray-bounds=2
             -Wformat-signedness
@@ -215,10 +227,10 @@ if (RAZOR_COMPILER_GCC)
 
     # Enabling some other warnings available since GCC 6
     if (CMAKE_CXX_COMPILER_VERSION VERSION_GREATER_EQUAL 6)
-        set(
+        list(
+            APPEND
             RAZOR_COMPILER_FLAGS
 
-            ${RAZOR_COMPILER_FLAGS}
             -Wduplicated-cond
             -Wnull-dereference
         )
@@ -226,10 +238,10 @@ if (RAZOR_COMPILER_GCC)
 
     # Enabling some other warnings available since GCC 7
     if (CMAKE_CXX_COMPILER_VERSION VERSION_GREATER_EQUAL 7)
-        set(
+        list(
+            APPEND
             RAZOR_COMPILER_FLAGS
 
-            ${RAZOR_COMPILER_FLAGS}
             -Waligned-new
             -Walloca
             -Walloc-zero
@@ -237,32 +249,9 @@ if (RAZOR_COMPILER_GCC)
             -Wshadow
         )
     endif ()
-
-    # Enabling code coverage
-    option(RAZOR_ENABLE_COVERAGE "Enable code coverage (GCC only)" OFF)
-
-    if (CMAKE_BUILD_TYPE STREQUAL "Debug" AND RAZOR_ENABLE_COVERAGE)
-        set(
-            RAZOR_COMPILER_FLAGS
-
-            ${RAZOR_COMPILER_FLAGS}
-            -g
-            -O0
-            -fno-inline
-            -fno-inline-small-functions
-            -fno-default-inline
-            -fprofile-arcs
-            -ftest-coverage
-        )
-
-        set(
-            RAZOR_LINKER_FLAGS
-
-            gcov
-        )
-    endif ()
 elseif (RAZOR_COMPILER_CLANG)
-    set(
+    list(
+        APPEND
         RAZOR_COMPILER_FLAGS
 
         -Weverything
@@ -286,20 +275,20 @@ elseif (RAZOR_COMPILER_CLANG)
     )
 
     if (RAZOR_COMPILER_CLANG_CL)
-        set(
+        list(
+            APPEND
             RAZOR_COMPILER_FLAGS
 
-            ${RAZOR_COMPILER_FLAGS}
             # Disabling warnings triggered in externals
             -Wno-language-extension-token
             -Wno-nonportable-system-include-path
             -Wno-zero-as-null-pointer-constant
         )
     else ()
-        set(
+        list(
+            APPEND
             RAZOR_COMPILER_FLAGS
 
-            ${RAZOR_COMPILER_FLAGS}
             # Other warning flags not recognized by clang-cl
             -pedantic
             -pedantic-errors
@@ -308,15 +297,16 @@ elseif (RAZOR_COMPILER_CLANG)
 
     # Disabling some warnings available since Clang 5
     if (CMAKE_CXX_COMPILER_VERSION VERSION_GREATER_EQUAL 5)
-        set(
+        list(
+            APPEND
             RAZOR_COMPILER_FLAGS
 
-            ${RAZOR_COMPILER_FLAGS}
             -Wno-unused-template
         )
     endif ()
 elseif (RAZOR_COMPILER_MSVC)
-    set(
+    list(
+        APPEND
         RAZOR_COMPILER_FLAGS
 
         /Wall
@@ -363,10 +353,9 @@ elseif (RAZOR_COMPILER_MSVC)
 endif ()
 
 if (RAZOR_COMPILER_MSVC OR RAZOR_COMPILER_CLANG_CL)
-    set(
-        RAZOR_COMPILER_FLAGS
+    list(
+        APPEND
 
-        ${RAZOR_COMPILER_FLAGS}
         /permissive- # Improving standard compliance
         /EHsc # Enabling exceptions
         /utf-8 # Forcing MSVC to actually handle files as UTF-8
@@ -374,10 +363,10 @@ if (RAZOR_COMPILER_MSVC OR RAZOR_COMPILER_CLANG_CL)
     )
 
     if (CMAKE_CXX_COMPILER_VERSION VERSION_GREATER_EQUAL 16.5)
-        set(
+        list(
+            APPEND
             RAZOR_COMPILER_FLAGS
 
-            ${RAZOR_COMPILER_FLAGS}
             /Zc:preprocessor # Forcing the preprocessor to be compliant with C++11 and above
         )
     endif ()
@@ -396,7 +385,7 @@ if (WIN32 OR CYGWIN)
 endif ()
 
 if (RAZOR_PLATFORM_LINUX)
-    set(RAZOR_LINKER_FLAGS ${RAZOR_LINKER_FLAGS} pthread)
+    list(APPEND RAZOR_LINKER_FLAGS pthread)
 endif ()
 
 if (RAZOR_PLATFORM_WINDOWS)
@@ -508,19 +497,16 @@ file(
 # Creating translation files
 qt5_create_translation(
     RAZOR_TRANSLATION_FILES
-
-    ${RAZOR_FILES}
-    ${RAZOR_TRANSLATION_FILES}
-
+        ${RAZOR_FILES}
+        ${RAZOR_TRANSLATION_FILES}
     OPTIONS
-
-    -noobsolete
+        -noobsolete
 )
 
-set(
+list(
+    APPEND
     RAZOR_LINKER_FLAGS
 
-    ${RAZOR_LINKER_FLAGS}
     Qt5::Core
     Qt5::Gui
     Qt5::Widgets
@@ -549,16 +535,23 @@ endif ()
 #        find_package(FBX)
 #
 #        if (FBX_FOUND)
-#            set(RAZOR_LINKER_FLAGS ${RAZOR_LINKER_FLAGS} ${FBX_LIB})
+#            list(APPEND RAZOR_LINKER_FLAGS ${FBX_LIB})
 #
 #            message("FBX SDK linked.")
 #        endif ()
 #    endif ()
 #endif ()
-#
-## If FBX SDK used, copy the DLL into the binary folder to link it properly
-if (RAZOR_COMPILER_MSVC AND RAZOR_USE_FBX AND FBX_FOUND)
-    file(COPY "${FBX_DLL}" DESTINATION "${CMAKE_BINARY_DIR}")
+
+# Copying necessary DLLs alongside the executable (including Qt's, and the FBX SDK's if applicable)
+if (RAZOR_PLATFORM_WINDOWS)
+    add_custom_command(
+        TARGET RaZor
+        POST_BUILD
+        COMMAND ${CMAKE_COMMAND} -E copy_if_different
+            $<TARGET_RUNTIME_DLLS:RaZor>
+            $<TARGET_FILE_DIR:RaZor>
+        COMMAND_EXPAND_LISTS
+    )
 endif ()
 
 #################
@@ -585,62 +578,30 @@ if (RAZOR_PLATFORM_WINDOWS)
     set(CMAKE_INSTALL_PREFIX "C:/RaZor")
 endif ()
 
-install(TARGETS RaZor DESTINATION "${CMAKE_INSTALL_PREFIX}")
+install(TARGETS RaZor DESTINATION .)
 
 # Installing translation files
-file(
-    GLOB
-    RAZOR_QM_FILES
+file(GLOB RAZOR_QM_FILES "${CMAKE_BINARY_DIR}/*.qm")
+install(FILES ${RAZOR_QM_FILES} DESTINATION .)
 
-    "${CMAKE_BINARY_DIR}/*.qm"
-)
-
-install(FILES ${RAZOR_QM_FILES} DESTINATION "${CMAKE_INSTALL_PREFIX}")
-
+# Copying all necessary DLLs to launch RaZor
 if (RAZOR_PLATFORM_WINDOWS)
-    # Copying all necessary DLLs to launch RaZor
-
-    set(RAZOR_DLLS_LOCATION "${CMAKE_BINARY_DIR}")
-
-    # Visual Studio's binary directory doesn't contain the config folder suffix; it is needed & thus manually appended
-    # This probably needs more research to find a better way for this...
-    if (CMAKE_GENERATOR MATCHES "Visual Studio*")
-        set(RAZOR_DLLS_LOCATION "${RAZOR_DLLS_LOCATION}/$<CONFIG>")
-    endif ()
-
-    if (RAZOR_COMPILER_MSVC)
-        set(DLLS_SUFFIX "$<IF:$<CONFIG:Debug>,d,>") # windeployqt appends a 'd' in Debug at the end of each dll with MSVC
-    endif ()
-
-    install(
-        FILES
-
-        "${RAZOR_DLLS_LOCATION}/Qt5Core${DLLS_SUFFIX}.dll"
-        "${RAZOR_DLLS_LOCATION}/Qt5Gui${DLLS_SUFFIX}.dll"
-        "${RAZOR_DLLS_LOCATION}/Qt5Widgets${DLLS_SUFFIX}.dll"
-
-        DESTINATION "${CMAKE_INSTALL_PREFIX}"
-    )
-
-    # RaZor links itself against OpenAL32.dll
-    # The system's may be automatically found, but OpenAL-soft's is installed in case the former doesn't exist
-    install(FILES "${OPENAL_DLL}" RENAME "OpenAL32.dll" DESTINATION "${CMAKE_INSTALL_PREFIX}")
-
     # Deploying Qt adds several folders & DLLs; some are necessary for RaZor to run
     install(
         DIRECTORY
-
-        #"${RAZOR_DLLS_LOCATION}/iconengines"
-        #"${RAZOR_DLLS_LOCATION}/imageformats"
-        "${RAZOR_DLLS_LOCATION}/platforms"
-        "${RAZOR_DLLS_LOCATION}/styles"
-        #"${RAZOR_DLLS_LOCATION}/translations"
-
-        DESTINATION "${CMAKE_INSTALL_PREFIX}"
+            #"$<TARGET_FILE_DIR:RaZor>/iconengines"
+            #"$<TARGET_FILE_DIR:RaZor>/imageformats"
+            "$<TARGET_FILE_DIR:RaZor>/platforms"
+            "$<TARGET_FILE_DIR:RaZor>/styles"
+            #"$<TARGET_FILE_DIR:RaZor>/translations"
+        DESTINATION
+            .
     )
 
-    # If the FBX SDK is used, install the DLL file into the install root folder
-    if (RAZOR_COMPILER_MSVC AND RAZOR_USE_FBX AND FBX_FOUND)
-        install(FILES "${FBX_DLL}" DESTINATION "${CMAKE_INSTALL_PREFIX}")
-    endif ()
+    # RaZor links itself against OpenAL32.dll
+    # The system's may be automatically found, but OpenAL-Soft's is installed in case the former doesn't exist
+    install(FILES "${OPENAL_DLL}" RENAME "OpenAL32.dll" DESTINATION .)
+
+    # Installing dependent DLLs (including Qt's, and the FBX SDK's if applicable)
+    install(FILES $<TARGET_RUNTIME_DLLS:RaZor> DESTINATION .)
 endif ()

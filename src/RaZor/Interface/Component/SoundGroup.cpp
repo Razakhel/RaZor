@@ -19,7 +19,7 @@ SoundGroup::SoundGroup(Raz::Entity& entity, AppWindow& appWindow) : ComponentGro
   const auto updateFormat = [&sound, formatLabel = soundComp.format] () {
     QString formatStr;
 
-    switch (sound.getFormat()) {
+    switch (sound.getData().format) {
       case Raz::AudioFormat::MONO_U8:
         formatStr = "Mono (8)";
         break;
@@ -61,7 +61,7 @@ SoundGroup::SoundGroup(Raz::Entity& entity, AppWindow& appWindow) : ComponentGro
   };
 
   updateFormat();
-  soundComp.frequency->setText(QString::number(sound.getFrequency()));
+  soundComp.frequency->setText(QString::number(sound.getData().frequency));
 
   // Repeat
 
@@ -94,14 +94,14 @@ SoundGroup::SoundGroup(Raz::Entity& entity, AppWindow& appWindow) : ComponentGro
     const std::string fileExt    = Raz::StrUtils::toLowercaseCopy(filePath.recoverExtension().toUtf8());
 
     if (fileExt == "wav") {
-      sound = Raz::WavFormat::load(filePath);
+      sound.load(Raz::WavFormat::load(filePath));
     } else {
       Raz::Logger::error("[SoundGroup] Unrecognized audio format '" + fileExt + "'.");
       return;
     }
 
     updateFormat();
-    frequencyLabel->setText(QString::number(sound.getFrequency()));
+    frequencyLabel->setText(QString::number(sound.getData().frequency));
   });
 }
 
